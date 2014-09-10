@@ -34,7 +34,7 @@ public class HantoGameFactory
 	/**
 	 * @return the instance
 	 */
-	public static HantoGameFactory getInstance()
+	public HantoGameFactory getInstance()
 	{
 		return instance;
 	}
@@ -45,7 +45,7 @@ public class HantoGameFactory
 	 * @param gameId the version desired.
 	 * @return the game instance
 	 */
-	public static HantoGame makeHantoGame(HantoGameID gameId)
+	public HantoGame makeHantoGame(HantoGameID gameId)
 	{
 		return makeHantoGame(gameId, HantoPlayerColor.BLUE);
 	}
