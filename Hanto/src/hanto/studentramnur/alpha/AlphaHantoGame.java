@@ -25,6 +25,9 @@ public class AlphaHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
+		if (pieceType != HantoPieceType.BUTTERFLY) 
+			throw new HantoException("Only butterflies are allowed for this game!");
+			
 		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayerColor, pieceType);
 		MoveResult result = MoveResult.OK;
 		
