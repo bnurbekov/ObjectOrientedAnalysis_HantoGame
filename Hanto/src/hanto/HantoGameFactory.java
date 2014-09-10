@@ -59,7 +59,24 @@ public class HantoGameFactory
 	public static HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoGame game = null;
 		switch (gameId) {
-			// to be filled in
+		case ALPHA_HANTO:
+			break;
+		case BETA_HANTO:
+			break;
+		case DELTA_HANTO:
+			break;
+		case EPSILON_HANTO:
+			break;
+		case GAMMA_HANTO:
+			break;
+		case IOTA_HANTO:
+			break;
+		case THETA_HANTO:
+			break;
+		case ZETA_HANTO:
+			break;
+		default:
+			break;
 		}
 		return game;
 	}
