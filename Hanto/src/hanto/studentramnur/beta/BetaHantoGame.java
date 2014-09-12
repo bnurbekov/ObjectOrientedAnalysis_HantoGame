@@ -79,22 +79,9 @@ public class BetaHantoGame implements HantoGame {
 	}
 	
 	//We should probably place this method into separate class
-	private boolean isAdjacentToCell(HantoCoordinate cellToCheck, HantoCoordinate existingCell) {
-		int cellDifference = getAbsCellDifference(cellToCheck, existingCell);
-		
-		return cellDifference == 1;
-	}
+
 	
-	private int getAbsCellDifference(HantoCoordinate firstCell, HantoCoordinate secondCell) {
-		int absXDifference = Math.abs(firstCell.getX() - secondCell.getX());
-		int absYDifference = Math.abs(firstCell.getY() - secondCell.getY());
-		
-		int sumOfDifferences = absXDifference + absYDifference;
-		
-		int resultingDifference = Math.max(Math.max(absXDifference, absYDifference), sumOfDifferences);
-		
-		return resultingDifference;
-	}
+
 	
 	private void changePlayerColor() {
 		if (this.currentPlayerColor == HantoPlayerColor.BLUE) {

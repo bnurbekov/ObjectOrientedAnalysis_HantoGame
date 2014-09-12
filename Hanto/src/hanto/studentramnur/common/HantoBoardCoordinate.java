@@ -21,5 +21,23 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 	public int getY() {
 		return y;
 	}
-
+	
+	public boolean isAdjacentToCell(HantoCoordinate toCell) {
+		int cellDifference = getCellDistance(toCell);
+		
+		return cellDifference == 1;
+	}
+	
+	private int getCellDistance(HantoCoordinate toCell) {
+		int xDifference = this.getX() - toCell.getX();
+		int yDifference = this.getY() - toCell.getY();
+		int absXDifference = Math.abs(xDifference);
+		int absYDifference = Math.abs(yDifference);
+		
+		int absSumOfDifferences = Math.abs(xDifference + yDifference);
+		
+		int resultingDifference = Math.max(Math.max(absXDifference, absYDifference), absSumOfDifferences);
+		
+		return resultingDifference;
+	}
 }

@@ -12,6 +12,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoPieceFactory;
 
 public class AlphaHantoGame implements HantoGame {
@@ -27,84 +28,47 @@ public class AlphaHantoGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		
-		if (pieceType != HantoPieceType.BUTTERFLY) 
-			throw new HantoException("Only butterflies are allowed for this game!");
-			
+		if (pieceType != HantoPieceType.BUTTERFLY) throw new HantoException("Only butterflies are allowed for this game.");
+		if (from != null) throw new HantoException("The only move allowed is to add a Butterfly.");
+
 		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayerColor, pieceType);
 		MoveResult result = MoveResult.OK;
 		
-		if (from != null) {
-			//TODO: Some logic
-		}
-		else {
-			if (board.isEmpty()) {
-				if ((to.getX() != 0) || (to.getY() != 0)) {
-					throw new HantoException("The first move should always be placed at (0, 0)");
-				}
-				
-				board.put(to, piece);
-				result = MoveResult.OK;
+		if (board.isEmpty()) {
+			if ((to.getX() != 0) || (to.getY() != 0)) {
+				throw new HantoException("The first move should always be placed at (0, 0).");
 			}
-			else {
-				if (!board.containsKey(to) && isAdjacentToExistingCells(to)) {
-					board.put(to, piece);
-					result = MoveResult.DRAW;
-				}
-				else {
-					throw new HantoException("Move is invalid.");
-				}
-			}
+			
+			board.put(to, piece);
+			result = MoveResult.OK;
+			this.currentPlayerColor = HantoPlayerColor.RED;
+		} else if(isAdjacentToOrigin(to)) {
+			board.put(to, piece);
+			result = MoveResult.DRAW;
+		} else {
+			throw new HantoException("Move is invalid.");
 		}
-		
-		changePlayerColor();
 		
 		return result;
 	}
 	
-	private boolean isAdjacentToExistingCells(HantoCoordinate cellToCheck) {
-		boolean isAdjacentToExistingCells = false;
-		
-		Iterator<Entry<HantoCoordinate, HantoPiece>> iterator = board.entrySet().iterator();
-		
-		while (iterator.hasNext()) {
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)iterator.next();
-			HantoCoordinate key = pair.getKey();
-
-			if (isAdjacentToCell(cellToCheck, key)) {
-				isAdjacentToExistingCells = true;
-				break;
-			}
-		}
-		
-		return isAdjacentToExistingCells;
+	private boolean isAdjacentToOrigin(HantoCoordinate cellToCheck) {
+		return getCellDistance(cellToCheck, new HantoBoardCoordinate(0, 0)) == 1;
 	}
 	
-	//We should probably place this method into separate class
-	private boolean isAdjacentToCell(HantoCoordinate cellToCheck, HantoCoordinate existingCell) {
-		int cellDifference = getAbsCellDifference(cellToCheck, existingCell);
+	private int getCellDistance(HantoCoordinate firstCell, HantoCoordinate secondCell) {
+		int xDifference = firstCell.getX() - secondCell.getX();
+		int yDifference = firstCell.getY() - secondCell.getY();
+		int absXDifference = Math.abs(xDifference);
+		int absYDifference = Math.abs(yDifference);
 		
-		return cellDifference == 1;
-	}
-	
-	private int getAbsCellDifference(HantoCoordinate firstCell, HantoCoordinate secondCell) {
-		int absXDifference = Math.abs(firstCell.getX() - secondCell.getX());
-		int absYDifference = Math.abs(firstCell.getY() - secondCell.getY());
+		int absSumOfDifferences = Math.abs(xDifference + yDifference);
 		
-		int sumOfDifferences = absXDifference + absYDifference;
-		
-		int resultingDifference = Math.max(Math.max(absXDifference, absYDifference), sumOfDifferences);
+		int resultingDifference = Math.max(Math.max(absXDifference, absYDifference), absSumOfDifferences);
 		
 		return resultingDifference;
 	}
-	
-	private void changePlayerColor() {
-		if (this.currentPlayerColor == HantoPlayerColor.BLUE) {
-			this.currentPlayerColor = HantoPlayerColor.RED;
-		}
-		else {
-			this.currentPlayerColor = HantoPlayerColor.BLUE;
-		}
-	}
+
 
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
@@ -127,5 +91,4 @@ public class AlphaHantoGame implements HantoGame {
 		
 		return output.toString();
 	}
-
 }
