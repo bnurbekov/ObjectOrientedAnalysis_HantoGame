@@ -1,4 +1,4 @@
-package hanto.studentramnur.alpha;
+package hanto.studentramnur.beta;
 
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;

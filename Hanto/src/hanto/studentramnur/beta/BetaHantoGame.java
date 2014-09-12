@@ -1,4 +1,4 @@
-package hanto.studentramnur.alpha;
+package hanto.studentramnur.beta;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,11 +14,11 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoPieceFactory;
 
-public class AlphaHantoGame implements HantoGame {
+public class BetaHantoGame implements HantoGame {
 	private HantoPlayerColor currentPlayerColor;
 	private HashMap<HantoCoordinate, HantoPiece> board; 
 	
-	public AlphaHantoGame() {
+	public BetaHantoGame() {
 		currentPlayerColor = HantoPlayerColor.BLUE;
 		board = new HashMap<HantoCoordinate, HantoPiece>();
 	}
@@ -26,7 +26,6 @@ public class AlphaHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
-		
 		if (pieceType != HantoPieceType.BUTTERFLY) 
 			throw new HantoException("Only butterflies are allowed for this game!");
 			
