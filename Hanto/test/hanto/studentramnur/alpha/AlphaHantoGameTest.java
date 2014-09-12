@@ -7,6 +7,7 @@ import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.MoveResult;
+import hanto.studentramnur.common.HantoBoardCoordinate;
 
 import org.junit.Before;
 import org.junit.Test;
