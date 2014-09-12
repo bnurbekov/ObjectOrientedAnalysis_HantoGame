@@ -12,15 +12,21 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoPieceFactory;
 
 public class BetaHantoGame implements HantoGame {
 	private HantoPlayerColor currentPlayerColor;
-	private HashMap<HantoCoordinate, HantoPiece> board; 
+	private HantoPlayer redPlayer;
+	private HantoPlayer bluePlayer;
+	private HashMap<HantoBoardCoordinate, HantoPiece> board; 
 	
 	public BetaHantoGame() {
 		currentPlayerColor = HantoPlayerColor.BLUE;
-		board = new HashMap<HantoCoordinate, HantoPiece>();
+		board = new HashMap<HantoBoardCoordinate, HantoPiece>();
+		
+		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
+		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE);
 	}
 
 	@Override
@@ -60,16 +66,16 @@ public class BetaHantoGame implements HantoGame {
 		return result;
 	}
 	
-	private boolean isAdjacentToExistingCells(HantoCoordinate cellToCheck) {
+	private boolean isAdjacentToExistingCells(HantoBoardCoordinate cellToCheck) {
 		boolean isAdjacentToExistingCells = false;
 		
-		Iterator<Entry<HantoCoordinate, HantoPiece>> iterator = board.entrySet().iterator();
+		Iterator<Entry<HantoBoardCoordinate, HantoPiece>> iterator = board.entrySet().iterator();
 		
 		while (iterator.hasNext()) {
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)iterator.next();
-			HantoCoordinate key = pair.getKey();
+			Map.Entry<HantoBoardCoordinate, HantoPiece> pair = (Map.Entry<HantoBoardCoordinate, HantoPiece>)iterator.next();
+			HantoBoardCoordinate key = pair.getKey();
 
-			if (isAdjacentToCell(cellToCheck, key)) {
+			if (((HantoBoardCoordinate)cellToCheck).isAdjacentTo(key)) {
 				isAdjacentToExistingCells = true;
 				break;
 			}

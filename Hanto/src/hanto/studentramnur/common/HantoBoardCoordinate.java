@@ -22,8 +22,8 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 		return y;
 	}
 	
-	public boolean isAdjacentToCell(HantoCoordinate toCell) {
-		int cellDifference = getCellDistance(toCell);
+	public boolean isAdjacentTo(HantoBoardCoordinate cell) {
+		int cellDifference = getCellDistance(cell);
 		
 		return cellDifference == 1;
 	}
