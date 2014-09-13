@@ -1,10 +1,5 @@
 package hanto.studentramnur.beta;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
@@ -12,112 +7,102 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoPieceFactory;
 
 public class BetaHantoGame implements HantoGame {
-	private HantoPlayerColor currentPlayerColor;
+	private HantoPlayer currentPlayer;
 	private HantoPlayer redPlayer;
 	private HantoPlayer bluePlayer;
-	private HashMap<HantoBoardCoordinate, HantoPiece> board; 
+	private HantoBoard board;
 	
 	public BetaHantoGame() {
-		currentPlayerColor = HantoPlayerColor.BLUE;
-		board = new HashMap<HantoBoardCoordinate, HantoPiece>();
+		
+		board = new HantoBoard();
 		
 		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
 		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE);
+		
+		redPlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
+		redPlayer.setPieceCount(HantoPieceType.SPARROW, 5);
+		
+		bluePlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
+		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 5);
+		
+		currentPlayer = bluePlayer;
 	}
 
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
-		if (pieceType != HantoPieceType.BUTTERFLY) 
-			throw new HantoException("Only butterflies are allowed for this game!");
+		
+		if (pieceType != HantoPieceType.BUTTERFLY || pieceType != HantoPieceType.SPARROW)
+			throw new HantoException("Only butterflies and sparrows are allowed for this game!");
+		
+		if (from != null)
+			throw new HantoException("You can only add peices to this game!");
 			
-		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayerColor, pieceType);
+		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayer.getColor(), pieceType);
 		MoveResult result = MoveResult.OK;
-		
-		if (from != null) {
-			//TODO: Some logic
-		}
-		else {
-			if (board.isEmpty()) {
-				if ((to.getX() != 0) || (to.getY() != 0)) {
-					throw new HantoException("The first move should always be placed at (0, 0)");
-				}
-				
-				board.put(to, piece);
-				result = MoveResult.OK;
+
+		if (this.isNewGame()) {
+			if (!board.cellIsOrigin(to)) {
+				throw new HantoException("The first move should always be placed at (0, 0)");
+			} else if(currentPlayer.getColor() != HantoPlayerColor.BLUE) {
+				throw new HantoException("The first player should be BLUE");
 			}
-			else {
-				if (!board.containsKey(to) && isAdjacentToExistingCells(to)) {
-					board.put(to, piece);
-					result = MoveResult.DRAW;
-				}
-				else {
-					throw new HantoException("Move is invalid.");
-				}
-			}
+		} else if (board.isCellEmpty(to) || !board.isAdjacentToExistingCell(to)) {
+			throw new HantoException("Move is invalid.");
 		}
 		
-		changePlayerColor();
+		if(!currentPlayer.hasPlacedButterfly() && piece.getType() != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 4) {
+			throw new HantoException("Player must place a butterfly.");
+		}
+		
+		if(!currentPlayer.hasPieces()) {
+			throw new HantoException("Player has no more pieces to add.");
+		}
+		
+		board.addPiece(to, piece);
+		
+		result = getGameResult();
+		
+		if(result == MoveResult.OK) changePlayer();
 		
 		return result;
 	}
-	
-	private boolean isAdjacentToExistingCells(HantoBoardCoordinate cellToCheck) {
-		boolean isAdjacentToExistingCells = false;
-		
-		Iterator<Entry<HantoBoardCoordinate, HantoPiece>> iterator = board.entrySet().iterator();
-		
-		while (iterator.hasNext()) {
-			Map.Entry<HantoBoardCoordinate, HantoPiece> pair = (Map.Entry<HantoBoardCoordinate, HantoPiece>)iterator.next();
-			HantoBoardCoordinate key = pair.getKey();
 
-			if (((HantoBoardCoordinate)cellToCheck).isAdjacentTo(key)) {
-				isAdjacentToExistingCells = true;
-				break;
-			}
-		}
-		
-		return isAdjacentToExistingCells;
+	private MoveResult getGameResult() {
+		if(board.isRedButterflySurrounded() && board.isBlueButterflySurrounded())
+			return MoveResult.DRAW;
+		else if(board.isRedButterflySurrounded())
+			return MoveResult.BLUE_WINS;
+		else if(board.isBlueButterflySurrounded())
+			return MoveResult.RED_WINS;
+		else if(!bluePlayer.hasPieces() && !redPlayer.hasPieces())
+			return MoveResult.DRAW;
+		else
+			return MoveResult.OK;
 	}
-	
-	//We should probably place this method into separate class
 
-	
+	private boolean isNewGame() {
+		return board.isEmpty();
+	}
 
-	
-	private void changePlayerColor() {
-		if (this.currentPlayerColor == HantoPlayerColor.BLUE) {
-			this.currentPlayerColor = HantoPlayerColor.RED;
-		}
-		else {
-			this.currentPlayerColor = HantoPlayerColor.BLUE;
+	private void changePlayer() {
+		if (currentPlayer == bluePlayer) {
+			currentPlayer = redPlayer;
+		} else {
+			currentPlayer = bluePlayer;
 		}
 	}
 
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		return board.get(where);
+		return board.getPiece(where);
 	}
 
 	@Override
 	public String getPrintableBoard() {
-		Iterator<Entry<HantoCoordinate, HantoPiece>> iterator = board.entrySet().iterator();
-		StringBuilder output = new StringBuilder();
-		
-		while (iterator.hasNext()) {
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)iterator.next();
-			HantoCoordinate key = pair.getKey();
-			HantoPiece value = pair.getValue();
-			
-			String appendString = "X: " + Integer.toString(key.getX()) + ", Y:" + Integer.toString(key.getY()) + ": " + value.getColor().toString() + " - " + value.getType().toString() + "\n";
-			output.append(appendString);
-		}
-		
-		return output.toString();
+		return board.getPrintableBoard();
 	}
-
 }

@@ -1,11 +1,10 @@
-package hanto.studentramnur.beta;
+package hanto.studentramnur.common;
 
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.studentramnur.common.AbstractHantoPiece;
 
 public class Sparrow extends AbstractHantoPiece {
-	public Sparrow(HantoPlayerColor color, HantoPieceType type) {
-		super(color, type);
+	public Sparrow(HantoPlayerColor color) {
+		super(color, HantoPieceType.SPARROW);
 	}
 }

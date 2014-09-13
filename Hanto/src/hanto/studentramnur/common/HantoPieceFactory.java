@@ -3,8 +3,6 @@ package hanto.studentramnur.common;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.studentramnur.beta.Butterfly;
-import hanto.studentramnur.beta.Sparrow;
 
 public class HantoPieceFactory {
 	private static final HantoPieceFactory instance = new HantoPieceFactory();
@@ -31,7 +29,7 @@ public class HantoPieceFactory {
 		switch (type) {
 			default: // Butterfly added by default
 			case BUTTERFLY:
-				piece = new Butterfly(color, type);
+				piece = new Butterfly(color);
 				break;
 			/*
 			case CRAB:
@@ -44,7 +42,7 @@ public class HantoPieceFactory {
 				break;
 			*/
 			case SPARROW:
-				piece = new Sparrow(color, type);
+				piece = new Sparrow(color);
 				break;
 		}
 		
