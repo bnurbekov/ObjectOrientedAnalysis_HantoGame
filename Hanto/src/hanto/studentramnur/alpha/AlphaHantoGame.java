@@ -76,7 +76,7 @@ public class AlphaHantoGame implements HantoGame {
 
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		board.put(where, new Butterfly(HantoPlayerColor.BLUE));
+		where = new HantoBoardCoordinate(where);
 		return board.get(where);
 	}
 
