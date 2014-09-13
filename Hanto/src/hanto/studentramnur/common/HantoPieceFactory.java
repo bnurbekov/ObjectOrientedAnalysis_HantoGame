@@ -4,10 +4,6 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.beta.Butterfly;
-import hanto.studentramnur.beta.Crab;
-import hanto.studentramnur.beta.Crane;
-import hanto.studentramnur.beta.Dove;
-import hanto.studentramnur.beta.Horse;
 import hanto.studentramnur.beta.Sparrow;
 
 public class HantoPieceFactory {
@@ -33,22 +29,20 @@ public class HantoPieceFactory {
 		HantoPiece piece;
 		
 		switch (type) {
-			default: //by default it is going to be a butterfly
+			default: // Butterfly added by default
 			case BUTTERFLY:
 				piece = new Butterfly(color, type);
 				break;
+			/*
 			case CRAB:
-				piece = new Crab(color, type);
 				break;
 			case CRANE:
-				piece = new Crane(color, type);
 				break;
 			case DOVE:
-				piece = new Dove(color, type);
 				break;
 			case HORSE:
-				piece = new Horse(color, type);
 				break;
+			*/
 			case SPARROW:
 				piece = new Sparrow(color, type);
 				break;
