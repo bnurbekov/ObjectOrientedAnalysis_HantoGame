@@ -31,7 +31,7 @@ import java.util.Map;
 public class AlphaHantoGame implements HantoGame {
 	private HantoPlayerColor currentPlayerColor;
 	private Map<HantoCoordinate, HantoPiece> board; 
-	
+
 	/**
 	 * Constructor for the alpha Hanto game.
 	 */
@@ -44,41 +44,41 @@ public class AlphaHantoGame implements HantoGame {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
-			HantoCoordinate to) throws HantoException {
-		
+	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+
 		if (pieceType != HantoPieceType.BUTTERFLY) throw new HantoException("Only butterflies are allowed for this game.");
 		if (from != null) throw new HantoException("The only move allowed is to add a Butterfly.");
-		
+
 		if (to == null) {
-			throw new HantoException("Invalid move.");
-		}
-		else { 
+			throw new HantoException("To coordinate cannot be null.");
+		} else {
 			to = new HantoBoardCoordinate(to);
 		}
 
 		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayerColor, pieceType);
 		MoveResult result = MoveResult.OK;
-		
+
 		if (board.isEmpty()) {
-			if ((to.getX() != 0) && (to.getY() != 0)) {
+			if (!((to.getX() == 0) && (to.getY() == 0))) {
 				throw new HantoException("The first move should always be placed at (0, 0).");
 			}
-			
+
 			board.put(to, piece);
 			result = MoveResult.OK;
+			System.out.println(currentPlayerColor + " player adding : " + piece.getColor() + " " + piece.getType() + " at (" + to.getX() + ", " + to.getY() + ")");
 			currentPlayerColor = HantoPlayerColor.RED;
 		} else if(isAdjacentToOrigin(to)) {
 			board.put(to, piece);
-			System.out.println("Adding piece type: " + piece.getType());
 			result = MoveResult.DRAW;
+			System.out.println(currentPlayerColor + " player adding : " + piece.getColor() + " " + piece.getType() + " at (" + to.getX() + ", " + to.getY() + ")");
 		} else {
 			throw new HantoException("Move is invalid.");
 		}
-		
+
+		System.out.println("Move result: " + result.toString());
 		return result;
 	}
-	
+
 	/**
 	 * Checks if the cell is adjacent to the origin.
 	 * 
@@ -88,7 +88,7 @@ public class AlphaHantoGame implements HantoGame {
 	private boolean isAdjacentToOrigin(HantoCoordinate cellToCheck) {
 		return getCellDistance(cellToCheck, new HantoBoardCoordinate(0, 0)) == 1;
 	}
-	
+
 	/**
 	 * Gets the distance between two cells
 	 * 
@@ -101,11 +101,11 @@ public class AlphaHantoGame implements HantoGame {
 		int yDifference = firstCell.getY() - secondCell.getY();
 		int absXDifference = Math.abs(xDifference);
 		int absYDifference = Math.abs(yDifference);
-		
+
 		int absSumOfDifferences = Math.abs(xDifference + yDifference);
-		
+
 		int resultingDifference = Math.max(Math.max(absXDifference, absYDifference), absSumOfDifferences);
-		
+
 		return resultingDifference;
 	}
 
@@ -124,12 +124,12 @@ public class AlphaHantoGame implements HantoGame {
 	@Override
 	public String getPrintableBoard() {
 		StringBuilder output = new StringBuilder();
-		
+
 		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			HantoCoordinate key = entry.getKey();
 			HantoPiece value = entry.getValue();
-			
-			String appendString = "X: " + Integer.toString(key.getX()) + ", Y:" + Integer.toString(key.getY()) + ": " + value.getColor().toString() + " - " + value.getType().toString() + "\n";
+
+			String appendString = value.getColor().toString() + " " + value.getType().toString() + " at (" + Integer.toString(key.getX()) + ", " + Integer.toString(key.getY()) + ")\n";
 			output.append(appendString);
 		}
 
