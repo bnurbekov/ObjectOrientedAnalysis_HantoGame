@@ -85,7 +85,7 @@ public class BetaHantoGame implements HantoGame {
 			throw new HantoException("Move is invalid.");
 		}
 		
-		if(!currentPlayer.hasPlacedButterfly() && piece.getType() != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 4) {
+		if(!currentPlayer.hasPlacedButterfly() && piece.getType() != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 3) {
 			throw new HantoException("Player must place a butterfly.");
 		}
 		
@@ -94,10 +94,14 @@ public class BetaHantoGame implements HantoGame {
 		}
 		
 		board.addPiece(to, piece);
+		currentPlayer.incrementMovesMade();
+		currentPlayer.decrementPieceCount(pieceType);
 		
 		result = getGameResult();
 		
-		if(result == MoveResult.OK) changePlayer();
+		if(result == MoveResult.OK) {
+			changePlayer();
+		}
 		
 		return result;
 	}

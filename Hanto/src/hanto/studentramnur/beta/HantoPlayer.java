@@ -102,7 +102,8 @@ public class HantoPlayer {
 	 * @return indication of whether the player has placed the butterfly piece or not.
 	 */
 	public boolean hasPlacedButterfly() {
-		return (pieces.get(HantoPieceType.BUTTERFLY) == 0);
+		boolean playerHasPlacedButterfly = (pieces.get(HantoPieceType.BUTTERFLY) == 0);
+		return playerHasPlacedButterfly;
 	}
 
 	/**
