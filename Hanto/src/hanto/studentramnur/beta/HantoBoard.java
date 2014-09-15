@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class for Hanto Board.
+ * Class that contains the board and implements the operations on cells.
  * 
  * @author Batyr
  *
@@ -34,7 +34,7 @@ public class HantoBoard {
 	private HantoPiece redButterfly, blueButterfly;
 	
 	/**
-	 * 
+	 * The constructor for the HantoBoard class.
 	 */
 	public HantoBoard() {
 		boardCoorToPieces = new HashMap<HantoCoordinate, HantoPiece>();
@@ -42,17 +42,19 @@ public class HantoBoard {
 	}
 	
 	/**
+	 * Determines if the board is empty.
 	 * 
-	 * @return
+	 * @return indication of whether the board is empty or not
 	 */
 	public boolean isEmpty() {
 		return boardCoorToPieces.isEmpty();
 	}
 	
 	/**
+	 * Adds the piece to the board.
 	 * 
-	 * @param toCell
-	 * @param piece
+	 * @param toCell cell to add the piece to
+	 * @param piece the piece to add
 	 * @throws HantoMoveException
 	 */
 	public void addPiece(HantoCoordinate toCell, HantoPiece piece) throws HantoMoveException {
@@ -93,6 +95,7 @@ public class HantoBoard {
 	}
 	
 	/**
+	 * Determines if the 
 	 * 
 	 * @param piece
 	 * @return

@@ -12,6 +12,7 @@ package hanto.studentramnur.common;
 import hanto.common.HantoCoordinate;
 
 /**
+ * The implementation for HantoCoordinate interface.
  * 
  * @author Batyr
  *
@@ -22,9 +23,10 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 	private int y;
 	
 	/**
+	 * Constructor that creates the new coordinate based on its location along x and y axes.
 	 * 
-	 * @param x
-	 * @param y
+	 * @param x the x coordinate
+	 * @param y the y coordinate
 	 */
 	public HantoBoardCoordinate(int x, int y) {
 		this.x = x;
@@ -32,15 +34,16 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 	}
 
 	/**
+	 * Constructor that creates the new coordinate based on the location of the passed in coordinate.
 	 * 
-	 * @param where
+	 * @param where the coordinate to extract location from
 	 */
 	public HantoBoardCoordinate(HantoCoordinate where) {
 		this(where.getX(), where.getY());
 	}
 
 	/**
-	 * 
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int getX() {
@@ -48,7 +51,7 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 	}
 
 	/**
-	 * 
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int getY() {
@@ -56,7 +59,7 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 	}
 
 	/**
-	 * 
+	 * {@inheritDoc} 
 	 */
 	@Override
 	public int hashCode() {
@@ -68,7 +71,7 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 	}
 
 	/**
-	 * 
+	 * {@inheritDoc} 
 	 */
 	@Override
 	public boolean equals(Object obj) {

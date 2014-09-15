@@ -32,6 +32,9 @@ public class AlphaHantoGame implements HantoGame {
 	private HantoPlayerColor currentPlayerColor;
 	private Map<HantoCoordinate, HantoPiece> board; 
 	
+	/**
+	 * Constructor for the alpha Hanto game.
+	 */
 	public AlphaHantoGame() {
 		currentPlayerColor = HantoPlayerColor.BLUE;
 		board = new HashMap<HantoCoordinate, HantoPiece>();
@@ -86,6 +89,13 @@ public class AlphaHantoGame implements HantoGame {
 		return getCellDistance(cellToCheck, new HantoBoardCoordinate(0, 0)) == 1;
 	}
 	
+	/**
+	 * Gets the distance between two cells
+	 * 
+	 * @param firstCell the first cell
+	 * @param secondCell the second cell
+	 * @return the difference between two cells
+	 */
 	private int getCellDistance(HantoCoordinate firstCell, HantoCoordinate secondCell) {
 		int xDifference = firstCell.getX() - secondCell.getX();
 		int yDifference = firstCell.getY() - secondCell.getY();

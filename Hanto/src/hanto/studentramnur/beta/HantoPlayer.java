@@ -16,7 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * Class that contain the statistics for the Hanto player. 
+ * Also, contains the pieces that the player can place on the board.
  * 
  * @author Batyr
  */
@@ -26,8 +27,9 @@ public class HantoPlayer {
 	private int movesMade;
 	
 	/**
+	 * The constructor for HantoPlayer class.
 	 * 
-	 * @param color
+	 * @param color the color of the player
 	 */
 	public HantoPlayer(HantoPlayerColor color) {
 		this.color = color;
@@ -36,26 +38,29 @@ public class HantoPlayer {
 	}
 	
 	/**
+	 * Sets the count of how many pieces the specific player has.
 	 * 
-	 * @param piece
-	 * @param count
+	 * @param piece the piece which count should be changed
+	 * @param count the piece count to set the piece to
 	 */
 	public void setPieceCount(HantoPieceType piece, int count) {
 		pieces.put(piece, count);
 	}
 	
 	/**
+	 * Gets the piece count.
 	 * 
-	 * @param piece
+	 * @param piece the piece which count should be returned
 	 */
 	public void getPieceCount(HantoPieceType piece) {
 		pieces.get(piece);
 	}
 	
 	/**
+	 * Decrements the piece count for the specific field.
 	 * 
-	 * @param piece
-	 * @return
+	 * @param piece the piece which count should be decremented
+	 * @return indication of whether the piece count was succesfully decremented or not
 	 */
 	public boolean decrementPieceCount(HantoPieceType piece) {
 		if(pieces.containsKey(piece) && pieces.get(piece) > 0) {
@@ -103,7 +108,7 @@ public class HantoPlayer {
 	/**
 	 * Checks if the player has any more pieces left.
 	 * 
-	 * @return 
+	 * @return indication of whether the player has any more pieces left
 	 */
 	public boolean hasPieces() {
 		boolean hasPieces = false;

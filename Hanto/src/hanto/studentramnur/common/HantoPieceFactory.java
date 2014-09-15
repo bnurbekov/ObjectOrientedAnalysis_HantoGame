@@ -38,6 +38,13 @@ public class HantoPieceFactory {
 		return INSTANCE;
 	}
 	
+	/**
+	 * Determines the piece that should be created based on the input parameters.
+	 * 
+	 * @param color the color of the piece that should be created
+	 * @param type the type of the piece that should be created 
+	 * @return the created piece
+	 */
 	public HantoPiece createPiece(HantoPlayerColor color, HantoPieceType type) {
 		HantoPiece piece;
 		

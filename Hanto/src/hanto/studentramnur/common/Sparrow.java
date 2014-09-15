@@ -13,7 +13,7 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
 /**
- * The Hanto Piece class for Sparrow.
+ *  Class for the sparrow piece.
  * 
  * @author Batyr
  *
@@ -21,7 +21,7 @@ import hanto.common.HantoPlayerColor;
 public class Sparrow extends AbstractHantoPiece {
 	
 	/**
-	 * Constructor for Sparrow Piece
+	 * Constructor for Sparrow Piece.
 	 * 
 	 * @param color indicates the color of the piece
 	 */

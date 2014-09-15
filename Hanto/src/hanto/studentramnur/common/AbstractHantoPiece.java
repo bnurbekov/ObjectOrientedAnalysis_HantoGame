@@ -8,6 +8,8 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
 /**
+ * Abstract class that contains the common logic for all pieces. 
+ * 
  * @author Batyr
  *
  */
@@ -16,21 +18,27 @@ public abstract class AbstractHantoPiece implements HantoPiece {
 	private HantoPlayerColor color;
 	private HantoPieceType type;
 	
+	/**
+	 * Constructor for AbstractHantoPiece class.
+	 * 
+	 * @param color the color of the piece
+	 * @param type the type of the piece
+	 */
 	protected AbstractHantoPiece(HantoPlayerColor color, HantoPieceType type) {
 		this.color = color;
 		this.type = type;
 	}
 
-	/* (non-Javadoc)
-	 * @see hanto.common.HantoPiece#getColor()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public HantoPlayerColor getColor() {
 		return color;
 	}
 
-	/* (non-Javadoc)
-	 * @see hanto.common.HantoPiece#getType()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public HantoPieceType getType() {

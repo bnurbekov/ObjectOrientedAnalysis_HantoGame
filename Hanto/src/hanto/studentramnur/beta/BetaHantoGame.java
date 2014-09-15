@@ -19,6 +19,7 @@ import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoPieceFactory;
 
 /**
+ * Class for beta Hanto game.
  * 
  * @author Batyr
  *
@@ -30,7 +31,7 @@ public class BetaHantoGame implements HantoGame {
 	private HantoBoard board;
 	
 	/**
-	 * {@inheritDoc}
+	 * Constructor for the beta Hanto game.
 	 */
 	public BetaHantoGame() {
 		
@@ -94,8 +95,9 @@ public class BetaHantoGame implements HantoGame {
 	}
 
 	/**
+	 * Gets the game result.
 	 * 
-	 * @return
+	 * @return the game result
 	 */
 	private MoveResult getGameResult() {
 		if(board.isRedButterflySurrounded() && board.isBlueButterflySurrounded())
@@ -117,15 +119,16 @@ public class BetaHantoGame implements HantoGame {
 	}
 
 	/**
+	 * Determines if the game has just started.
 	 * 
-	 * @return
+	 * @return indication of whether the game is new or not
 	 */
 	private boolean isNewGame() {
 		return board.isEmpty();
 	}
 
 	/**
-	 * 
+	 * Changes the current player to the player with the opposite color.
 	 */
 	private void changePlayer() {
 		if (currentPlayer == bluePlayer) {
@@ -135,6 +138,9 @@ public class BetaHantoGame implements HantoGame {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
 		return board.getPiece(where);
