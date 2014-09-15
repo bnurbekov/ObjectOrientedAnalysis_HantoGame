@@ -51,16 +51,17 @@ public class HantoPlayer {
 	 * Gets the piece count.
 	 * 
 	 * @param piece the piece which count should be returned
+	 * @return 
 	 */
-	public void getPieceCount(HantoPieceType piece) {
-		pieces.get(piece);
+	public int getPieceCount(HantoPieceType piece) {
+		return pieces.get(piece);
 	}
 	
 	/**
 	 * Decrements the piece count for the specific field.
 	 * 
 	 * @param piece the piece which count should be decremented
-	 * @return indication of whether the piece count was succesfully decremented or not
+	 * @return indication of whether the piece count was successfully decremented or not
 	 */
 	public boolean decrementPieceCount(HantoPieceType piece) {
 		if(pieces.containsKey(piece) && pieces.get(piece) > 0) {
