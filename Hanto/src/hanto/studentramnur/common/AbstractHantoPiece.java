@@ -46,17 +46,22 @@ public abstract class AbstractHantoPiece implements HantoPiece {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		AbstractHantoPiece other = (AbstractHantoPiece) obj;
-		if (color != other.color)
+		if (color != other.color) {
 			return false;
-		if (type != other.type)
+		}
+		if (type != other.type) {
 			return false;
+		}
 		return true;
 	}
 

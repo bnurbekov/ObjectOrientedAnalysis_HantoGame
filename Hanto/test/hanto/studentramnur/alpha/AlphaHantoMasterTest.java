@@ -41,6 +41,11 @@ public class AlphaHantoMasterTest
 	 {
 		 private final int x, y;
 		
+		 /**
+		  * 
+		  * @param x
+		  * @param y
+		  */
 		 public TestHantoCoordinate(int x, int y)
 		 {
 			 this.x = x;
