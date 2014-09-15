@@ -58,7 +58,7 @@ public class HantoBoard {
 	 */
 	public void addPiece(HantoCoordinate toCell, HantoPiece piece) throws HantoMoveException {
 		if(toCell == null) throw new HantoMoveException("To coordinate cannot be null.");
-		if(isCellEmpty(toCell)) throw new HantoMoveException("To coordinate cannot be occupied.");
+		if(!isCellEmpty(toCell)) throw new HantoMoveException("To coordinate cannot be occupied.");
 		
 		board.put(toCell, piece);
 		
@@ -89,7 +89,7 @@ public class HantoBoard {
 	 * @return the indication of whether the cell is empty or not
 	 */
 	public boolean isCellEmpty(HantoCoordinate cell) {
-		return board.containsKey(cell);
+		return !board.containsKey(cell);
 	}
 	
 	/**
@@ -163,9 +163,12 @@ public class HantoBoard {
 	 */
 	public boolean isCellSurrounded(HantoCoordinate cell) {
 		boolean cellSurrounded = true;
+		Collection<HantoCoordinate> surroundingCellsList = getSurroundingCells(cell);
 		
-		for(HantoCoordinate surroundingCell: getSurroundingCells(cell)) {
-			if(isCellEmpty(surroundingCell)) cellSurrounded = false;
+		for(HantoCoordinate surroundingCell: surroundingCellsList) {
+			if(isCellEmpty(surroundingCell)) {
+				cellSurrounded = false;
+			}
 		}
 		return cellSurrounded;
 	}
@@ -196,8 +199,16 @@ public class HantoBoard {
 	 * @return indication of whether the butterfly with specific color was surrounded
 	 */
 	public boolean isButterflySurrounded(HantoPlayerColor color) {
-		HantoCoordinate blueButterflyCoor = pieceToCoordsMapping.get(new Butterfly(color)).get(0);
-		return isCellSurrounded(blueButterflyCoor);
+		HantoPiece butterfly = new Butterfly(color);
+		
+		if (pieceToCoordsMapping.containsKey(butterfly)) {
+			List<HantoCoordinate> coordsList = pieceToCoordsMapping.get(new Butterfly(color));
+			HantoCoordinate butterflyCoor = coordsList.get(0);
+			return isCellSurrounded(butterflyCoor);
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**

@@ -90,7 +90,7 @@ public class AlphaHantoMasterTest
 	 @Before
 	 public void setup()
 	 {
-		 game = factory.makeHantoGame(HantoGameID.ALPHA_HANTO);
+		 game = factory.makeHantoGame(HantoGameID.BETA_HANTO);
 	 }
 	
 	 /**

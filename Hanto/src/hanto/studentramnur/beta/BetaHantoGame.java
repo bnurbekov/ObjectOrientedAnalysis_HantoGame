@@ -16,6 +16,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoPieceFactory;
 
 /**
@@ -56,14 +57,21 @@ public class BetaHantoGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		
-		if (pieceType != HantoPieceType.BUTTERFLY || pieceType != HantoPieceType.SPARROW) {
+		if (pieceType != HantoPieceType.BUTTERFLY && pieceType != HantoPieceType.SPARROW) {
 			throw new HantoException("Only butterflies and sparrows are allowed for this game!");
 		}
 		
 		if (from != null) {
-			throw new HantoException("You can only add peices to this game!");
+			throw new HantoException("You cannot move pieces!");
 		}
-			
+		
+		if (to == null) {
+			throw new HantoException("You cannot add or move pieces beyond the bounds of the board!");
+		}
+		
+		from = (from != null) ? new HantoBoardCoordinate(from) : null;
+		to = new HantoBoardCoordinate(to);
+		
 		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayer.getColor(), pieceType);
 		MoveResult result = MoveResult.OK;
 
@@ -73,7 +81,7 @@ public class BetaHantoGame implements HantoGame {
 			} else if(currentPlayer.getColor() != HantoPlayerColor.BLUE) {
 				throw new HantoException("The first player should be BLUE");
 			}
-		} else if (board.isCellEmpty(to) || !board.isAdjacentToExistingCell(to)) {
+		} else if (!board.isCellEmpty(to) || !board.isAdjacentToExistingCell(to)) {
 			throw new HantoException("Move is invalid.");
 		}
 		
@@ -143,6 +151,7 @@ public class BetaHantoGame implements HantoGame {
 	 */
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
+		where = new HantoBoardCoordinate(where);
 		return board.getPiece(where);
 	}
 
