@@ -100,14 +100,14 @@ public class BetaHantoGame implements HantoGame {
 	 * @return the game result
 	 */
 	private MoveResult getGameResult() {
-		if(board.isRedButterflySurrounded() && board.isBlueButterflySurrounded())
+		if(board.isButterflySurrounded(HantoPlayerColor.RED) && board.isButterflySurrounded(HantoPlayerColor.BLUE))
 		{
 			return MoveResult.DRAW;
 		}
-		else if(board.isRedButterflySurrounded()) {
+		else if(board.isButterflySurrounded(HantoPlayerColor.RED)) {
 			return MoveResult.BLUE_WINS;
 		}
-		else if(board.isBlueButterflySurrounded()) {
+		else if(board.isButterflySurrounded(HantoPlayerColor.BLUE)) {
 			return MoveResult.RED_WINS;
 		}
 		else if(!bluePlayer.hasPieces() && !redPlayer.hasPieces()) {

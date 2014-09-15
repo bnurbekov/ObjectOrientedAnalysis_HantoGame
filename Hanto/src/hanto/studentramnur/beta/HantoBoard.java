@@ -11,13 +11,14 @@ package hanto.studentramnur.beta;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPiece;
-import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.studentramnur.common.Butterfly;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,17 +29,15 @@ import java.util.Map;
  */
 public class HantoBoard {
 
-	private Map<HantoCoordinate, HantoPiece> boardCoorToPieces;
-	private Map<HantoPiece, HantoCoordinate> boardPiecesToCoor;
-	
-	private HantoPiece redButterfly, blueButterfly;
+	private Map<HantoCoordinate, HantoPiece> board;
+	private Map<HantoPiece, List<HantoCoordinate>> pieceToCoordsMapping;
 	
 	/**
 	 * The constructor for the HantoBoard class.
 	 */
 	public HantoBoard() {
-		boardCoorToPieces = new HashMap<HantoCoordinate, HantoPiece>();
-		boardPiecesToCoor = new HashMap<HantoPiece, HantoCoordinate>();
+		board = new HashMap<HantoCoordinate, HantoPiece>();
+		pieceToCoordsMapping = new HashMap<HantoPiece, List<HantoCoordinate>>();
 	}
 	
 	/**
@@ -47,7 +46,7 @@ public class HantoBoard {
 	 * @return indication of whether the board is empty or not
 	 */
 	public boolean isEmpty() {
-		return boardCoorToPieces.isEmpty();
+		return board.isEmpty();
 	}
 	
 	/**
@@ -61,17 +60,16 @@ public class HantoBoard {
 		if(toCell == null) throw new HantoMoveException("To coordinate cannot be null.");
 		if(isCellEmpty(toCell)) throw new HantoMoveException("To coordinate cannot be occupied.");
 		
-		if(piece.getType() == HantoPieceType.BUTTERFLY) {
-			if(piece.getColor() == HantoPlayerColor.BLUE) {
-				blueButterfly = piece;
-			}
-			else {
-				redButterfly = piece;
-			}
-		}
+		board.put(toCell, piece);
 		
-		boardCoorToPieces.put(toCell, piece);
-		boardPiecesToCoor.put(piece, toCell);
+		if (!pieceToCoordsMapping.containsKey(piece)) {
+			List<HantoCoordinate> coords = new ArrayList<HantoCoordinate>();
+			coords.add(toCell);
+			pieceToCoordsMapping.put(piece, coords);
+		}
+		else {
+			pieceToCoordsMapping.get(piece).add(toCell);
+		}
 	}
 	
 	/**
@@ -91,28 +89,29 @@ public class HantoBoard {
 	 * @return the indication of whether the cell is empty or not
 	 */
 	public boolean isCellEmpty(HantoCoordinate cell) {
-		return boardCoorToPieces.containsKey(cell);
+		return board.containsKey(cell);
 	}
 	
 	/**
-	 * Determines if the 
+	 * Determines if the piece exists on the board
 	 * 
-	 * @param piece
-	 * @return
+	 * @param piece the piece to check
+	 * @return indication of whether the piece exists on the board or not
 	 */
 	public boolean hasPiece(HantoPiece piece) {
-		return boardPiecesToCoor.containsKey(piece);
+		return pieceToCoordsMapping.containsKey(piece);
 	}
 
 	/**
+	 * Determines if a specific cell is adjacent to some existing cell on the board.
 	 * 
-	 * @param cellToCheck
-	 * @return
+	 * @param cellToCheck the cell to check
+	 * @return indication of whether the cell is adjacent to some existing cell on the board or not
 	 */
 	public boolean isAdjacentToExistingCell(HantoCoordinate cellToCheck) {
 		boolean isAdjacentToExistingCells = false;
 		
-		for(Map.Entry<HantoCoordinate, HantoPiece> entry : boardCoorToPieces.entrySet()){
+		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			HantoCoordinate key = entry.getKey();
 
 			if (cellIsAdjacentTo(cellToCheck, key)) {
@@ -125,10 +124,11 @@ public class HantoBoard {
 	}
 	
 	/**
+	 * Checks two cells are adjacent to each other
 	 * 
-	 * @param cell
-	 * @param toCell
-	 * @return
+	 * @param cell the first cell
+	 * @param toCell the second cell
+	 * @return indication of whether the two cells are adjacent to each other
 	 */
 	public boolean cellIsAdjacentTo(HantoCoordinate cell, HantoCoordinate toCell) {
 		int cellDifference = getCellDistance(cell, toCell);
@@ -136,10 +136,11 @@ public class HantoBoard {
 	}
 	
 	/**
+	 * Gets the distance between two cells on the board.
 	 * 
-	 * @param fromCell
-	 * @param toCell
-	 * @return
+	 * @param fromCell the first cell
+	 * @param toCell the second cell
+	 * @return the distance between two cells
 	 */
 	public int getCellDistance(HantoCoordinate fromCell, HantoCoordinate toCell) {
 		int xDifference = fromCell.getX() - toCell.getX();
@@ -155,9 +156,10 @@ public class HantoBoard {
 	}
 	
 	/**
+	 * Checks if the cell is surrounded by Hanto pieces.
 	 * 
-	 * @param cell
-	 * @return
+	 * @param cell the cell to check
+	 * @return indication of whether the cell is surrounded by Hanto pieces or not
 	 */
 	public boolean isCellSurrounded(HantoCoordinate cell) {
 		boolean cellSurrounded = true;
@@ -169,9 +171,10 @@ public class HantoBoard {
 	}
 
 	/**
+	 * Gets the list of surrounding cells
 	 * 
-	 * @param cell
-	 * @return
+	 * @param cell the cell surrounding cells surround
+	 * @return the list of surrounding cells
 	 */
 	private Collection<HantoCoordinate> getSurroundingCells(HantoCoordinate cell) {
 		Collection<HantoCoordinate> surroundingCells = new ArrayList<HantoCoordinate>();
@@ -187,40 +190,33 @@ public class HantoBoard {
 	}
 
 	/**
+	 * Checks if the butterfly was surrounded.
 	 * 
-	 * @return
+	 * @param color the color of the butterfly
+	 * @return indication of whether the butterfly with specific color was surrounded
 	 */
-	public boolean isBlueButterflySurrounded() {
-		HantoCoordinate blueButterflyCoor = boardPiecesToCoor.get(blueButterfly);
+	public boolean isButterflySurrounded(HantoPlayerColor color) {
+		HantoCoordinate blueButterflyCoor = pieceToCoordsMapping.get(new Butterfly(color)).get(0);
 		return isCellSurrounded(blueButterflyCoor);
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean isRedButterflySurrounded() {
-		HantoCoordinate redButterflyCoor = boardPiecesToCoor.get(redButterfly);
-		return isCellSurrounded(redButterflyCoor);
 	}
 
 	/**
+	 * Gets piece at specific coordinate
 	 * 
-	 * @param where
-	 * @return
+	 * @param where the coordinate
+	 * @return the returned piece
 	 */
 	public HantoPiece getPiece(HantoCoordinate where) {
-		return boardCoorToPieces.get(where);
+		return board.get(where);
 	}
 	
 	/**
-	 * 
-	 * @return
-	 */
+	 * @return a printable representation of the board.
+	 */ 
 	public String getPrintableBoard() {
 		StringBuilder output = new StringBuilder();
 		
-		for(Map.Entry<HantoCoordinate, HantoPiece> entry : boardCoorToPieces.entrySet()){
+		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			HantoCoordinate key = entry.getKey();
 			HantoPiece value = entry.getValue();
 			
