@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.studentramnur.alpha;
 
 import hanto.common.HantoCoordinate;
@@ -7,32 +16,43 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.studentramnur.common.Butterfly;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoPieceFactory;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
+/**
+ * Class for alpha Hanto game.
+ * 
+ * @author Batyr
+ *
+ */
 public class AlphaHantoGame implements HantoGame {
 	private HantoPlayerColor currentPlayerColor;
-	private HashMap<HantoCoordinate, HantoPiece> board; 
+	private Map<HantoCoordinate, HantoPiece> board; 
 	
 	public AlphaHantoGame() {
 		currentPlayerColor = HantoPlayerColor.BLUE;
 		board = new HashMap<HantoCoordinate, HantoPiece>();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		
 		if (pieceType != HantoPieceType.BUTTERFLY) throw new HantoException("Only butterflies are allowed for this game.");
 		if (from != null) throw new HantoException("The only move allowed is to add a Butterfly.");
-		if (to == null) throw new HantoException("Invalid move.");
-		else to = new HantoBoardCoordinate(to);
+		
+		if (to == null) {
+			throw new HantoException("Invalid move.");
+		}
+		else { 
+			to = new HantoBoardCoordinate(to);
+		}
 
 		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayerColor, pieceType);
 		MoveResult result = MoveResult.OK;
@@ -44,7 +64,7 @@ public class AlphaHantoGame implements HantoGame {
 			
 			board.put(to, piece);
 			result = MoveResult.OK;
-			this.currentPlayerColor = HantoPlayerColor.RED;
+			currentPlayerColor = HantoPlayerColor.RED;
 		} else if(isAdjacentToOrigin(to)) {
 			board.put(to, piece);
 			System.out.println("Adding piece type: " + piece.getType());
@@ -56,6 +76,12 @@ public class AlphaHantoGame implements HantoGame {
 		return result;
 	}
 	
+	/**
+	 * Checks if the cell is adjacent to the origin.
+	 * 
+	 * @param cellToCheck cell to check
+	 * @return indication of whether the field is adjacent to the origin or not
+	 */
 	private boolean isAdjacentToOrigin(HantoCoordinate cellToCheck) {
 		return getCellDistance(cellToCheck, new HantoBoardCoordinate(0, 0)) == 1;
 	}
@@ -73,27 +99,30 @@ public class AlphaHantoGame implements HantoGame {
 		return resultingDifference;
 	}
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
 		where = new HantoBoardCoordinate(where);
 		return board.get(where);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getPrintableBoard() {
-		Iterator<Entry<HantoCoordinate, HantoPiece>> iterator = board.entrySet().iterator();
 		StringBuilder output = new StringBuilder();
 		
-		while (iterator.hasNext()) {
-			Map.Entry<HantoCoordinate, HantoPiece> pair = (Map.Entry<HantoCoordinate, HantoPiece>)iterator.next();
-			HantoCoordinate key = pair.getKey();
-			HantoPiece value = pair.getValue();
+		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
+			HantoCoordinate key = entry.getKey();
+			HantoPiece value = entry.getValue();
 			
 			String appendString = "X: " + Integer.toString(key.getX()) + ", Y:" + Integer.toString(key.getY()) + ": " + value.getColor().toString() + " - " + value.getType().toString() + "\n";
 			output.append(appendString);
 		}
-		
+
 		return output.toString();
 	}
 }

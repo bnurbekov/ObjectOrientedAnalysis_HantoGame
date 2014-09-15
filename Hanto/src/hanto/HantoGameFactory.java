@@ -12,7 +12,6 @@ package hanto;
 
 import hanto.common.*;
 import hanto.studentramnur.alpha.AlphaHantoGame;
-//import hanto.studentramnur.alpha.BetaHantoGame;
 import hanto.studentramnur.beta.BetaHantoGame;
 
 /**

@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.studentramnur.beta;
 
 import hanto.common.HantoCoordinate;
@@ -9,12 +18,20 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoPieceFactory;
 
+/**
+ * 
+ * @author Batyr
+ *
+ */
 public class BetaHantoGame implements HantoGame {
 	private HantoPlayer currentPlayer;
 	private HantoPlayer redPlayer;
 	private HantoPlayer bluePlayer;
 	private HantoBoard board;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public BetaHantoGame() {
 		
 		board = new HantoBoard();
@@ -31,15 +48,20 @@ public class BetaHantoGame implements HantoGame {
 		currentPlayer = bluePlayer;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		
-		if (pieceType != HantoPieceType.BUTTERFLY || pieceType != HantoPieceType.SPARROW)
+		if (pieceType != HantoPieceType.BUTTERFLY || pieceType != HantoPieceType.SPARROW) {
 			throw new HantoException("Only butterflies and sparrows are allowed for this game!");
+		}
 		
-		if (from != null)
+		if (from != null) {
 			throw new HantoException("You can only add peices to this game!");
+		}
 			
 		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayer.getColor(), pieceType);
 		MoveResult result = MoveResult.OK;
@@ -71,23 +93,40 @@ public class BetaHantoGame implements HantoGame {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private MoveResult getGameResult() {
 		if(board.isRedButterflySurrounded() && board.isBlueButterflySurrounded())
+		{
 			return MoveResult.DRAW;
-		else if(board.isRedButterflySurrounded())
+		}
+		else if(board.isRedButterflySurrounded()) {
 			return MoveResult.BLUE_WINS;
-		else if(board.isBlueButterflySurrounded())
+		}
+		else if(board.isBlueButterflySurrounded()) {
 			return MoveResult.RED_WINS;
-		else if(!bluePlayer.hasPieces() && !redPlayer.hasPieces())
+		}
+		else if(!bluePlayer.hasPieces() && !redPlayer.hasPieces()) {
 			return MoveResult.DRAW;
-		else
+		}
+		else {
 			return MoveResult.OK;
+		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private boolean isNewGame() {
 		return board.isEmpty();
 	}
 
+	/**
+	 * 
+	 */
 	private void changePlayer() {
 		if (currentPlayer == bluePlayer) {
 			currentPlayer = redPlayer;
@@ -101,6 +140,9 @@ public class BetaHantoGame implements HantoGame {
 		return board.getPiece(where);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getPrintableBoard() {
 		return board.getPrintableBoard();
