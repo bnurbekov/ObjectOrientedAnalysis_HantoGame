@@ -18,14 +18,12 @@ import java.util.Map;
 /**
  * Class that contain the statistics for the Hanto player. 
  * Also, contains the pieces that the player can place on the board.
- * 
- * @author Batyr
  */
 public class HantoPlayer {
 	private HantoPlayerColor color;
 	private HashMap<HantoPieceType, Integer> pieces;
 	private int movesMade;
-	
+
 	/**
 	 * The constructor for HantoPlayer class.
 	 * 
@@ -36,7 +34,7 @@ public class HantoPlayer {
 		pieces = new HashMap<HantoPieceType, Integer>();
 		movesMade = 0;
 	}
-	
+
 	/**
 	 * Sets the count of how many pieces the specific player has.
 	 * 
@@ -46,17 +44,17 @@ public class HantoPlayer {
 	public void setPieceCount(HantoPieceType piece, int count) {
 		pieces.put(piece, count);
 	}
-	
+
 	/**
 	 * Gets the piece count.
 	 * 
 	 * @param piece the piece which count should be returned
-	 * @return 
+	 * @return The number of remaining pieces of type piece.
 	 */
 	public int getPieceCount(HantoPieceType piece) {
 		return pieces.get(piece);
 	}
-	
+
 	/**
 	 * Decrements the piece count for the specific field.
 	 * 
@@ -71,14 +69,14 @@ public class HantoPlayer {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Increments the moves made by the player.
 	 */
 	public void incrementMovesMade() {
 		movesMade++;
 	}
-	
+
 	/**
 	 * Gets the count of moves that were made by the current player.
 	 * 
@@ -87,7 +85,7 @@ public class HantoPlayer {
 	public int getMovesMade() {
 		return movesMade;
 	}
-	
+
 	/**
 	 * Gets the color of the current player.
 	 * 
@@ -114,14 +112,14 @@ public class HantoPlayer {
 	 */
 	public boolean hasPieces() {
 		boolean hasPieces = false;
-		
+
 		//iterate through the hash map and check the count
 		for(Map.Entry<HantoPieceType, Integer> entry : pieces.entrySet()){
-		    if (entry.getValue() != 0) {
-		    	hasPieces = true;
-		    }
+			if (entry.getValue() != 0) {
+				hasPieces = true;
+			}
 		}
-		
+
 		return hasPieces;
 	}
 }

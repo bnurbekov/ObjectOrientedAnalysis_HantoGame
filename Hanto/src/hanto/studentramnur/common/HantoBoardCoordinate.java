@@ -13,15 +13,12 @@ import hanto.common.HantoCoordinate;
 
 /**
  * The implementation for HantoCoordinate interface.
- * 
- * @author Batyr
- *
  */
 public class HantoBoardCoordinate implements HantoCoordinate {
-	
+
 	private int x;
 	private int y;
-	
+
 	/**
 	 * Constructor that creates the new coordinate based on its location along x and y axes.
 	 * 

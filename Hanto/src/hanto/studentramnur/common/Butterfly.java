@@ -14,12 +14,9 @@ import hanto.common.HantoPlayerColor;
 
 /**
  * Class for the butterfly piece.
- * 
- * @author Batyr
- *
  */
 public class Butterfly extends AbstractHantoPiece {
-	
+
 	/**
 	 * Constructor for Butterfly class.
 	 * 

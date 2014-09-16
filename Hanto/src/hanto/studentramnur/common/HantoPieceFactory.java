@@ -16,12 +16,10 @@ import hanto.common.HantoPlayerColor;
 /**
  * This is a singleton class that provides a factory to create an instance of any version
  * of a Hanto piece.
- * 
- * @author Batyr
  */
 public class HantoPieceFactory {
 	private static final HantoPieceFactory INSTANCE = new HantoPieceFactory();
-	
+
 	/**
 	 * Default private descriptor.
 	 */
@@ -37,7 +35,7 @@ public class HantoPieceFactory {
 	{
 		return INSTANCE;
 	}
-	
+
 	/**
 	 * Determines the piece that should be created based on the input parameters.
 	 * 
@@ -47,19 +45,18 @@ public class HantoPieceFactory {
 	 */
 	public HantoPiece createPiece(HantoPlayerColor color, HantoPieceType type) {
 		HantoPiece piece;
-		
+
 		switch (type) {
-			case BUTTERFLY:
-				piece = new Butterfly(color);
-				break;
-			case SPARROW:
-				piece = new Sparrow(color);
-				break;
-			default: 
-				piece = new Butterfly(color);
-				break;
+		case BUTTERFLY:
+			piece = new Butterfly(color);
+			break;
+		case SPARROW:
+			piece = new Sparrow(color);
+			break;
+		default:
+			piece = new Butterfly(color);
 		}
-		
+
 		return piece;
 	}
 }

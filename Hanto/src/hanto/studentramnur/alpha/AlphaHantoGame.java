@@ -24,9 +24,6 @@ import java.util.Map;
 
 /**
  * Class for alpha Hanto game.
- * 
- * @author Batyr
- *
  */
 public class AlphaHantoGame implements HantoGame {
 	private HantoPlayerColor currentPlayerColor;
@@ -50,7 +47,7 @@ public class AlphaHantoGame implements HantoGame {
 		if (from != null) throw new HantoException("The only move allowed is to add a Butterfly.");
 
 		if (to == null) {
-			throw new HantoException("To coordinate cannot be null.");
+			throw new HantoException("To coordinates cannot be null.");
 		} else {
 			to = new HantoBoardCoordinate(to);
 		}

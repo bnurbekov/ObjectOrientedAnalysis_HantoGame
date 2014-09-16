@@ -7,22 +7,18 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.beta;
+package hanto.studentramnur.common;
 
-import hanto.common.HantoException;
+import hanto.studentramnur.alpha.AlphaHantoGameTest;
+import hanto.studentramnur.beta.BetaHantoGameTest;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * The HantoMoveException is the Exception that is thrown for any error that occurs during the move.
+ * Tests all registered JUnit test classes.
  */
-public class HantoMoveException extends HantoException {
-	
-	/**
-	 * Every instance of this exception must have a message describing the exception.
-	 * 
-	 * @param message
-	 *            the string describing the error causing the exception
-	 */
-	public HantoMoveException(String message) {
-		super(message);
-	}
-}
+@RunWith(Suite.class)
+@SuiteClasses({AlphaHantoGameTest.class,  BetaHantoGameTest.class})
+public class AllTests {}

@@ -8,16 +8,13 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
 /**
- * Abstract class that contains the common logic for all pieces. 
- * 
- * @author Batyr
- *
+ * Abstract class that contains the common logic for all pieces.
  */
 public abstract class AbstractHantoPiece implements HantoPiece {
-	
+
 	private HantoPlayerColor color;
 	private HantoPieceType type;
-	
+
 	/**
 	 * Constructor for AbstractHantoPiece class.
 	 * 
