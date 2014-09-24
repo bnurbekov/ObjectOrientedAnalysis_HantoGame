@@ -5,7 +5,7 @@ import hanto.common.HantoCoordinate;
 /**
  * Simple HantoCoordinate implementation for test cases.
  */
-public class TestHantoCoordinate implements HantoCoordinate {
+public class HantoTestCoordinate implements HantoCoordinate {
 	private final int x, y;
 
 	/**
@@ -13,7 +13,7 @@ public class TestHantoCoordinate implements HantoCoordinate {
 	 * @param x
 	 * @param y
 	 */
-	public TestHantoCoordinate(int x, int y) {
+	public HantoTestCoordinate(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

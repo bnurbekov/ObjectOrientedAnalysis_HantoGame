@@ -24,20 +24,20 @@ import java.util.Map;
 
 /**
  * Class for alpha Hanto game.
- * 
- * @author Batyr
- *
  */
 public class AlphaHantoGame implements HantoGame {
 	private HantoPlayerColor currentPlayerColor;
 	private Map<HantoCoordinate, HantoPiece> board; 
 
+	private MoveResult prevResult;
 	/**
 	 * Constructor for the alpha Hanto game.
 	 */
 	public AlphaHantoGame() {
 		currentPlayerColor = HantoPlayerColor.BLUE;
 		board = new HashMap<HantoCoordinate, HantoPiece>();
+
+		prevResult = MoveResult.OK;
 	}
 
 	/**
@@ -45,12 +45,18 @@ public class AlphaHantoGame implements HantoGame {
 	 */
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
-
+		
+		if(prevResult == MoveResult.DRAW
+				|| prevResult == MoveResult.BLUE_WINS
+				|| prevResult == MoveResult.RED_WINS) {
+			throw new HantoException("Game is already over.");
+		}
+		
 		if (pieceType != HantoPieceType.BUTTERFLY) throw new HantoException("Only butterflies are allowed for this game.");
 		if (from != null) throw new HantoException("The only move allowed is to add a Butterfly.");
 
 		if (to == null) {
-			throw new HantoException("To coordinate cannot be null.");
+			throw new HantoException("To coordinates cannot be null.");
 		} else {
 			to = new HantoBoardCoordinate(to);
 		}
@@ -65,17 +71,15 @@ public class AlphaHantoGame implements HantoGame {
 
 			board.put(to, piece);
 			result = MoveResult.OK;
-			System.out.println(currentPlayerColor + " player adding : " + piece.getColor() + " " + piece.getType() + " at (" + to.getX() + ", " + to.getY() + ")");
 			currentPlayerColor = HantoPlayerColor.RED;
 		} else if(isAdjacentToOrigin(to)) {
 			board.put(to, piece);
 			result = MoveResult.DRAW;
-			System.out.println(currentPlayerColor + " player adding : " + piece.getColor() + " " + piece.getType() + " at (" + to.getX() + ", " + to.getY() + ")");
 		} else {
 			throw new HantoException("Move is invalid.");
 		}
-
-		System.out.println("Move result: " + result.toString());
+		
+		prevResult = result;
 		return result;
 	}
 

@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.beta;
+package hanto.studentramnur.gamma;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -22,9 +22,9 @@ import hanto.studentramnur.common.HantoPieceFactory;
 import hanto.studentramnur.common.HantoPlayer;
 
 /**
- * Class for beta Hanto game.
+ * Class for gamma Hanto game.
  */
-public class BetaHantoGame implements HantoGame {
+public class GammaHantoGame implements HantoGame {
 	private HantoPlayer currentPlayer;
 	private HantoPlayer redPlayer;
 	private HantoPlayer bluePlayer;
@@ -33,10 +33,9 @@ public class BetaHantoGame implements HantoGame {
 	private MoveResult prevResult;
 
 	/**
-	 * Constructor for the beta Hanto game.
+	 * Constructor for the gamma Hanto game.
 	 */
-	public BetaHantoGame() {
-
+	public GammaHantoGame(HantoPlayerColor movesFirst) {
 		board = new HantoBoard();
 
 		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
@@ -48,7 +47,7 @@ public class BetaHantoGame implements HantoGame {
 		bluePlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
 		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 5);
 
-		currentPlayer = bluePlayer;
+		currentPlayer = movesFirst == HantoPlayerColor.BLUE ? bluePlayer : redPlayer;
 		prevResult = MoveResult.OK;
 	}
 
@@ -59,59 +58,79 @@ public class BetaHantoGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 
-		if(prevResult == MoveResult.DRAW
-				|| prevResult == MoveResult.BLUE_WINS
-				|| prevResult == MoveResult.RED_WINS) {
-			throw new HantoException("Game is already over.");
-		}
-
-		if (pieceType != HantoPieceType.BUTTERFLY && pieceType != HantoPieceType.SPARROW) {
-			throw new HantoException("Only butterflies and sparrows are allowed for this game.");
-		}
-
-		if (from != null) {
-			throw new HantoException("You cannot move pieces.");
-		}
-
-		if (to == null) {
-			throw new HantoException("To coordinates cannot be null.");
-		}
-
+		from = (from != null) ? new HantoBoardCoordinate(from) : null;
 		to = new HantoBoardCoordinate(to);
-
-		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayer.getColor(), pieceType);
 		MoveResult result = MoveResult.OK;
 
-		if (this.isNewGame()) {
-			if (!board.cellIsOrigin(to)) {
-				throw new HantoException("The first move should always be placed at (0, 0).");
-			} else if(currentPlayer.getColor() != HantoPlayerColor.BLUE) {
-				// This should never execute as we define the first player to be blue in the constructor.
-				throw new HantoException("The first player should be BLUE");
+		if(this.isGameOver()) throw new HantoException("Game is already over.");
+		if(this.isNewGame()) validateFirstMove(from, to);
+		else {
+			this.validateCoordinates(from, to);
+			this.validateButterflyPlacement(pieceType);
+
+			if(this.isPlayerAdding(from)) {
+				this.addPiece(pieceType, from, to);
+			} else { // player is moving
+				this.movePiece(pieceType, from, to);
 			}
-		} else if (!board.isCellEmpty(to) || !board.isAdjacentToExistingCells(to, null)) {
-			throw new HantoException("Move is invalid.");
 		}
 
-		if(!currentPlayer.hasPlacedButterfly() && piece.getType() != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 3) {
-			throw new HantoException(currentPlayer.getColor().toString() + " player must place a butterfly.");
-		}
 
-		if(!currentPlayer.hasPieces()) {
-			// Should never execute because game results in a draw when no more players have pieces.
-			throw new HantoException("Player has no more pieces to add.");
-		}
+		result = this.finishMove();
+		return result;
+	}
 
-		board.addPiece(to, piece);
+	private MoveResult finishMove() {
 		currentPlayer.incrementMovesMade();
-		currentPlayer.decrementPieceCount(pieceType);
 
-		result = getGameResult();
-
+		MoveResult result = this.getGameResult();
 		if(result == MoveResult.OK) changePlayer();
 
 		prevResult = result;
 		return result;
+	}
+
+	private void validateButterflyPlacement(HantoPieceType pieceType) throws HantoException {
+		if(!currentPlayer.hasPlacedButterfly() && pieceType != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 3) {
+			throw new HantoException("Player must place a butterfly.");
+		}
+	}
+
+	private void movePiece(HantoPieceType pieceType, HantoCoordinate from,
+			HantoCoordinate to) throws HantoException {
+		if(!(board.isAdjacentToExistingCells(to, null) && board.cellIsAdjacentTo(from, to))) throw new HantoException("Move is invalid.");
+
+		board.movePiece(from, to);
+	}
+
+	private void addPiece(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+		if(currentPlayer.getPieceCount(pieceType) == 0) 
+			throw new HantoException("Player does not have that piece to add.");
+
+		if(!board.isAdjacentToExistingCells(to, currentPlayer.getColor())) {
+			throw new HantoException("Move is invalid.");
+		}
+
+		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(currentPlayer.getColor(), pieceType);
+
+		board.addPiece(to, piece);
+		currentPlayer.decrementPieceCount(pieceType);
+	}
+
+	private boolean isPlayerAdding(HantoCoordinate from) {
+		return from == null;
+	}
+
+	private void validateCoordinates(HantoCoordinate from, HantoCoordinate to) throws HantoException {
+		if(to == null || !board.isCellEmpty(to)) throw new HantoException("Move is invalid.");
+	}
+
+	private void validateFirstMove(HantoCoordinate from, HantoCoordinate to) throws HantoException {
+		if(!(board.cellIsOrigin(to) && from == null)) throw new HantoException("The first move should always be placed at (0, 0)");
+	}
+
+	private boolean isGameOver() {
+		return prevResult != MoveResult.OK || (bluePlayer.getMovesMade() + redPlayer.getMovesMade() >= 40);
 	}
 
 	/**
@@ -120,7 +139,8 @@ public class BetaHantoGame implements HantoGame {
 	 * @return the game result
 	 */
 	private MoveResult getGameResult() {
-		if(board.isButterflySurrounded(HantoPlayerColor.RED) && board.isButterflySurrounded(HantoPlayerColor.BLUE)) {
+		if(board.isButterflySurrounded(HantoPlayerColor.RED) && board.isButterflySurrounded(HantoPlayerColor.BLUE))
+		{
 			return MoveResult.DRAW;
 		}
 		else if(board.isButterflySurrounded(HantoPlayerColor.RED)) {
