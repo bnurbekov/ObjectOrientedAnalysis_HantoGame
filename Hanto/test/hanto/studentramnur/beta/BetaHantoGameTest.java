@@ -13,7 +13,6 @@ import static hanto.common.HantoPieceType.BUTTERFLY;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import hanto.HantoGameFactory;
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
@@ -21,6 +20,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.studentramnur.HantoGameFactory;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.TestHantoCoordinate;
 

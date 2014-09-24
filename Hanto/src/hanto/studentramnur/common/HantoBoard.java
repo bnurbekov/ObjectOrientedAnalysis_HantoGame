@@ -7,13 +7,11 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.beta;
+package hanto.studentramnur.common;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
-import hanto.studentramnur.common.Butterfly;
-import hanto.studentramnur.common.HantoBoardCoordinate;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -96,18 +94,19 @@ public class HantoBoard {
 	}
 
 	/**
-	 * Determines if a specific cell is adjacent to some existing cell on the board.
+	 * Determines if a specific cell is adjacent to some existing cell color on the board.
 	 * 
 	 * @param cellToCheck the cell to check
+	 * @param color the color to check against, null means either color
 	 * @return indication of whether the cell is adjacent to some existing cell on the board or not
 	 */
-	public boolean isAdjacentToExistingCell(HantoCoordinate cellToCheck) {
+	public boolean isAdjacentToExistingCells(HantoCoordinate cellToCheck, HantoPlayerColor color) {
 		boolean isAdjacentToExistingCells = false;
 
 		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			HantoCoordinate key = entry.getKey();
-
-			if (cellIsAdjacentTo(cellToCheck, key)) {
+			
+			if (cellIsAdjacentTo(cellToCheck, key) && (entry.getValue().getColor() == color || color == null)) {
 				isAdjacentToExistingCells = true;
 				break;
 			}
@@ -228,5 +227,16 @@ public class HantoBoard {
 		}
 
 		return output.toString();
+	}
+
+	public void movePiece(HantoCoordinate from, HantoCoordinate to) {
+		HantoPiece piece = this.removePiece(from);
+		this.addPiece(to, piece);
+	}
+	
+	public HantoPiece removePiece(HantoCoordinate from) {
+		HantoPiece piece = board.remove(from);
+		pieceToCoordsMapping.get(piece).remove(from);
+		return piece;
 	}
 }

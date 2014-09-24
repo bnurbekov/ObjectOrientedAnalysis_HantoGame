@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package hanto;
+package hanto.studentramnur;
 
 import hanto.common.*;
 import hanto.studentramnur.alpha.AlphaHantoGame;
