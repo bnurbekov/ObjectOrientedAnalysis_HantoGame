@@ -10,7 +10,7 @@ import hanto.common.MoveResult;
 public class GammaHantoTestGame extends GammaHantoGame {
 	
 	public GammaHantoTestGame(HantoPlayerColor movesFirst) {
-		
+		super(movesFirst);
 	}
 
 	@Override

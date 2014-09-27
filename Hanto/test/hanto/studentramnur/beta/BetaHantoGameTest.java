@@ -22,7 +22,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.HantoGameFactory;
 import hanto.studentramnur.common.HantoBoardCoordinate;
-import hanto.studentramnur.common.TestHantoCoordinate;
+import hanto.studentramnur.common.HantoTestCoordinate;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -65,8 +65,8 @@ public class BetaHantoGameTest {
 	 */
 	@Test
 	public void blueMakesValidFirstMove() throws HantoException {
-		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(0, 0)));
-		final HantoPiece piece = game.getPieceAt(new TestHantoCoordinate(0, 0));
+		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0)));
+		final HantoPiece piece = game.getPieceAt(new HantoTestCoordinate(0, 0));
 		assertEquals(BUTTERFLY, piece.getType());
 		assertEquals(HantoPlayerColor.BLUE, piece.getColor());
 		System.out.println(game.getPrintableBoard());
@@ -82,7 +82,7 @@ public class BetaHantoGameTest {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The first move should always be placed at (0, 0).");
 
-		game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(1, 0));
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(1, 0));
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class BetaHantoGameTest {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The first move should always be placed at (0, 0).");
 
-		game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(0, 1));
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class BetaHantoGameTest {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The first move should always be placed at (0, 0).");
 
-		game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(1, 1));
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(1, 1));
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class BetaHantoGameTest {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("Only butterflies and sparrows are allowed for this game.");
 
-		game.makeMove(null, null, new TestHantoCoordinate(0, 0));
+		game.makeMove(null, null, new HantoTestCoordinate(0, 0));
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class BetaHantoGameTest {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("You cannot move pieces.");
 
-		game.makeMove(BUTTERFLY, new TestHantoCoordinate(0, 0), new TestHantoCoordinate(0, 1));
+		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(0, 1));
 	}
 
 	/**
@@ -156,8 +156,8 @@ public class BetaHantoGameTest {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("You cannot move pieces.");
 
-		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new TestHantoCoordinate(0, 0)));
-		game.makeMove(BUTTERFLY, new TestHantoCoordinate(0, 0), new TestHantoCoordinate(0, 1));
+		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0)));
+		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(0, 1));
 	}
 
 	/**
