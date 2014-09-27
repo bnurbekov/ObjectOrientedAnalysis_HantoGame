@@ -63,7 +63,11 @@ public class AlphaHantoGameTest {
 	 */
 	@Test
 	public void blueMakesValidFirstMove() throws HantoException {
+<<<<<<< HEAD
 		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0)));
+=======
+		assertEquals(game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(0, 0)), MoveResult.OK);
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 		final HantoPiece piece = game.getPieceAt(new HantoTestCoordinate(0, 0));
 		assertEquals(BUTTERFLY, piece.getType());
 		assertEquals(HantoPlayerColor.BLUE, piece.getColor());
@@ -79,7 +83,12 @@ public class AlphaHantoGameTest {
 	public void blueMakesInvalidFirstMove1() throws HantoException {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The first move should always be placed at (0, 0).");
+<<<<<<< HEAD
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(1, 0));
+=======
+		
+		game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(1, 0));
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 	}
 
 	/**
@@ -91,7 +100,12 @@ public class AlphaHantoGameTest {
 	public void blueMakesInvalidFirstMove2() throws HantoException {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The first move should always be placed at (0, 0).");
+<<<<<<< HEAD
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
+=======
+		
+		game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(0, 1));
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 	}
 
 	/**
@@ -103,7 +117,12 @@ public class AlphaHantoGameTest {
 	public void blueMakesInvalidFirstMove3() throws HantoException {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The first move should always be placed at (0, 0).");
+<<<<<<< HEAD
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(1, 1));
+=======
+		
+		game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(1, 1));
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 	}
 
 	/**
@@ -138,7 +157,12 @@ public class AlphaHantoGameTest {
 	public void moveNonExistingPiece() throws HantoException {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The only move allowed is to add a Butterfly.");
+<<<<<<< HEAD
 		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(0, 1));
+=======
+
+		game.makeMove(HantoPieceType.BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(0, 1));
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 	}
 
 	/**
@@ -150,8 +174,13 @@ public class AlphaHantoGameTest {
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("The only move allowed is to add a Butterfly.");
 
+<<<<<<< HEAD
 		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0)));
 		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(0, 1));
+=======
+		assertEquals(game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(0, 0)), MoveResult.OK);
+		game.makeMove(HantoPieceType.BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(0, 1));
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 	}
 
 	/**
@@ -161,12 +190,21 @@ public class AlphaHantoGameTest {
 	 */
 	@Test
 	public void redMakesValidFirstMove() throws HantoException {
+<<<<<<< HEAD
 		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0)));
 		final HantoPiece blueButterfly = game.getPieceAt(new HantoTestCoordinate(0, 0));
 		assertEquals(BUTTERFLY, blueButterfly.getType());
 		assertEquals(HantoPlayerColor.BLUE, blueButterfly.getColor());
 
 		assertEquals(MoveResult.DRAW, game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1)));
+=======
+		assertEquals(game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(0, 0)), MoveResult.OK);
+		final HantoPiece blueButterfly = game.getPieceAt(new HantoTestCoordinate(0, 0));
+		assertEquals(BUTTERFLY, blueButterfly.getType());
+		assertEquals(HantoPlayerColor.BLUE, blueButterfly.getColor());
+		
+		assertEquals(game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(0, 1)), MoveResult.DRAW);
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 		final HantoPiece redButterfly = game.getPieceAt(new HantoTestCoordinate(0, 1));
 		assertEquals(BUTTERFLY, redButterfly.getType());
 		assertEquals(HantoPlayerColor.RED, redButterfly.getColor());
@@ -182,13 +220,22 @@ public class AlphaHantoGameTest {
 	 */
 	@Test
 	public void redMakesInvalidFirstMove() throws HantoException {
+<<<<<<< HEAD
 		assertEquals(MoveResult.OK, game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0)));
+=======
+		assertEquals(game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(0, 0)), MoveResult.OK);
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 		final HantoPiece blueButterfly = game.getPieceAt(new HantoTestCoordinate(0, 0));
 		assertEquals(BUTTERFLY, blueButterfly.getType());
 		assertEquals(HantoPlayerColor.BLUE, blueButterfly.getColor());
 
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("Move is invalid.");
+<<<<<<< HEAD
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(1, 1));
+=======
+		
+		game.makeMove(HantoPieceType.BUTTERFLY, null, new HantoTestCoordinate(1, 1));
+>>>>>>> 93b186715f921bbdff1e475ff8ee430e9bfc7966
 	}
 }
