@@ -10,8 +10,10 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.studentramnur.common.move.HantoMoveFactory;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -44,25 +46,49 @@ public class HantoMoveFactory {
 	 * @return the created piece
 	 * @throws HantoMoveException 
 	 */
-	public Move createMove(HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
+	public Move createMove(HantoGameID id, HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		Move move;
 		
-		if(from == null && to == null) {
-			move = new ForfeitMove(color, pieceType, from, to);
-		} else if(from == null) {
-			move = new AddMove(color, pieceType, from, to);
-		} else if(to == null) {
-			throw new HantoMoveException("To location must be on board.");
-		} else { // player is moving
-			switch (pieceType) {
-			case BUTTERFLY:
-				move = new WalkMove(color, pieceType, from, to);
-				break;
-			case SPARROW:
-				move = new FlyMove(color, pieceType, from, to);
-				break;
-			default:
-				throw new HantoMoveException("No such piece type.");
+		if(id == HantoGameID.GAMMA_HANTO) {
+			if(from == null && to == null) {
+				throw new HantoMoveException("Forfeiting is not allowed in Gamma Hanto.");
+			} else if(from == null) {
+				move = new AddMove(color, pieceType, from, to);
+			} else if(to == null) {
+				throw new HantoMoveException("To location must be on board.");
+			} else { // player is moving
+				switch (pieceType) {
+				case BUTTERFLY:
+					move = new WalkMove(color, pieceType, from, to);
+					break;
+				case SPARROW:
+					move = new WalkMove(color, pieceType, from, to);
+					break;
+				default:
+					throw new HantoMoveException("No such piece type.");
+				}
+			}
+		} else { // Delta Hanto
+			if(from == null && to == null) {
+				move = new ForfeitMove(color, pieceType, from, to);
+			} else if(from == null) {
+				move = new AddMove(color, pieceType, from, to);
+			} else if(to == null) {
+				throw new HantoMoveException("To location must be on board.");
+			} else { // player is moving
+				switch (pieceType) {
+				case BUTTERFLY:
+					move = new WalkMove(color, pieceType, from, to);
+					break;
+				case CRAB:
+					move = new WalkMove(color, pieceType, from, to);
+					break;
+				case SPARROW:
+					move = new FlyMove(color, pieceType, from, to);
+					break;
+				default:
+					throw new HantoMoveException("No such piece type.");
+				}
 			}
 		}
 		

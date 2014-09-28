@@ -16,7 +16,6 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.studentramnur.common.move.HantoMoveFactory;
 import hanto.studentramnur.common.move.Move;
 import hanto.studentramnur.common.move.MoveType;
 
@@ -31,7 +30,7 @@ public class AbstractHantoGame implements HantoGame {
 
 	private MoveResult prevResult;
 	
-	private Move currentMove;
+	protected Move currentMove;
 
 	/**
 	 * Constructor for the gamma Hanto game.
@@ -41,7 +40,7 @@ public class AbstractHantoGame implements HantoGame {
 
 		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
 		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE);
-		currentPlayer = movesFirst == HantoPlayerColor.BLUE ? bluePlayer : redPlayer;
+		currentPlayer = (movesFirst == HantoPlayerColor.BLUE) ? bluePlayer : redPlayer;
 		
 		prevResult = MoveResult.OK;
 	}
@@ -59,12 +58,7 @@ public class AbstractHantoGame implements HantoGame {
 		return this.postMoveSetUp();
 	}
 
-	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
-		from = new HantoBoardCoordinate(from);
-		to = new HantoBoardCoordinate(to);
-		
-		currentMove = HantoMoveFactory.getInstance().createMove(currentPlayer.getColor(), pieceType, from, to);
-	}
+	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {}
 	
 	protected void validateMove() throws HantoException {
 		if(this.isGameOver()) {

@@ -1,13 +1,8 @@
 package hanto.studentramnur.gamma;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import static hanto.common.HantoPieceType.*;
+import static hanto.common.HantoPieceType.BUTTERFLY;
+import static org.junit.Assert.*;
 import hanto.common.HantoException;
-import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
@@ -15,32 +10,14 @@ import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoTestCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
 import hanto.studentramnur.common.HantoTestGameFactory;
-import junit.framework.TestCase;
 
-/**
- * The class <code>GammaHantoTestGameTest</code> contains tests for the class
- * {@link <code>GammaHantoTestGame</code>}
- *
- * @pattern JUnit Test Case
- *
- * @generatedBy CodePro at 9/28/14 11:29 AM
- *
- * @author srramadan
- *
- * @version $Revision$
- */
-public class GammaHantoGameTest extends TestCase {
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-	/**
-	 * Construct new test instance
-	 *
-	 * @param name the test name
-	 */
-	public GammaHantoGameTest(String name) {
-		super(name);
-	}
-	
-	private HantoTestGameFactory factory;
+public class GammaHantoGameTest {
+
 	private HantoTestGame game;
 
 	@Rule
@@ -59,7 +36,6 @@ public class GammaHantoGameTest extends TestCase {
 	 */
 	@Test
 	public void testInitialization() {
-		assertNotNull(factory);
 		assertNotNull(game);
 		assertTrue(game instanceof GammaHantoGame);
 	}
@@ -130,6 +106,6 @@ public class GammaHantoGameTest extends TestCase {
 	public void BlueMovesButterfly() throws HantoException {
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
-		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 0), );
+		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(1, 0));
 	}
-}	
+}

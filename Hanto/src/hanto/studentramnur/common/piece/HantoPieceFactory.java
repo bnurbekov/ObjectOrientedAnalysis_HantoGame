@@ -53,6 +53,9 @@ public class HantoPieceFactory {
 		case SPARROW:
 			piece = new Sparrow(color);
 			break;
+		case CRAB:
+			piece = new Crab(color);
+			break;
 		default:
 			piece = new Butterfly(color);
 		}
