@@ -1,6 +1,7 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
@@ -50,7 +51,11 @@ public abstract class Move {
 			isValid = false;
 		}
 		
-		if(!board.isAdjacentToExistingCells(to, null)) isValid = false;
+		if(!board.isEmpty()) {
+			if(!board.isAdjacentToExistingCells(to, null)) {
+				isValid = false;
+			}
+		}
 		
 		return isValid;
 	}

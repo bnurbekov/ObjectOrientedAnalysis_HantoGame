@@ -1,6 +1,7 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
@@ -14,7 +15,7 @@ public class FlyMove extends Move {
 
 	@Override
 	public boolean validate(HantoBoard board) {
-		return super.validate(board);
+		return super.validate(board) && board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom());
 	}
 
 	@Override

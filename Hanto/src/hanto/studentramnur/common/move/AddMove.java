@@ -23,14 +23,16 @@ public class AddMove extends Move {
 			if(!board.cellIsOrigin(to)) isValid = false; // is the piece added to origin?
 		}
 		
-		if(board.getNumPiecesOnBoard() >= 2) { //if first two moves
+		if(board.getNumPiecesOnBoard() >= 2) { //if not first two moves
 			if(!(board.isAdjacentToExistingCells(to, this.getColor())
 					&& !board.isAdjacentToExistingCells(to, (this.getColor() == HantoPlayerColor.BLUE) ? HantoPlayerColor.RED : HantoPlayerColor.BLUE))) {
 				isValid = false;
 			}
+		} else {
+			isValid = super.validate(board) && isValid;
 		}
 		
-		return super.validate(board) && isValid;
+		return isValid;
 	}
 
 	@Override

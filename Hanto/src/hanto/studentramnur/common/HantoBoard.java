@@ -11,6 +11,7 @@ package hanto.studentramnur.common;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.piece.Butterfly;
 
@@ -260,5 +261,11 @@ public class HantoBoard {
 	 */
 	public int getNumPiecesOnBoard() {
 		return board.size();
+	}
+	
+	public boolean pieceMatchesAtCell(HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate coor) {
+		HantoPiece piece = board.get(coor);
+		
+		return (color == piece.getColor()) && (piece.getType() == pieceType);
 	}
 }

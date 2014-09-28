@@ -1,14 +1,17 @@
 package hanto.studentramnur.gamma;
 
-import static hanto.common.HantoPieceType.BUTTERFLY;
+import static hanto.common.HantoPieceType.*;
 import static org.junit.Assert.*;
+import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoTestCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
+import hanto.studentramnur.common.HantoTestGame.PieceLocationPair;
 import hanto.studentramnur.common.HantoTestGameFactory;
 
 import org.junit.Before;
@@ -62,7 +65,7 @@ public class GammaHantoGameTest {
 	@Test
 	public void blueMakesInvalidFirstMove1() throws HantoException {
 		thrown.expect(HantoException.class);
-		thrown.expectMessage("The first move should always be placed at (0, 0).");
+		thrown.expectMessage("Invalid Move.");
 
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(1, 0));
 	}
@@ -75,7 +78,7 @@ public class GammaHantoGameTest {
 	@Test
 	public void blueMakesInvalidFirstMove2() throws HantoException {
 		thrown.expect(HantoException.class);
-		thrown.expectMessage("The first move should always be placed at (0, 0).");
+		thrown.expectMessage("Invalid Move.");
 
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
 	}
@@ -88,7 +91,7 @@ public class GammaHantoGameTest {
 	@Test
 	public void blueMakesInvalidFirstMove3() throws HantoException {
 		thrown.expect(HantoException.class);
-		thrown.expectMessage("The first move should always be placed at (0, 0).");
+		thrown.expectMessage("Invalid Move.");
 
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(1, 1));
 	}
@@ -99,6 +102,9 @@ public class GammaHantoGameTest {
 	 */
 	@Test
 	public void blueForfeits() throws HantoException {
+		thrown.expect(HantoException.class);
+		thrown.expectMessage("Forfeiting is not allowed in Gamma Hanto.");
+		
 		assertEquals(MoveResult.RED_WINS, game.makeMove(BUTTERFLY, null, null));
 	}
 	
@@ -107,5 +113,28 @@ public class GammaHantoGameTest {
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
 		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 0), new HantoTestCoordinate(1, 0));
+	}
+	
+	/**
+	 * Checks if red wins when the blue butterfly is surrounded.
+	 * 
+	 * @throws HantoException
+	 */
+	@Test
+	public void blueButterflyIsSurrounded() throws HantoException {
+		PieceLocationPair[] initialPieces = new HantoTestGame.PieceLocationPair[7];
+		
+		initialPieces[0] = new PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new HantoTestCoordinate(0, 0));
+		initialPieces[1] = new PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.BUTTERFLY, new HantoTestCoordinate(1, 0));
+		initialPieces[2] = new PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.BUTTERFLY, new HantoTestCoordinate(0, 1));
+		initialPieces[3] = new PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new HantoTestCoordinate(1, 1));
+		initialPieces[4] = new PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.SPARROW, new HantoTestCoordinate(2, 0));
+		initialPieces[5] = new PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.SPARROW, new HantoTestCoordinate(2, -1));
+		initialPieces[6] = new PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new HantoTestCoordinate(0, -1));
+		
+		game.initializeBoard(initialPieces);
+		game.setPlayerMoving(HantoPlayerColor.BLUE);
+		
+		assertEquals(MoveResult.BLUE_WINS, game.makeMove(SPARROW, new HantoTestCoordinate(0, -1), new HantoTestCoordinate(1, -1)));
 	}
 }
