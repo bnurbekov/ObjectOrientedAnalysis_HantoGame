@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hanto.studentramnur.common;
+package hanto.studentramnur.common.piece;
 
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;

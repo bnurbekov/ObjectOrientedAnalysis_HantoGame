@@ -7,9 +7,9 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.common;
+package hanto.studentramnur.common.move;
 
-import hanto.common.HantoPiece;
+import hanto.common.HantoCoordinate;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
@@ -17,13 +17,13 @@ import hanto.common.HantoPlayerColor;
  * This is a singleton class that provides a factory to create an instance of any version
  * of a Hanto piece.
  */
-public class HantoPieceFactory {
-	private static final HantoPieceFactory INSTANCE = new HantoPieceFactory();
+public class HantoMoveFactory {
+	private static final HantoMoveFactory INSTANCE = new HantoMoveFactory();
 
 	/**
 	 * Default private descriptor.
 	 */
-	private HantoPieceFactory()
+	private HantoMoveFactory()
 	{
 		// Empty, but the private constructor is necessary for the singleton.
 	}
@@ -31,7 +31,7 @@ public class HantoPieceFactory {
 	/**
 	 * @return the instance
 	 */
-	public static HantoPieceFactory getInstance()
+	public static HantoMoveFactory getInstance()
 	{
 		return INSTANCE;
 	}
@@ -42,21 +42,30 @@ public class HantoPieceFactory {
 	 * @param color the color of the piece that should be created
 	 * @param type the type of the piece that should be created 
 	 * @return the created piece
+	 * @throws HantoMoveException 
 	 */
-	public HantoPiece createPiece(HantoPlayerColor color, HantoPieceType type) {
-		HantoPiece piece;
-
-		switch (type) {
-		case BUTTERFLY:
-			piece = new Butterfly(color);
-			break;
-		case SPARROW:
-			piece = new Sparrow(color);
-			break;
-		default:
-			piece = new Butterfly(color);
+	public Move createMove(HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
+		Move move;
+		
+		if(from == null && to == null) {
+			move = new ForfeitMove(color, pieceType, from, to);
+		} else if(from == null) {
+			move = new AddMove(color, pieceType, from, to);
+		} else if(to == null) {
+			throw new HantoMoveException("To location must be on board.");
+		} else { // player is moving
+			switch (pieceType) {
+			case BUTTERFLY:
+				move = new WalkMove(color, pieceType, from, to);
+				break;
+			case SPARROW:
+				move = new FlyMove(color, pieceType, from, to);
+				break;
+			default:
+				throw new HantoMoveException("No such piece type.");
+			}
 		}
-
-		return piece;
+		
+		return move;
 	}
 }

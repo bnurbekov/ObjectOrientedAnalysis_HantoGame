@@ -7,22 +7,22 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.common;
+package hanto.studentramnur.common.piece;
 
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
 /**
- * Class for the butterfly piece.
+ *  Class for the sparrow piece.
  */
-public class Butterfly extends AbstractHantoPiece {
+public class Sparrow extends AbstractHantoPiece {
 
 	/**
-	 * Constructor for Butterfly class.
+	 * Constructor for Sparrow Piece.
 	 * 
-	 * @param color the color of the piece.
+	 * @param color indicates the color of the piece
 	 */
-	public Butterfly(HantoPlayerColor color) {
-		super(color, HantoPieceType.BUTTERFLY);
+	public Sparrow(HantoPlayerColor color) {
+		super(color, HantoPieceType.SPARROW);
 	}
 }

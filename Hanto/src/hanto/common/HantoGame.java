@@ -19,8 +19,7 @@ package hanto.common;
  * @author gpollice
  * @version Jan 12, 2013
  */
-public interface HantoGame
-{
+public interface HantoGame {
 	/**
 	 * This method executes a move in the game. It is called for every move that must be
 	 * made.

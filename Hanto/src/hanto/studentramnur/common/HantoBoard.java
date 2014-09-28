@@ -12,6 +12,7 @@ package hanto.studentramnur.common;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
+import hanto.studentramnur.common.piece.Butterfly;
 
 import java.util.ArrayList;
 import java.util.Collection;

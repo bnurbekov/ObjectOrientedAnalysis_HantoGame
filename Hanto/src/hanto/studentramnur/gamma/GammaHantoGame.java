@@ -16,39 +16,29 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.studentramnur.common.AbstractHantoGame;
 import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoBoardCoordinate;
-import hanto.studentramnur.common.HantoPieceFactory;
 import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.piece.HantoPieceFactory;
 
 /**
  * Class for gamma Hanto game.
  */
-public class GammaHantoGame implements HantoGame {
-	private HantoPlayer currentPlayer;
-	private HantoPlayer redPlayer;
-	private HantoPlayer bluePlayer;
-	private HantoBoard board;
-
-	private MoveResult prevResult;
+public class GammaHantoGame extends AbstractHantoGame {
 
 	/**
 	 * Constructor for the gamma Hanto game.
 	 */
 	public GammaHantoGame(HantoPlayerColor movesFirst) {
-		board = new HantoBoard();
-
-		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
-		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE);
-
+		super(movesFirst);
+		
+		// Set up player pieces
 		redPlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
 		redPlayer.setPieceCount(HantoPieceType.SPARROW, 5);
 
 		bluePlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
 		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 5);
-
-		currentPlayer = movesFirst == HantoPlayerColor.BLUE ? bluePlayer : redPlayer;
-		prevResult = MoveResult.OK;
 	}
 
 	/**
