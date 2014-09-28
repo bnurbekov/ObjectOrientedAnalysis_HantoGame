@@ -9,8 +9,8 @@
  *******************************************************************************/
 package hanto.studentramnur.common;
 
-import hanto.studentramnur.alpha.AlphaHantoGameTest;
-import hanto.studentramnur.beta.BetaHantoGameTest;
+import hanto.studentramnur.delta.DeltaHantoGameTest;
+import hanto.studentramnur.gamma.GammaHantoGameTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -20,5 +20,5 @@ import org.junit.runners.Suite.SuiteClasses;
  * Tests all registered JUnit test classes.
  */
 @RunWith(Suite.class)
-@SuiteClasses({AlphaHantoGameTest.class,  BetaHantoGameTest.class})
+@SuiteClasses({GammaHantoGameTest.class,  DeltaHantoGameTest.class})
 public class AllTests {}

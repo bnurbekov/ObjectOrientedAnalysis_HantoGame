@@ -10,9 +10,11 @@
 
 package hanto.studentramnur;
 
-import hanto.common.*;
-import hanto.studentramnur.alpha.AlphaHantoGame;
-import hanto.studentramnur.beta.BetaHantoGame;
+import hanto.common.HantoGame;
+import hanto.common.HantoGameID;
+import hanto.common.HantoPlayerColor;
+import hanto.studentramnur.delta.DeltaHantoGame;
+import hanto.studentramnur.gamma.GammaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -61,28 +63,14 @@ public class HantoGameFactory
 	public static HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoGame game = null;
 		switch (gameId) {
-		case ALPHA_HANTO:
-			game = new AlphaHantoGame();
-			break;
-		case BETA_HANTO:
-			game = new BetaHantoGame();
-			break;
-		/**
-		case DELTA_HANTO:
-			break;
-		case EPSILON_HANTO:
-			break;
 		case GAMMA_HANTO:
+			game = new GammaHantoGame(movesFirst);
 			break;
-		case IOTA_HANTO:
+		case DELTA_HANTO:
+			game = new DeltaHantoGame(movesFirst);
 			break;
-		case THETA_HANTO:
-			break;
-		case ZETA_HANTO:
-			break;
-		*/
 		default:
-			game = new AlphaHantoGame();
+			game = new GammaHantoGame(movesFirst);
 		}
 		return game;
 	}

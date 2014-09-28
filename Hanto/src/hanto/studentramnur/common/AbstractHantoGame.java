@@ -110,8 +110,8 @@ public class AbstractHantoGame implements HantoGame {
 		return result;
 	}
 	
-	private boolean isGameOver() {
-		return prevResult != MoveResult.OK || (bluePlayer.getMovesMade() + redPlayer.getMovesMade() >= 40);
+	protected boolean isGameOver() {
+		return prevResult != MoveResult.OK;
 	}
 
 	/**

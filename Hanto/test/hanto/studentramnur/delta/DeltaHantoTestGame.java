@@ -1,4 +1,4 @@
-package hanto.studentramnur.gamma;
+package hanto.studentramnur.delta;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPiece;
@@ -7,9 +7,9 @@ import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
 
-public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame {
+public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame {
 	
-	public GammaHantoTestGame(HantoPlayerColor movesFirst) {
+	public DeltaHantoTestGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 	}
 
