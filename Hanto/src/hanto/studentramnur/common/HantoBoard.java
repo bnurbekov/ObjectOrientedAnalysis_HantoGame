@@ -230,14 +230,35 @@ public class HantoBoard {
 		return output.toString();
 	}
 
+	/**
+	 * Moves the piece from the specified location to the specified location.
+	 * 
+	 * @param from the coordinate to move the piece from
+	 * @param to the coordinate to move the piece to 
+	 */
 	public void movePiece(HantoCoordinate from, HantoCoordinate to) {
 		HantoPiece piece = this.removePiece(from);
 		this.addPiece(to, piece);
 	}
 	
+	/**
+	 * Removes the piece from the board.
+	 * 
+	 * @param from the coordinate to remove the piece from
+	 * @return the piece removed
+	 */
 	public HantoPiece removePiece(HantoCoordinate from) {
 		HantoPiece piece = board.remove(from);
 		pieceToCoordsMapping.get(piece).remove(from);
 		return piece;
+	}
+
+	/**
+	 * Gets the number of pieces on the board.
+	 * 
+	 * @return the number of pieces on the board
+	 */
+	public int getNumPiecesOnBoard() {
+		return board.size();
 	}
 }

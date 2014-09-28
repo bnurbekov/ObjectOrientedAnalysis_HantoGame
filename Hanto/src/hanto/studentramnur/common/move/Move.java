@@ -43,7 +43,17 @@ public abstract class Move {
 		return result;
 	}
 
-	public abstract boolean validate(HantoBoard board);
+	public boolean validate(HantoBoard board) {
+		boolean isValid = true;
+		
+		if(this.isCellOccupied(board)) {
+			isValid = false;
+		}
+		
+		if(!board.isAdjacentToExistingCells(to, null)) isValid = false;
+		
+		return isValid;
+	}
 	
 	public abstract void execute(HantoBoard board);
 

@@ -22,12 +22,15 @@ public class AddMove extends Move {
 		if(board.isEmpty()) { // is it a new game?
 			if(!board.cellIsOrigin(to)) isValid = false; // is the piece added to origin?
 		}
-
-		if(this.isCellOccupied(board)) isValid = false;
 		
-		if(!board.isAdjacentToExistingCells(to, this.getColor())) isValid = false;
+		if(board.getNumPiecesOnBoard() >= 2) { //if first two moves
+			if(!(board.isAdjacentToExistingCells(to, this.getColor())
+					&& !board.isAdjacentToExistingCells(to, (this.getColor() == HantoPlayerColor.BLUE) ? HantoPlayerColor.RED : HantoPlayerColor.BLUE))) {
+				isValid = false;
+			}
+		}
 		
-		return isValid;
+		return super.validate(board) && isValid;
 	}
 
 	@Override

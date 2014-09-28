@@ -14,11 +14,11 @@ public class FlyMove extends Move {
 
 	@Override
 	public boolean validate(HantoBoard board) {
-		return true;
+		return super.validate(board);
 	}
 
 	@Override
 	public void execute(HantoBoard board) {
-		// TODO Auto-generated method stub
+		board.movePiece(this.getFrom(), this.getTo());
 	}
 }

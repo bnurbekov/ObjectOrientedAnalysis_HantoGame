@@ -15,7 +15,7 @@ public class WalkMove extends Move {
 
 	@Override
 	public boolean validate(HantoBoard board) {
-		return true;
+			return super.validate(board) && board.cellIsAdjacentTo(this.getFrom(), this.getTo());
 	}
 
 	@Override
