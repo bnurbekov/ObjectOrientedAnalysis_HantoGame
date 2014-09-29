@@ -66,6 +66,24 @@ public abstract class Move {
 		return !board.isCellEmpty(this.getTo()); 
 	}
 
+	/**
+	 * 
+	 * @param board
+	 * @return
+	 */
+	protected boolean pieceCanBeMovedWithoutBreakingTheStructure(HantoBoard board) {
+		return board.isCellCritical(this.from);
+	}
+	
+	/**
+	 * 
+	 * @param board
+	 * @return
+	 */
+	protected boolean pieceCanSqueeze(HantoBoard board) {
+		return (board.countCommonNonEmptyNeighbors(this.from, this.to) != 2);
+	}
+	
 	public MoveType getMoveType() {
 		return moveType;
 	}

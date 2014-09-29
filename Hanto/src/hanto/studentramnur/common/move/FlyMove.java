@@ -15,7 +15,9 @@ public class FlyMove extends Move {
 
 	@Override
 	public boolean validate(HantoBoard board) {
-		return super.validate(board) && board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom());
+		return super.validate(board) 
+				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
+				&& pieceCanBeMovedWithoutBreakingTheStructure(board);
 	}
 
 	@Override
