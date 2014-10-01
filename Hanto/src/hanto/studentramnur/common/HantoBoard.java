@@ -211,24 +211,24 @@ public class HantoBoard {
 	 * @param secondCell
 	 * @return
 	 */
-	public int countCommonNonEmptyNeighbors(HantoCoordinate firstCell, HantoCoordinate secondCell) {
-		Collection<HantoCoordinate> commonNonEmptyNeighborghCells = getCommonNeighborghCells(firstCell, secondCell);
+	public int countCommonOccupiedNeighbors(HantoCoordinate firstCell, HantoCoordinate secondCell) {
+		Collection<HantoCoordinate> commonOccupiedNeighborghCells = getCommonNeighborghCells(firstCell, secondCell);
 		
-		commonNonEmptyNeighborghCells = filterOutNonEmptyCells(commonNonEmptyNeighborghCells);
+		commonOccupiedNeighborghCells = filterOutEmptyCells(commonOccupiedNeighborghCells);
 		
-		return commonNonEmptyNeighborghCells.size();
+		return commonOccupiedNeighborghCells.size();
 	}
 	
 	/**
-	 * Returns the list of cells that are adjacent to the specified cell and that are non-empty.
+	 * Returns the list of cells that are adjacent to the specified cell and that are occupied.
 	 * 
 	 * @param cell the cell to check the neighbors relative to
-	 * @return returns the collection of non-empty neighbors
+	 * @return returns the collection of occupied neighbors
 	 */
-	private Collection<HantoCoordinate> getNonEmptyNeighbors(HantoCoordinate cell) {
+	private Collection<HantoCoordinate> getOccupiedNeighbors(HantoCoordinate cell) {
 		Collection<HantoCoordinate> nonEmptyNeighbors = getSurroundingCells(cell);
 		
-		nonEmptyNeighbors = filterOutNonEmptyCells(nonEmptyNeighbors);
+		nonEmptyNeighbors = filterOutEmptyCells(nonEmptyNeighbors);
 		
 		return nonEmptyNeighbors;
 	}
@@ -245,14 +245,14 @@ public class HantoBoard {
 		
 		int count = 1;
 		
-		Collection<HantoCoordinate> nonEmptyNeighbors = getNonEmptyNeighbors(cell);
+		Collection<HantoCoordinate> occupiedNeighbors = getOccupiedNeighbors(cell);
 		
 		//create the collection that contains the non-empty cells that were already checked
 		Collection<HantoCoordinate> alreadyCheckedCells = new ArrayList<>(); 
 		//get the first neighbor from collection and work with it
 		alreadyCheckedCells.add(cell);
 		 
-		count += countNeighbors((HantoCoordinate)(nonEmptyNeighbors.toArray())[0], alreadyCheckedCells);
+		count += countNeighbors((HantoCoordinate)(occupiedNeighbors.toArray())[0], alreadyCheckedCells);
 		
 		if (count == board.size()) {
 			isCellCritical = false;
@@ -274,9 +274,9 @@ public class HantoBoard {
 		count++; //account itself
 		alreadyCheckedCells.add(cell);
 		
-		Collection<HantoCoordinate> nonEmptyNeighbors = getNonEmptyNeighbors(cell);
+		Collection<HantoCoordinate> occupiedNeighbors = getOccupiedNeighbors(cell);
 		
-		for(HantoCoordinate coor : nonEmptyNeighbors) {
+		for(HantoCoordinate coor : occupiedNeighbors) {
 			if (!alreadyCheckedCells.contains(coor)) {
 				alreadyCheckedCells.add(coor);
 				count += countNeighbors(cell, alreadyCheckedCells);
@@ -292,14 +292,16 @@ public class HantoBoard {
 	 * @param listOfCoor list to filter
 	 * @return filtered list
 	 */
-	private Collection<HantoCoordinate> filterOutNonEmptyCells(Collection<HantoCoordinate> listOfCoor) {
-		for(HantoCoordinate coor : listOfCoor) { //filter the list of the neighbors, so that it contains only non-empty neighbors
+	private Collection<HantoCoordinate> filterOutEmptyCells(Collection<HantoCoordinate> listOfCoor) {
+		Collection<HantoCoordinate> occupiedCoor = new ArrayList<HantoCoordinate>();
+		
+		for(HantoCoordinate coor : listOfCoor) { //filter the list of the neighbors, so that it contains only occupied neighbors
 			if (!board.containsKey(coor)) {
-				listOfCoor.remove(coor);
+				occupiedCoor.add(coor);
 			}
 		}
 		
-		return listOfCoor;
+		return occupiedCoor;
 	}
 	
 	/**

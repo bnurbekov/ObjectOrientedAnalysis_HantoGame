@@ -14,6 +14,7 @@ import hanto.common.HantoException;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.common.MoveResult;
 import hanto.studentramnur.common.AbstractHantoGame;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.move.HantoMoveFactory;
@@ -36,10 +37,12 @@ public class GammaHantoGame extends AbstractHantoGame {
 		bluePlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
 		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 5);
 	}
-
+	
 	@Override
-	protected boolean isGameOver() {
-		return super.isGameOver() || (bluePlayer.getMovesMade() + redPlayer.getMovesMade() >= 40);
+	protected MoveResult getGameResult() {
+		MoveResult result = super.getGameResult();
+		if(result == MoveResult.OK && (bluePlayer.getMovesMade() + redPlayer.getMovesMade() > 20)) return MoveResult.DRAW;
+		else return result;
 	}
 	
 	@Override

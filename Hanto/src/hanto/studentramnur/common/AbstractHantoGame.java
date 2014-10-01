@@ -22,7 +22,7 @@ import hanto.studentramnur.common.move.MoveType;
 /**
  * Class for gamma Hanto game.
  */
-public class AbstractHantoGame implements HantoGame {
+public abstract class AbstractHantoGame implements HantoGame {
 	protected HantoPlayer currentPlayer;
 	protected HantoPlayer redPlayer;
 	protected HantoPlayer bluePlayer;
@@ -58,7 +58,7 @@ public class AbstractHantoGame implements HantoGame {
 		return this.postMoveSetUp();
 	}
 
-	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {}
+	protected abstract void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException;
 	
 	protected void validateMove() throws HantoException {
 		if(this.isGameOver()) {
@@ -69,7 +69,6 @@ public class AbstractHantoGame implements HantoGame {
 			if(currentPlayer.getPieceCount(currentMove.pieceType) == 0)
 				throw new HantoException("Player does not have that piece to add.");
 		}
-		
 		
 		if(!currentMove.validate(board)) {
 			throw new HantoException("Invalid Move.");
@@ -90,7 +89,7 @@ public class AbstractHantoGame implements HantoGame {
 		currentMove.execute(board);
 	}
 	
-	private MoveResult postMoveSetUp() {
+	protected MoveResult postMoveSetUp() {
 		currentPlayer.incrementMovesMade();
 		
 		if(currentMove.getMoveType() == MoveType.ADD) {
@@ -113,7 +112,7 @@ public class AbstractHantoGame implements HantoGame {
 	 * 
 	 * @return the game result
 	 */
-	private MoveResult getGameResult() {
+	protected MoveResult getGameResult() {
 		if(currentMove.getResult() != MoveResult.OK) { // If the game was forfeit (game result not ok from executing move)
 			return currentMove.getResult();
 		}

@@ -28,8 +28,10 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame 
 
 	@Override
 	public void setTurnNumber(int turnNumber) {
-		this.bluePlayer.setMovesMade(turnNumber - 1);
-		this.redPlayer.setMovesMade(turnNumber - 1);
+		// This implementation saves turns individually made by the players.
+		// To set the turn we have to evenly split the turns.  Thus the positive rounding for blue player's turn count.
+		this.bluePlayer.setMovesMade((int)(turnNumber/2.0+0.5));
+		this.redPlayer.setMovesMade(turnNumber/2);
 	}
 
 	@Override

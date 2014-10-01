@@ -6,9 +6,8 @@ import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
 
 /**
- * 
  * @author Batyr
- *
+ * @author Shadi
  */
 public class WalkMove extends Move {
 	
@@ -29,7 +28,7 @@ public class WalkMove extends Move {
 	 * @param board
 	 */
 	@Override
-	public boolean validate(HantoBoard board) {
+	public boolean validate(HantoBoard board) {		
 			return super.validate(board)
 					&& board.cellIsAdjacentTo(this.getFrom(), this.getTo())
 					&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())

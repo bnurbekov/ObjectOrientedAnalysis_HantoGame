@@ -1,7 +1,6 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
-import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
@@ -81,7 +80,8 @@ public abstract class Move {
 	 * @return
 	 */
 	protected boolean pieceCanSqueeze(HantoBoard board) {
-		return (board.countCommonNonEmptyNeighbors(this.from, this.to) != 2);
+		System.out.println("pieceCanSqueeze: " + board.countCommonOccupiedNeighbors(this.from, this.to));
+		return (board.countCommonOccupiedNeighbors(this.from, this.to) != 2);
 	}
 	
 	public MoveType getMoveType() {

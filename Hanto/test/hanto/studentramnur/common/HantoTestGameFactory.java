@@ -10,7 +10,6 @@
 
 package hanto.studentramnur.common;
 
-import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.delta.DeltaHantoTestGame;
