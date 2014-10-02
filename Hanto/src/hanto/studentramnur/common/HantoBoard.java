@@ -296,7 +296,7 @@ public class HantoBoard {
 		final Collection<HantoCoordinate> occupiedCoor = new ArrayList<HantoCoordinate>();
 
 		for(HantoCoordinate coor : listOfCoor) { //filter the list of the neighbors, so that it contains only occupied neighbors
-			if (!board.containsKey(coor)) {
+			if (board.containsKey(coor)) {
 				occupiedCoor.add(coor);
 			}
 		}
