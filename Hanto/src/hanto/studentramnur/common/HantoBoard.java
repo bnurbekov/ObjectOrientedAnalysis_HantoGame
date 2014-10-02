@@ -271,15 +271,14 @@ public class HantoBoard {
 	private int countNeighbors(HantoCoordinate cell, Collection<HantoCoordinate> alreadyCheckedCells) {
 		int count = 0;
 		
-		count++; //account itself
+		count++; //count itself
 		alreadyCheckedCells.add(cell);
 		
 		Collection<HantoCoordinate> occupiedNeighbors = getOccupiedNeighbors(cell);
 		
 		for(HantoCoordinate coor : occupiedNeighbors) {
 			if (!alreadyCheckedCells.contains(coor)) {
-				alreadyCheckedCells.add(coor);
-				count += countNeighbors(cell, alreadyCheckedCells);
+				count += countNeighbors(coor, alreadyCheckedCells);
 			}
 		}
 		
