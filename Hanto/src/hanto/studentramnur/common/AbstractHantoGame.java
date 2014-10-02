@@ -65,7 +65,7 @@ public abstract class AbstractHantoGame implements HantoGame {
 	 * @param pieceType HantoPieceType
 	 * @param from HantoCoordinate
 	 * @param to HantoCoordinate
-	 * @throws HantoMoveException
+	 * @throws HantoException
 	 */
 	protected abstract void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException;
 
