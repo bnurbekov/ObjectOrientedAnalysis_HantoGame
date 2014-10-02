@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package hanto.studentramnur.delta;
 
 import static hanto.common.HantoPieceType.BUTTERFLY;
@@ -5,7 +15,6 @@ import static hanto.common.HantoPieceType.CRAB;
 import static hanto.common.HantoPieceType.SPARROW;
 import static hanto.common.HantoPlayerColor.BLUE;
 import static hanto.common.HantoPlayerColor.RED;
-import static hanto.common.MoveResult.DRAW;
 import static hanto.common.MoveResult.OK;
 import static org.junit.Assert.*;
 import hanto.common.HantoException;
@@ -24,6 +33,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+/**
+ * The class that is responsible for Delta Hanto Game tests.
+ * 
+ * @author Batyr and Shadi
+ *
+ */
 public class DeltaHantoGameTest {
 
 	private HantoTestGame game;

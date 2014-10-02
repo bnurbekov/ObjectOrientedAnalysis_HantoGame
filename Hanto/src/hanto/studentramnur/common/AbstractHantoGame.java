@@ -33,9 +33,11 @@ public abstract class AbstractHantoGame implements HantoGame {
 	protected Move currentMove;
 
 	/**
-	 * Constructor for the gamma Hanto game.
+	 * Constructor for the abstract Hanto Game.
+	 * 
+	 * @param movesFirst specifies the player that moves first.
 	 */
-	public AbstractHantoGame(HantoPlayerColor movesFirst) {
+	protected AbstractHantoGame(HantoPlayerColor movesFirst) {
 		board = new HantoBoard();
 
 		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
@@ -58,6 +60,14 @@ public abstract class AbstractHantoGame implements HantoGame {
 		return this.postMoveSetUp();
 	}
 
+	/**
+	 * This method is responsible for pre-move setup logic.
+	 * 
+	 * @param pieceType
+	 * @param from
+	 * @param to
+	 * @throws HantoException
+	 */
 	protected abstract void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException;
 	
 	protected void validateMove() throws HantoException {
@@ -66,8 +76,9 @@ public abstract class AbstractHantoGame implements HantoGame {
 		}
 		
 		if(currentMove.getMoveType() == MoveType.ADD) {
-			if(currentPlayer.getPieceCount(currentMove.pieceType) == 0)
+			if(currentPlayer.getPieceCount(currentMove.getPieceType()) == 0) {
 				throw new HantoException("Player does not have that piece to add.");
+			}
 		}
 		
 		if(!currentMove.validate(board)) {

@@ -10,13 +10,13 @@
 package hanto.studentramnur.gamma;
 
 import hanto.common.HantoCoordinate;
-import hanto.common.HantoException;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.AbstractHantoGame;
 import hanto.studentramnur.common.HantoBoardCoordinate;
+import hanto.studentramnur.common.move.HantoMoveException;
 import hanto.studentramnur.common.move.HantoMoveFactory;
 
 /**
@@ -41,15 +41,19 @@ public class GammaHantoGame extends AbstractHantoGame {
 	@Override
 	protected MoveResult getGameResult() {
 		MoveResult result = super.getGameResult();
-		if(result == MoveResult.OK && (bluePlayer.getMovesMade() + redPlayer.getMovesMade() > 20)) return MoveResult.DRAW;
-		else return result;
+		if(result == MoveResult.OK && (bluePlayer.getMovesMade() + redPlayer.getMovesMade() > 20)) {
+			return MoveResult.DRAW;
+		}
+		else { 
+			return result;
+		}
 	}
 	
 	@Override
-	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
+	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		from =  (from == null) ? null : new HantoBoardCoordinate(from);
 		to =  (to == null) ? null : new HantoBoardCoordinate(to);
 		
-		this.currentMove = HantoMoveFactory.getInstance().createMove(HantoGameID.GAMMA_HANTO, currentPlayer.getColor(), pieceType, from, to);
+		currentMove = HantoMoveFactory.getInstance().createMove(HantoGameID.GAMMA_HANTO, currentPlayer.getColor(), pieceType, from, to);
 	}
 }

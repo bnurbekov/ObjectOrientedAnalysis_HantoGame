@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package hanto.studentramnur.delta;
 
 import hanto.common.HantoCoordinate;
@@ -7,6 +17,12 @@ import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
 
+/**
+ * The class that tests Delta Hanto Game.
+ * 
+ * @author Batyr and Shadi
+ *
+ */
 public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame {
 	
 	public DeltaHantoTestGame(HantoPlayerColor movesFirst) {
@@ -40,8 +56,8 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 	 */
 	@Override
 	public void setTurnNumber(int turnNumber) {
-		this.bluePlayer.setMovesMade(turnNumber - 1);
-		this.redPlayer.setMovesMade(turnNumber - 1);
+		bluePlayer.setMovesMade(turnNumber - 1);
+		redPlayer.setMovesMade(turnNumber - 1);
 	}
 
 	/**
@@ -49,6 +65,6 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 	 */
 	@Override
 	public void setPlayerMoving(HantoPlayerColor player) {
-		this.currentPlayer = player == HantoPlayerColor.BLUE ? this.bluePlayer : this.redPlayer;
+		currentPlayer = player == HantoPlayerColor.BLUE ? bluePlayer : redPlayer;
 	}
 }

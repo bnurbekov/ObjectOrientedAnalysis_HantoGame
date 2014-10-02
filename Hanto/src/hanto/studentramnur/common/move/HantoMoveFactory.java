@@ -13,7 +13,6 @@ import hanto.common.HantoCoordinate;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.studentramnur.common.move.HantoMoveFactory;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
