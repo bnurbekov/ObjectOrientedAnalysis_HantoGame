@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
@@ -20,11 +19,18 @@ import hanto.studentramnur.common.piece.HantoPieceFactory;
 /**
  * Add move class that is responsible for piece placement onto the board.
  * 
- * @author Batyr and Shadi
- *
+ * @author Shadi
+ * @author Batyr
  */
 public class AddMove extends Move {
 
+	/**
+	 * Constructor for AddMove.
+	 * @param color HantoPlayerColor
+	 * @param pieceType HantoPieceType
+	 * @param from HantoCoordinate
+	 * @param to HantoCoordinate
+	 */
 	public AddMove(HantoPlayerColor color, HantoPieceType pieceType,
 			HantoCoordinate from, HantoCoordinate to) {
 		super(color, pieceType, from, to, MoveType.ADD);
@@ -35,9 +41,9 @@ public class AddMove extends Move {
 		boolean isValid = true;
 
 		if(board.isEmpty()) { // is it a new game?
-			if(!board.cellIsOrigin(to)) isValid = false; // is the piece added to origin?
+			if(!board.isCellOrigin(to)) isValid = false; // is the piece added to origin?
 		}
-		
+
 		if(board.getNumPiecesOnBoard() >= 2) { //if not first two moves
 			if(!(board.isAdjacentToExistingCells(to, this.getColor())
 					&& !board.isAdjacentToExistingCells(to, (this.getColor() == HantoPlayerColor.BLUE) ? HantoPlayerColor.RED : HantoPlayerColor.BLUE))) {
@@ -46,13 +52,13 @@ public class AddMove extends Move {
 		} else {
 			isValid = super.validate(board) && isValid;
 		}
-		
+
 		return isValid;
 	}
 
 	@Override
 	public void execute(HantoBoard board) {
-		HantoPiece piece = HantoPieceFactory.getInstance().createPiece(this.getColor(), pieceType);
+		final HantoPiece piece = HantoPieceFactory.getInstance().createPiece(this.getColor(), pieceType);
 
 		board.addPiece(this.getTo(), piece);
 	}

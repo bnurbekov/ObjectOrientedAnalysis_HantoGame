@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
@@ -19,8 +18,8 @@ import hanto.studentramnur.common.HantoBoard;
 /**
  * The abstract class that is responsible for the movement capabilities of pieces.
  * 
- * @author Batyr and Shadi
- *
+ * @author Shadi
+ * @author Batyr
  */
 public abstract class Move {
 	protected HantoPlayerColor color;
@@ -29,7 +28,15 @@ public abstract class Move {
 	protected HantoCoordinate to;
 	protected MoveResult result;
 	protected MoveType moveType;
-	
+
+	/**
+	 * Constructor for Move.
+	 * @param color HantoPlayerColor
+	 * @param pieceType HantoPieceType
+	 * @param from HantoCoordinate
+	 * @param to HantoCoordinate
+	 * @param moveType MoveType
+	 */
 	protected Move(HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to, MoveType moveType) {
 		this.color = color;
 		this.pieceType = pieceType;
@@ -39,47 +46,6 @@ public abstract class Move {
 		this.moveType = moveType;
 	}
 
-	public boolean validate(HantoBoard board) {
-		boolean isValid = true;
-		
-		if(this.isCellOccupied(board)) {
-			isValid = false;
-		}
-		
-		if(!board.isEmpty()) {
-			if(!board.isAdjacentToExistingCells(to, null)) {
-				isValid = false;
-			}
-		}
-		
-		return isValid;
-	}
-	
-	public abstract void execute(HantoBoard board);
-
-	protected boolean isCellOccupied(HantoBoard board) {		
-		return !board.isCellEmpty(this.getTo()); 
-	}
-
-	/**
-	 * 
-	 * @param board
-	 * @return
-	 */
-	protected boolean pieceCanBeMovedWithoutBreakingTheStructure(HantoBoard board) {
-		return !board.isCellCritical(from);
-	}
-	
-	/**
-	 * 
-	 * @param board
-	 * @return
-	 */
-	protected boolean pieceCanSqueeze(HantoBoard board) {
-		System.out.println("pieceCanSqueeze: " + board.countCommonOccupiedNeighbors(from, to));
-		return (board.countCommonOccupiedNeighbors(from, to) != 2);
-	}
-	
 	public HantoPlayerColor getColor() {
 		return color;
 	}
@@ -95,11 +61,67 @@ public abstract class Move {
 	public HantoCoordinate getTo() {
 		return to;
 	}
-	
+
 	public MoveResult getResult() {
 		return result;
 	}
-	
+
+	/**
+	 * Method validate.
+	 * @param board HantoBoard
+	 * @return boolean
+	 */
+	public boolean validate(HantoBoard board) {
+		boolean isValid = true;
+
+		if(this.isCellOccupied(board)) {
+			isValid = false;
+		}
+
+		if(!board.isEmpty()) {
+			if(!board.isAdjacentToExistingCells(to, null)) {
+				isValid = false;
+			}
+		}
+
+		return isValid;
+	}
+
+	/**
+	 * Method execute.
+	 * @param board HantoBoard
+	 */
+	public abstract void execute(HantoBoard board);
+
+	/**
+	 * Method isCellOccupied.
+	 * @param board HantoBoard
+	 * @return boolean
+	 */
+	protected boolean isCellOccupied(HantoBoard board) {		
+		return !board.isCellEmpty(getTo()); 
+	}
+
+	/**
+	 * 
+	 * @param board
+	 * @return boolean
+	 */
+	protected boolean canPieceBeMovedWithoutBreakingTheStructure(HantoBoard board) {
+		return !board.isCellCritical(from);
+	}
+
+	/**
+	 * 
+	 * @param board
+
+	 * @return boolean
+	 */
+	protected boolean canPieceSqueeze(HantoBoard board) {
+		System.out.println("pieceCanSqueeze: " + board.countCommonOccupiedNeighbors(from, to));
+		return (board.countCommonOccupiedNeighbors(from, to) != 2);
+	}
+
 	public MoveType getMoveType() {
 		return moveType;
 	}

@@ -29,7 +29,7 @@ public class GammaHantoGame extends AbstractHantoGame {
 	 */
 	public GammaHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
-		
+
 		// Set up player pieces
 		redPlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
 		redPlayer.setPieceCount(HantoPieceType.SPARROW, 5);
@@ -37,23 +37,21 @@ public class GammaHantoGame extends AbstractHantoGame {
 		bluePlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
 		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 5);
 	}
-	
+
 	@Override
 	protected MoveResult getGameResult() {
-		MoveResult result = super.getGameResult();
+		final MoveResult result = super.getGameResult();
 		if(result == MoveResult.OK && (bluePlayer.getMovesMade() + redPlayer.getMovesMade() > 20)) {
 			return MoveResult.DRAW;
-		}
-		else { 
+		} else {
 			return result;
 		}
 	}
-	
+
 	@Override
 	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		from =  (from == null) ? null : new HantoBoardCoordinate(from);
 		to =  (to == null) ? null : new HantoBoardCoordinate(to);
-		
 		currentMove = HantoMoveFactory.getInstance().createMove(HantoGameID.GAMMA_HANTO, currentPlayer.getColor(), pieceType, from, to);
 	}
 }

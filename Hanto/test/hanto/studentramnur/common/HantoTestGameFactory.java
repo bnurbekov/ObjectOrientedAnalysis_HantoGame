@@ -38,7 +38,7 @@ public class HantoTestGameFactory
 	{
 		return INSTANCE;
 	}
-	
+
 	/**
 	 * Create the specified Hanto game version with the Blue player moving
 	 * first.
@@ -49,7 +49,7 @@ public class HantoTestGameFactory
 	{
 		return makeHantoTestGame(gameId, HantoPlayerColor.BLUE);
 	}
-	
+
 	/**
 	 * Factory method that returns the appropriately configured Hanto game.
 	 * @param gameId the version desired.
@@ -59,12 +59,12 @@ public class HantoTestGameFactory
 	public HantoTestGame makeHantoTestGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoTestGame game = null;
 		switch (gameId) {
-			case GAMMA_HANTO:
-				game = new GammaHantoTestGame(movesFirst);
-				break;
-			case DELTA_HANTO:
-				game = new DeltaHantoTestGame(movesFirst);
-				break;
+		case GAMMA_HANTO:
+			game = new GammaHantoTestGame(movesFirst);
+			break;
+		case DELTA_HANTO:
+			game = new DeltaHantoTestGame(movesFirst);
+			break;
 		}
 		return game;
 	}

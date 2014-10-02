@@ -40,14 +40,17 @@ public class HantoMoveFactory {
 	/**
 	 * Determines the piece that should be created based on the input parameters.
 	 * 
+	 * @param id The HantoGameID
 	 * @param color the color of the piece that should be created
-	 * @param type the type of the piece that should be created 
+	 * @param pieceType the type of the piece that should be created 
+	 * @param from The from coordinate
+	 * @param to The to coordinate
 	 * @return the created piece
 	 * @throws HantoMoveException 
 	 */
 	public Move createMove(HantoGameID id, HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		Move move;
-		
+
 		if(id == HantoGameID.GAMMA_HANTO) {
 			if(from == null && to == null) {
 				throw new HantoMoveException("Forfeiting is not allowed in Gamma Hanto.");
@@ -90,7 +93,7 @@ public class HantoMoveFactory {
 				}
 			}
 		}
-		
+
 		return move;
 	}
 }

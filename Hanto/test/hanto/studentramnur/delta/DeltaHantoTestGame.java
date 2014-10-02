@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
 package hanto.studentramnur.delta;
 
 import hanto.common.HantoCoordinate;
@@ -15,16 +14,26 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
+import hanto.studentramnur.common.PieceLocationPair;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
 
 /**
+<<<<<<< HEAD
  * The class that tests Delta Hanto Game.
  * 
  * @author Batyr and Shadi
  *
+=======
+ * @author Shadi
+ * @author Batyr
+>>>>>>> 209a7b202503cc3239b9d459aad60eeeff57aa2b
  */
 public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame {
-	
+
+	/**
+	 * Constructor for DeltaHantoTestGame.
+	 * @param movesFirst HantoPlayerColor
+	 */
 	public DeltaHantoTestGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 	}
@@ -35,9 +44,9 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 	@Override
 	public void initializeBoard(PieceLocationPair[] initialPieces) {
 		for(PieceLocationPair pair: initialPieces)  {
-			HantoCoordinate coor = new HantoBoardCoordinate(pair.location);
-			HantoPiece piece = HantoPieceFactory.getInstance().createPiece(pair.player, pair.pieceType);
-			
+			HantoCoordinate coor = new HantoBoardCoordinate(pair.getLocation());
+			HantoPiece piece = HantoPieceFactory.getInstance().createPiece(pair.getPlayer(), pair.getPieceType());
+
 			if(piece.getColor() == HantoPlayerColor.BLUE) {
 				bluePlayer.decrementPieceCount(piece.getType());
 				bluePlayer.incrementMovesMade();
@@ -46,7 +55,7 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 				redPlayer.decrementPieceCount(piece.getType());
 				redPlayer.incrementMovesMade();
 			}
-			
+
 			board.addPiece(coor, piece);
 		}
 	}

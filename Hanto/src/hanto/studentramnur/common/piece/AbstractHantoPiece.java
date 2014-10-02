@@ -12,8 +12,8 @@ import hanto.common.HantoPlayerColor;
  */
 public abstract class AbstractHantoPiece implements HantoPiece {
 
-	private HantoPlayerColor color;
-	private HantoPieceType type;
+	private final HantoPlayerColor color;
+	private final HantoPieceType type;
 
 	/**
 	 * Constructor for AbstractHantoPiece class.
@@ -52,7 +52,7 @@ public abstract class AbstractHantoPiece implements HantoPiece {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		AbstractHantoPiece other = (AbstractHantoPiece) obj;
+		final AbstractHantoPiece other = (AbstractHantoPiece) obj;
 		if (color != other.color) {
 			return false;
 		}

@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoException;
@@ -15,11 +14,15 @@ import hanto.common.HantoException;
 /**
  * The HantoMoveException is the Exception that is thrown for any error that occurs during the move.
  * 
- * @author Batyr and Shadi
- *
+ * @author Shadi
+ * @author Batyr
  */
 public class HantoMoveException extends HantoException {
 
+	/**
+	 * Constructor for HantoMoveException.
+	 * @param message String
+	 */
 	public HantoMoveException(String message) {
 		super(message);
 	}

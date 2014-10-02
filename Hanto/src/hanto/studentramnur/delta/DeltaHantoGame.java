@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
 package hanto.studentramnur.delta;
 
 import hanto.common.HantoCoordinate;
@@ -22,14 +21,18 @@ import hanto.studentramnur.common.move.HantoMoveFactory;
 /**
  * The class that contains logic for Delta Hanto Game.
  * 
- * @author Batyr and Shadi
- *
+ * @author Shadi
+ * @author Batyr
  */
 public class DeltaHantoGame extends AbstractHantoGame {
 
+	/**
+	 * Constructor for DeltaHantoGame.
+	 * @param movesFirst HantoPlayerColor
+	 */
 	public DeltaHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
-		
+
 		// Set up player pieces
 		redPlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
 		redPlayer.setPieceCount(HantoPieceType.SPARROW, 4);
@@ -39,12 +42,11 @@ public class DeltaHantoGame extends AbstractHantoGame {
 		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 4);
 		bluePlayer.setPieceCount(HantoPieceType.CRAB, 4);
 	}
-	
+
 	@Override
 	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		from = (from == null) ? null : new HantoBoardCoordinate(from);
 		to = (to == null) ? null : new HantoBoardCoordinate(to);
-		
 		currentMove = HantoMoveFactory.getInstance().createMove(HantoGameID.DELTA_HANTO, currentPlayer.getColor(), pieceType, from, to);
 	}
 }

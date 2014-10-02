@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
@@ -18,12 +17,19 @@ import hanto.studentramnur.common.HantoBoard;
 
 /**
  * Forfeit move class that is responsible for the move that allows player to forfeit.
- * 
- * @author Batyr and Shadi
  *
+ * @author Shadi
+ * @author Batyr
  */
 public class ForfeitMove extends Move {
 
+	/**
+	 * Constructor for ForfeitMove.
+	 * @param color HantoPlayerColor
+	 * @param pieceType HantoPieceType
+	 * @param from HantoCoordinate
+	 * @param to HantoCoordinate
+	 */
 	public ForfeitMove(HantoPlayerColor color, HantoPieceType pieceType,
 			HantoCoordinate from, HantoCoordinate to) {
 		super(color, pieceType, from, to, MoveType.FORFEIT);

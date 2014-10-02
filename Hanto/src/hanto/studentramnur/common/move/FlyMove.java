@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
@@ -18,10 +17,17 @@ import hanto.studentramnur.common.HantoBoard;
 /**
  * Fly move class that is responsible for the flight capabilities of the pieces.
  * 
- * @author Batyr and Shadi
- *
+ * @author Shadi
+ * @author Batyr
  */
 public class FlyMove extends Move {
+	/**
+	 * Constructor for FlyMove.
+	 * @param color HantoPlayerColor
+	 * @param pieceType HantoPieceType
+	 * @param from HantoCoordinate
+	 * @param to HantoCoordinate
+	 */
 	public FlyMove(HantoPlayerColor color, HantoPieceType pieceType,
 			HantoCoordinate from, HantoCoordinate to) {
 		super(color, pieceType, from, to, MoveType.FLY);
@@ -31,7 +37,7 @@ public class FlyMove extends Move {
 	public boolean validate(HantoBoard board) {
 		return super.validate(board) 
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
-				&& pieceCanBeMovedWithoutBreakingTheStructure(board);
+				&& canPieceBeMovedWithoutBreakingTheStructure(board);
 	}
 
 	@Override
