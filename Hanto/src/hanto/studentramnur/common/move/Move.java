@@ -71,7 +71,7 @@ public abstract class Move {
 	 * @return
 	 */
 	protected boolean pieceCanBeMovedWithoutBreakingTheStructure(HantoBoard board) {
-		return board.isCellCritical(this.from);
+		return !board.isCellCritical(this.from);
 	}
 	
 	/**

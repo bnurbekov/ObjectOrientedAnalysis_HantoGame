@@ -52,7 +52,9 @@ public class HantoPlayer {
 	 * @return The number of remaining pieces of type piece.
 	 */
 	public int getPieceCount(HantoPieceType piece) {
-		return pieces.getOrDefault(piece, 0);
+		Integer pieceCount = pieces.get(piece);
+		
+		return (pieceCount == null) ? 0 : pieceCount;
 	}
 
 	/**
