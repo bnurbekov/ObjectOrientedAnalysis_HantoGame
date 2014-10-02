@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.studentramnur.delta;
 
 import hanto.common.HantoCoordinate;
@@ -5,10 +14,19 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
+import hanto.studentramnur.common.PieceLocationPair;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
 
+/**
+ * @author Shadi
+ * @author Batyr
+ */
 public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame {
-	
+
+	/**
+	 * Constructor for DeltaHantoTestGame.
+	 * @param movesFirst HantoPlayerColor
+	 */
 	public DeltaHantoTestGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 	}
@@ -19,9 +37,9 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 	@Override
 	public void initializeBoard(PieceLocationPair[] initialPieces) {
 		for(PieceLocationPair pair: initialPieces)  {
-			HantoCoordinate coor = new HantoBoardCoordinate(pair.location);
-			HantoPiece piece = HantoPieceFactory.getInstance().createPiece(pair.player, pair.pieceType);
-			
+			HantoCoordinate coor = new HantoBoardCoordinate(pair.getLocation());
+			HantoPiece piece = HantoPieceFactory.getInstance().createPiece(pair.getPlayer(), pair.getPieceType());
+
 			if(piece.getColor() == HantoPlayerColor.BLUE) {
 				bluePlayer.decrementPieceCount(piece.getType());
 				bluePlayer.incrementMovesMade();
@@ -30,7 +48,7 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 				redPlayer.decrementPieceCount(piece.getType());
 				redPlayer.incrementMovesMade();
 			}
-			
+
 			board.addPiece(coor, piece);
 		}
 	}
@@ -40,8 +58,8 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 	 */
 	@Override
 	public void setTurnNumber(int turnNumber) {
-		this.bluePlayer.setMovesMade(turnNumber - 1);
-		this.redPlayer.setMovesMade(turnNumber - 1);
+		bluePlayer.setMovesMade(turnNumber - 1);
+		redPlayer.setMovesMade(turnNumber - 1);
 	}
 
 	/**
@@ -49,6 +67,6 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 	 */
 	@Override
 	public void setPlayerMoving(HantoPlayerColor player) {
-		this.currentPlayer = player == HantoPlayerColor.BLUE ? this.bluePlayer : this.redPlayer;
+		currentPlayer = player == HantoPlayerColor.BLUE ? bluePlayer : redPlayer;
 	}
 }

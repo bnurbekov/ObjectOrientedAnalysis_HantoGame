@@ -29,19 +29,20 @@ public abstract class AbstractHantoGame implements HantoGame {
 	protected HantoBoard board;
 
 	private MoveResult prevResult;
-	
+
 	protected Move currentMove;
 
 	/**
 	 * Constructor for the gamma Hanto game.
+	 * @param movesFirst HantoPlayerColor
 	 */
-	public AbstractHantoGame(HantoPlayerColor movesFirst) {
+	protected AbstractHantoGame(HantoPlayerColor movesFirst) {
 		board = new HantoBoard();
 
 		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
 		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE);
 		currentPlayer = (movesFirst == HantoPlayerColor.BLUE) ? bluePlayer : redPlayer;
-		
+
 		prevResult = MoveResult.OK;
 	}
 
@@ -51,58 +52,77 @@ public abstract class AbstractHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
-		
+
 		this.preMoveSetUp(pieceType, from, to);
 		this.validateMove();
 		this.executeMove();
 		return this.postMoveSetUp();
 	}
 
+	/**
+	 * Method preMoveSetUp.
+	 * @param pieceType HantoPieceType
+	 * @param from HantoCoordinate
+	 * @param to HantoCoordinate
+	 * @throws HantoException
+	 */
 	protected abstract void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException;
-	
+
+	/**
+	 * Method validateMove.
+	 * @throws HantoException
+	 */
 	protected void validateMove() throws HantoException {
 		if(this.isGameOver()) {
 			throw new HantoException("Game is already over.");
 		}
-		
+
 		if(currentMove.getMoveType() == MoveType.ADD) {
-			if(currentPlayer.getPieceCount(currentMove.pieceType) == 0)
+			if(currentPlayer.getPieceCount(currentMove.getPieceType()) == 0) {
 				throw new HantoException("Player does not have that piece to add.");
+			}
 		}
-		
+
 		if(!currentMove.validate(board)) {
 			throw new HantoException("Invalid Move.");
 		}
-		
+
 		validateButterflyPlacement();
 	}
-	
+
 	private void validateButterflyPlacement() throws HantoException {
-		HantoPieceType pieceType = currentMove.getPieceType();
-		
+		final HantoPieceType pieceType = currentMove.getPieceType();
+
 		if(!currentPlayer.hasPlacedButterfly() && pieceType != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 3) {
 			throw new HantoException("Player must place a butterfly.");
 		}
 	}
-	
+
+	/**
+	 * Method executeMove.
+	 */
 	protected void executeMove() {
 		currentMove.execute(board);
 	}
-	
+
+	/**
+	 * Method postMoveSetUp.
+	 * @return MoveResult
+	 */
 	protected MoveResult postMoveSetUp() {
 		currentPlayer.incrementMovesMade();
-		
+
 		if(currentMove.getMoveType() == MoveType.ADD) {
 			currentPlayer.decrementPieceCount(currentMove.getPieceType());
 		}
 
-		MoveResult result = this.getGameResult();
+		final MoveResult result = this.getGameResult();
 		if(result == MoveResult.OK) changePlayer();
 
 		prevResult = result;
 		return result;
 	}
-	
+
 	protected boolean isGameOver() {
 		return prevResult != MoveResult.OK;
 	}
@@ -116,7 +136,7 @@ public abstract class AbstractHantoGame implements HantoGame {
 		if(currentMove.getResult() != MoveResult.OK) { // If the game was forfeit (game result not ok from executing move)
 			return currentMove.getResult();
 		}
-		
+
 		if(board.isButterflySurrounded(HantoPlayerColor.RED) && board.isButterflySurrounded(HantoPlayerColor.BLUE)) {
 			return MoveResult.DRAW;
 		}

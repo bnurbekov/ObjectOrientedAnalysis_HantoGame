@@ -20,8 +20,8 @@ import java.util.Map;
  * Also, contains the pieces that the player can place on the board.
  */
 public class HantoPlayer {
-	private HantoPlayerColor color;
-	private HashMap<HantoPieceType, Integer> pieces;
+	private final HantoPlayerColor color;
+	private final HashMap<HantoPieceType, Integer> pieces;
 	private int movesMade;
 
 	/**
@@ -101,7 +101,7 @@ public class HantoPlayer {
 	 * @return indication of whether the player has placed the butterfly piece or not.
 	 */
 	public boolean hasPlacedButterfly() {
-		boolean playerHasPlacedButterfly = (pieces.get(HantoPieceType.BUTTERFLY) == 0);
+		final boolean playerHasPlacedButterfly = (pieces.get(HantoPieceType.BUTTERFLY) == 0);
 		return playerHasPlacedButterfly;
 	}
 

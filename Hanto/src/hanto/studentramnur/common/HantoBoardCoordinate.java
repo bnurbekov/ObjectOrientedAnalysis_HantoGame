@@ -81,7 +81,7 @@ public class HantoBoardCoordinate implements HantoCoordinate {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		HantoBoardCoordinate other = (HantoBoardCoordinate) obj;
+		final HantoBoardCoordinate other = (HantoBoardCoordinate) obj;
 		if (x != other.x) {
 			return false;
 		}

@@ -26,7 +26,7 @@ import hanto.studentramnur.gamma.GammaHantoGame;
 public class HantoGameFactory
 {
 	private static final HantoGameFactory instance = new HantoGameFactory();
-	
+
 	/**
 	 * Default private descriptor.
 	 */
@@ -42,7 +42,7 @@ public class HantoGameFactory
 	{
 		return instance;
 	}
-	
+
 	/**
 	 * Create the specified Hanto game version with the Blue player moving
 	 * first.
@@ -53,7 +53,7 @@ public class HantoGameFactory
 	{
 		return makeHantoGame(gameId, HantoPlayerColor.BLUE);
 	}
-	
+
 	/**
 	 * Factory method that returns the appropriately configured Hanto game.
 	 * @param gameId the version desired.
