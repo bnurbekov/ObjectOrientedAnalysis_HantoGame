@@ -43,6 +43,9 @@ public class DeltaHantoGame extends AbstractHantoGame {
 		bluePlayer.setPieceCount(HantoPieceType.CRAB, 4);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		from = (from == null) ? null : new HantoBoardCoordinate(from);

@@ -33,6 +33,9 @@ public class FlyMove extends Move {
 		super(color, pieceType, from, to, MoveType.FLY);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean validate(HantoBoard board) {
 		return super.validate(board) 
@@ -40,6 +43,9 @@ public class FlyMove extends Move {
 				&& canPieceBeMovedWithoutBreakingTheStructure(board);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void execute(HantoBoard board) {
 		board.movePiece(this.getFrom(), this.getTo());

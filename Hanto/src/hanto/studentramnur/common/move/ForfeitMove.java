@@ -35,11 +35,17 @@ public class ForfeitMove extends Move {
 		super(color, pieceType, from, to, MoveType.FORFEIT);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean validate(HantoBoard board) {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void execute(HantoBoard board) {
 		result = (color == HantoPlayerColor.BLUE) ? MoveResult.RED_WINS : MoveResult.BLUE_WINS;

@@ -15,17 +15,20 @@ import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
 
 /**
+ * Class that implements the walk move.
+ * 
  * @author Batyr
  * @author Shadi
  */
 public class WalkMove extends Move {
 
 	/**
+	 * The constructor for WalkMove class.
 	 * 
-	 * @param color
-	 * @param pieceType
-	 * @param from
-	 * @param to
+	 * @param color the color of the piece that is being moved
+	 * @param pieceType the type of the piece that is being moved
+	 * @param from from coordinate
+	 * @param to to coordinate
 	 */
 	public WalkMove(HantoPlayerColor color, HantoPieceType pieceType,
 			HantoCoordinate from, HantoCoordinate to) {
@@ -33,8 +36,7 @@ public class WalkMove extends Move {
 	}
 
 	/**
-	 * 
-	 * @param board
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean validate(HantoBoard board) {		
@@ -46,8 +48,7 @@ public class WalkMove extends Move {
 	}
 
 	/**
-	 * 
-	 * @param board
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void execute(HantoBoard board) {

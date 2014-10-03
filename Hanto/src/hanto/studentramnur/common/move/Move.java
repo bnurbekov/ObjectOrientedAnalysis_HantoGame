@@ -31,6 +31,7 @@ public abstract class Move {
 
 	/**
 	 * Constructor for Move.
+	 * 
 	 * @param color HantoPlayerColor
 	 * @param pieceType HantoPieceType
 	 * @param from HantoCoordinate
@@ -46,30 +47,11 @@ public abstract class Move {
 		this.moveType = moveType;
 	}
 
-	public HantoPlayerColor getColor() {
-		return color;
-	}
-
-	public HantoPieceType getPieceType() {
-		return pieceType;
-	}
-
-	public HantoCoordinate getFrom() {
-		return from;
-	}
-
-	public HantoCoordinate getTo() {
-		return to;
-	}
-
-	public MoveResult getResult() {
-		return result;
-	}
-
 	/**
-	 * Method validate.
+	 * Checks if the move is valid.
+	 * 
 	 * @param board HantoBoard
-	 * @return boolean
+	 * @return boolean indication of whether the move is valid or not
 	 */
 	public boolean validate(HantoBoard board) {
 		boolean isValid = true;
@@ -88,13 +70,15 @@ public abstract class Move {
 	}
 
 	/**
-	 * Method execute.
+	 * Executes the move.
+	 * 
 	 * @param board HantoBoard
 	 */
 	public abstract void execute(HantoBoard board);
 
 	/**
 	 * Method isCellOccupied.
+	 * 
 	 * @param board HantoBoard
 	 * @return boolean
 	 */
@@ -103,48 +87,78 @@ public abstract class Move {
 	}
 
 	/**
+	 * Determines whether the piece can be moved without breaking the structure.
 	 * 
-	 * @param board
-	 * @return boolean
+	 * @param board the board
+	 * @return boolean indication of whether the piece can be moved without breaking the structure
 	 */
 	protected boolean canPieceBeMovedWithoutBreakingTheStructure(HantoBoard board) {
 		return !board.isCellCritical(from);
 	}
 
 	/**
+	 * Determines whether the piece can be squeezed to the new position through its neighbors.
 	 * 
-	 * @param board
-
-	 * @return boolean
+	 * @param board the board
+	 * @return boolean indication of whether the piece can be squeezed to the new position through its neighbors.
 	 */
 	protected boolean canPieceSqueeze(HantoBoard board) {
 		System.out.println("pieceCanSqueeze: " + board.countCommonOccupiedNeighbors(from, to));
 		return (board.countCommonOccupiedNeighbors(from, to) != 2);
 	}
 
+	/**
+	 * getMoveType() method
+	 * 
+	 * @return moveType
+	 */
 	public MoveType getMoveType() {
 		return moveType;
 	}
-
-	public void setColor(HantoPlayerColor color) {
-		this.color = color;
-	}
-
-	public void setPieceType(HantoPieceType pieceType) {
-		this.pieceType = pieceType;
-	}
-
-	public void setFrom(HantoCoordinate from) {
-		this.from = from;
-	}
-
-	public void setTo(HantoCoordinate to) {
-		this.to = to;
-	}
-
-	public void setResult(MoveResult result) {
-		this.result = result;
-	}
 	
-	
+	/**
+	 * getColor() method
+	 * 
+	 * @return color
+	 */
+	public HantoPlayerColor getColor() {
+		return color;
+	}
+
+	/**
+	 * getPieceType() method
+	 * 
+	 * @return pieceType
+	 */
+	public HantoPieceType getPieceType() {
+		return pieceType;
+	}
+
+	/**
+	 * getFrom() method
+	 * 
+	 * @return from
+	 */
+	public HantoCoordinate getFrom() {
+		return from;
+	}
+
+	/**
+	 * getTo() method
+	 * 
+	 * @return to
+	 */
+	public HantoCoordinate getTo() {
+		return to;
+	}
+
+	/**
+	 * getResult() method
+	 * 
+	 * @return result
+	 */
+	public MoveResult getResult() {
+		return result;
+	}
+
 }

@@ -29,6 +29,8 @@ public class HantoPieceFactory {
 	}
 
 	/**
+	 * Gets the instance of the factory.
+	 * 
 	 * @return the instance
 	 */
 	public static HantoPieceFactory getInstance()

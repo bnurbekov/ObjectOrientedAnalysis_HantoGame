@@ -38,6 +38,9 @@ public class GammaHantoGame extends AbstractHantoGame {
 		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 5);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected MoveResult getGameResult() {
 		final MoveResult result = super.getGameResult();
@@ -48,6 +51,9 @@ public class GammaHantoGame extends AbstractHantoGame {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		from =  (from == null) ? null : new HantoBoardCoordinate(from);
