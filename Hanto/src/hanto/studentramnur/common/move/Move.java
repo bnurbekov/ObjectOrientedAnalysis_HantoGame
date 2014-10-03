@@ -125,26 +125,4 @@ public abstract class Move {
 	public MoveType getMoveType() {
 		return moveType;
 	}
-
-	public void setColor(HantoPlayerColor color) {
-		this.color = color;
-	}
-
-	public void setPieceType(HantoPieceType pieceType) {
-		this.pieceType = pieceType;
-	}
-
-	public void setFrom(HantoCoordinate from) {
-		this.from = from;
-	}
-
-	public void setTo(HantoCoordinate to) {
-		this.to = to;
-	}
-
-	public void setResult(MoveResult result) {
-		this.result = result;
-	}
-	
-	
 }

@@ -39,11 +39,8 @@ import org.junit.rules.ExpectedException;
  * The class that is responsible for Delta Hanto Game tests.
  * 
  * @author Batyr and Shadi
- *
-=======
  * @author Shadi
  * @author Batyr
->>>>>>> 209a7b202503cc3239b9d459aad60eeeff57aa2b
  */
 public class DeltaHantoGameTest {
 
@@ -72,7 +69,6 @@ public class DeltaHantoGameTest {
 	/**
 	 * Test valid first blue move.
 	 * 
-
 	 * @throws HantoException */
 	@Test
 	public void blueMakesValidFirstMove() throws HantoException {
@@ -86,7 +82,6 @@ public class DeltaHantoGameTest {
 	/**
 	 * Test invalid first blue move.
 	 * 
-
 	 * @throws HantoException */
 	@Test
 	public void blueMakesInvalidFirstMove1() throws HantoException {
@@ -99,7 +94,6 @@ public class DeltaHantoGameTest {
 	/**
 	 * Test invalid first blue move.
 	 * 
-
 	 * @throws HantoException */
 	@Test
 	public void blueMakesInvalidFirstMove2() throws HantoException {
@@ -123,7 +117,7 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Blue forfeits
-
+	 * 
 	 * @throws HantoException */
 	@Test
 	public void blueForfeits() throws HantoException {	
@@ -132,7 +126,7 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Red forfeits
-
+	 * 
 	 * @throws HantoException */
 	@Test
 	public void redForfeits() throws HantoException {
@@ -142,7 +136,7 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Blue moves a piece off the board.
-
+	 * 
 	 * @throws HantoException */
 	@Test
 	public void movesPieceOffBoard() throws HantoException {
@@ -156,7 +150,7 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Move a piece a player does not have.
-
+	 * 
 	 * @throws HantoException */
 	@Test
 	public void movePiecePlayerDoesNotHave() throws HantoException {
@@ -209,7 +203,7 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Move a piece on top of a piece.
-
+	 * 
 	 * @throws HantoException */
 	@Test
 	public void moveAPieceOntoAPiece() throws HantoException {
@@ -223,8 +217,8 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Move a piece to float.
-
-	 * @throws HantoException */
+	 * @throws HantoException
+	 */
 	@Test
 	public void moveAPieceToFloat() throws HantoException {
 		thrown.expect(HantoException.class);
@@ -238,9 +232,8 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Checks if red wins when the blue butterfly is surrounded.
-	 * 
-
-	 * @throws HantoException */
+	 * @throws HantoException
+	 * */
 	@Test
 	public void blueButterflyIsSurrounded() throws HantoException {
 		final PieceLocationPair[] initialPieces = new PieceLocationPair[7];
@@ -261,9 +254,8 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Checks if blue wins when the red butterfly is surrounded.
-	 * 
-
-	 * @throws HantoException */
+	 * @throws HantoException
+	 * */
 	@Test
 	public void redButterflyIsSurrounded() throws HantoException {
 		final PieceLocationPair[] initialPieces = new PieceLocationPair[7];
@@ -317,9 +309,8 @@ public class DeltaHantoGameTest {
 
 	/**
 	 * Checks breaking of a chain.
-	 * 
-
-	 * @throws HantoException */
+	 * @throws HantoException
+	 */
 	@Test
 	public void breakChain() throws HantoException {
 		thrown.expect(HantoException.class);
@@ -339,5 +330,20 @@ public class DeltaHantoGameTest {
 		game.setPlayerMoving(RED);
 
 		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 1), new HantoTestCoordinate(-1, 2));
+	}
+	
+	/**
+	 * Move every type of piece.
+	 * @throws HantoException
+	 */
+	@Test
+	public void moveButterflySparrowCrab() throws HantoException {
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
+		game.makeMove(SPARROW, null, new HantoTestCoordinate(0, -1));
+		game.makeMove(SPARROW, null, new HantoTestCoordinate(0, 2));
+		game.makeMove(CRAB, null, new HantoTestCoordinate(0, -2));
+		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 3));
+		
 	}
 }

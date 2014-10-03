@@ -322,7 +322,6 @@ public class GammaHantoGameTest {
 		game.initializeBoard(initialPieces);
 		game.setPlayerMoving(HantoPlayerColor.RED);
 
-		System.out.println("meow");
 		game.makeMove(BUTTERFLY, new HantoTestCoordinate(0, 1), new HantoTestCoordinate(-1, 2));
 	}
 
@@ -333,7 +332,6 @@ public class GammaHantoGameTest {
 	 * @throws HantoException */
 	@Test
 	public void squeezePieceThrough() throws HantoException {
-		System.out.println("squeezePieceThrough");
 		thrown.expect(HantoException.class);
 		thrown.expectMessage("Invalid Move.");
 
@@ -350,5 +348,20 @@ public class GammaHantoGameTest {
 		game.setPlayerMoving(HantoPlayerColor.BLUE);
 
 		game.makeMove(BUTTERFLY, new HantoTestCoordinate(1, 0), new HantoTestCoordinate(1, -1));
+	}
+	
+	/**
+	 * Checks adding a blue piece next to a red piece.
+	 * 
+	 * @throws HantoException */
+	@Test
+	public void addBlueToRed() throws HantoException {
+		thrown.expect(HantoException.class);
+		thrown.expectMessage("Invalid Move.");
+
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
+		
+		game.makeMove(SPARROW, null, new HantoTestCoordinate(1, 1));
 	}
 }
