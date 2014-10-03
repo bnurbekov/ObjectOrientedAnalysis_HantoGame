@@ -69,8 +69,8 @@ public class HantoBoard {
 	 * Determines if the cell is origin.
 	 * 
 	 * @param cell cell to check
-
-	 * @return the indication of whether the cell is origin or not */
+	 * @return the indication of whether the cell is origin or not 
+	 */
 	public boolean isCellOrigin(HantoCoordinate cell) {
 		return (cell.getX() == 0) && (cell.getY() == 0);
 	}
@@ -79,8 +79,8 @@ public class HantoBoard {
 	 * Determines if the cell is empty.
 	 * 
 	 * @param cell cell to check
-
-	 * @return the indication of whether the cell is empty or not */
+	 * @return the indication of whether the cell is empty or not
+	 */
 	public boolean isCellEmpty(HantoCoordinate cell) {
 		return !board.containsKey(cell);
 	}
@@ -89,8 +89,8 @@ public class HantoBoard {
 	 * Determines if the piece exists on the board
 	 * 
 	 * @param piece the piece to check
-
-	 * @return indication of whether the piece exists on the board or not */
+	 * @return indication of whether the piece exists on the board or not 
+	 */
 	public boolean hasPiece(HantoPiece piece) {
 		return pieceToCoordsMapping.containsKey(piece);
 	}
@@ -100,8 +100,8 @@ public class HantoBoard {
 	 * 
 	 * @param cellToCheck the cell to check
 	 * @param color the color to check against, null means either color
-
-	 * @return indication of whether the cell is adjacent to some existing cell on the board or not */
+	 * @return indication of whether the cell is adjacent to some existing cell on the board or not 
+	 */
 	public boolean isAdjacentToExistingCells(HantoCoordinate cellToCheck, HantoPlayerColor color) {
 		boolean isAdjacentToExistingCells = false;
 
@@ -122,8 +122,8 @@ public class HantoBoard {
 	 * 
 	 * @param cell the first cell
 	 * @param toCell the second cell
-
-	 * @return indication of whether the two cells are adjacent to each other */
+	 * @return indication of whether the two cells are adjacent to each other 
+	 */
 	public boolean isCellAdjacentTo(HantoCoordinate cell, HantoCoordinate toCell) {
 		final int cellDifference = getCellDistance(cell, toCell);
 		return cellDifference == 1;
@@ -134,8 +134,8 @@ public class HantoBoard {
 	 * 
 	 * @param fromCell the first cell
 	 * @param toCell the second cell
-
-	 * @return the distance between two cells */
+	 * @return the distance between two cells 
+	 */
 	public int getCellDistance(HantoCoordinate fromCell, HantoCoordinate toCell) {
 		final int xDifference = fromCell.getX() - toCell.getX();
 		final int yDifference = fromCell.getY() - toCell.getY();
@@ -153,8 +153,8 @@ public class HantoBoard {
 	 * Checks if the cell is surrounded by Hanto pieces.
 	 * 
 	 * @param cell the cell to check
-
-	 * @return indication of whether the cell is surrounded by Hanto pieces or not */
+	 * @return indication of whether the cell is surrounded by Hanto pieces or not 
+	 */
 	public boolean isCellSurrounded(HantoCoordinate cell) {
 		boolean cellSurrounded = true;
 		final Collection<HantoCoordinate> surroundingCellsList = getSurroundingCells(cell);
@@ -205,7 +205,7 @@ public class HantoBoard {
 	}
 
 	/**
-	 * Counts the number of common non-empty neighbors
+	 * Counts the number of common non-empty neighbors.
 	 * 
 	 * @param firstCell
 	 * @param secondCell
@@ -238,8 +238,8 @@ public class HantoBoard {
 	 * for the current graph of non-empty cells.
 	 * 
 	 * @param cell the cell to check
-
-	 * @return whether the cell is critical or not */
+	 * @return whether the cell is critical or not
+	 */
 	public boolean isCellCritical(HantoCoordinate cell) {
 		boolean isCellCritical = true;
 
@@ -308,8 +308,8 @@ public class HantoBoard {
 	 * Checks if the butterfly was surrounded.
 	 * 
 	 * @param color the color of the butterfly
-
-	 * @return indication of whether the butterfly with specific color was surrounded */
+	 * @return indication of whether the butterfly with specific color was surrounded
+	 */
 	public boolean isButterflySurrounded(HantoPlayerColor color) {
 		final HantoPiece butterfly = new Butterfly(color);
 
@@ -326,13 +326,15 @@ public class HantoBoard {
 	 * Gets piece at specific coordinate
 	 * 
 	 * @param where the coordinate
-
-	 * @return the returned piece */
+	 * @return the returned piece 
+	 */
 	public HantoPiece getPiece(HantoCoordinate where) {
 		return board.get(where);
 	}
 
 	/**
+	 * Returns a printable board.
+	 * 
 	 * @return a printable representation of the board.
 	 */ 
 	public String getPrintableBoard() {
@@ -364,8 +366,8 @@ public class HantoBoard {
 	 * Removes the piece from the board.
 	 * 
 	 * @param from the coordinate to remove the piece from
-
-	 * @return the piece removed */
+	 * @return the piece removed 
+	 */
 	public HantoPiece removePiece(HantoCoordinate from) {
 		final HantoPiece piece = board.remove(from);
 		pieceToCoordsMapping.get(piece).remove(from);
@@ -382,11 +384,13 @@ public class HantoBoard {
 	}
 
 	/**
-	 * Method pieceMatchesAtCell.
-	 * @param color HantoPlayerColor
-	 * @param pieceType HantoPieceType
-	 * @param coor HantoCoordinate
-	 * @return boolean
+	 * Determines if the piece at the specified cell matches 
+	 * certain criteria specified by the input parameters. 
+	 * 
+	 * @param color HantoPlayerColor the color of the piece
+	 * @param pieceType HantoPieceType the type of the piece
+	 * @param coor HantoCoordinate the coordinate at which the piece that we would like to check is placed.
+	 * @return boolean whether the piece matches the parameters or not
 	 */
 	public boolean pieceMatchesAtCell(HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate coor) {
 		final HantoPiece piece = board.get(coor);

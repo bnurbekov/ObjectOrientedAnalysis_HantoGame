@@ -125,6 +125,11 @@ public class HantoPlayer {
 		return hasPieces;
 	}
 
+	/**
+	 * Sets the turn number.
+	 * 
+	 * @param turnNumber the turn number
+	 */
 	public void setMovesMade(int turnNumber) {
 		movesMade = turnNumber;
 	}

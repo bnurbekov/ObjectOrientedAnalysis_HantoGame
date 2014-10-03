@@ -36,15 +36,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
-<<<<<<< HEAD
  * The class that is responsible for Gamma Hanto Game tests.
  * 
- * @author Batyr and Shadi
- *
-=======
  * @author Shadi
  * @author Batyr
->>>>>>> 209a7b202503cc3239b9d459aad60eeeff57aa2b
  */
 public class GammaHantoGameTest {
 

@@ -30,6 +30,8 @@ public class HantoMoveFactory {
 	}
 
 	/**
+	 * Gets the instance of the factory.
+	 * 
 	 * @return the instance
 	 */
 	public static HantoMoveFactory getInstance()

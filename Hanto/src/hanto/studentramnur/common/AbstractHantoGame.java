@@ -65,12 +65,13 @@ public abstract class AbstractHantoGame implements HantoGame {
 	 * @param pieceType HantoPieceType
 	 * @param from HantoCoordinate
 	 * @param to HantoCoordinate
-	 * @throws HantoMoveException
+	 * @throws HantoException
 	 */
 	protected abstract void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException;
 
 	/**
-	 * Method validateMove.
+	 * Validates move.
+	 * 
 	 * @throws HantoException
 	 */
 	protected void validateMove() throws HantoException {
@@ -91,6 +92,11 @@ public abstract class AbstractHantoGame implements HantoGame {
 		validateButterflyPlacement();
 	}
 
+	/**
+	 * Validates whether the player has placed butterfly the first four moves or not
+	 * 
+	 * @throws HantoException
+	 */
 	private void validateButterflyPlacement() throws HantoException {
 		final HantoPieceType pieceType = currentMove.getPieceType();
 
@@ -107,8 +113,9 @@ public abstract class AbstractHantoGame implements HantoGame {
 	}
 
 	/**
-	 * Method postMoveSetUp.
-	 * @return MoveResult
+	 * Contains all the necessary logic for postMoveSetUp.
+	 * 
+	 * @return MoveResult the result of the game
 	 */
 	protected MoveResult postMoveSetUp() {
 		currentPlayer.incrementMovesMade();

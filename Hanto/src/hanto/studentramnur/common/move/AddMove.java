@@ -36,6 +36,9 @@ public class AddMove extends Move {
 		super(color, pieceType, from, to, MoveType.ADD);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean validate(HantoBoard board) {
 		boolean isValid = true;
@@ -56,6 +59,9 @@ public class AddMove extends Move {
 		return isValid;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void execute(HantoBoard board) {
 		final HantoPiece piece = HantoPieceFactory.getInstance().createPiece(this.getColor(), pieceType);

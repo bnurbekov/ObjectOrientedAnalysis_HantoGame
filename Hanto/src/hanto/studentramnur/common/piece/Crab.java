@@ -14,12 +14,14 @@ import hanto.common.HantoPlayerColor;
 
 /**
  * The class for crab piece.
+ * 
  * @author Shadi
  * @author Batyr
  */
 public class Crab extends AbstractHantoPiece {
 	/**
 	 * Constructor for Crab.
+	 * 
 	 * @param color HantoPlayerColor
 	 */
 	public Crab(HantoPlayerColor color) {
