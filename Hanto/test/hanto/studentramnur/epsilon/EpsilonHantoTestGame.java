@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.gamma;
+package hanto.studentramnur.epsilon;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPiece;
@@ -16,23 +16,32 @@ import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
 import hanto.studentramnur.common.PieceLocationPair;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
+import hanto.studentramnur.epsilon.EpsilonHantoGame;
 
 /**
- * The class that tests Gamma Hanto Game.
+<<<<<<< HEAD
+ * The class that tests Delta Hanto Game.
  * 
+ * @author Batyr and Shadi
+ *
+=======
  * @author Shadi
  * @author Batyr
+>>>>>>> 209a7b202503cc3239b9d459aad60eeeff57aa2b
  */
-public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame {
+public class EpsilonHantoTestGame extends EpsilonHantoGame implements HantoTestGame {
 
 	/**
-	 * Constructor for GammaHantoTestGame.
+	 * Constructor for DeltaHantoTestGame.
 	 * @param movesFirst HantoPlayerColor
 	 */
-	public GammaHantoTestGame(HantoPlayerColor movesFirst) {
+	public EpsilonHantoTestGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void initializeBoard(PieceLocationPair[] initialPieces) {
 		for(PieceLocationPair pair: initialPieces)  {
@@ -41,24 +50,31 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame 
 
 			if(piece.getColor() == HantoPlayerColor.BLUE) {
 				bluePlayer.decrementPieceCount(piece.getType());
-			} else {
+				bluePlayer.incrementMovesMade();
+			} 
+			else {
 				redPlayer.decrementPieceCount(piece.getType());
+				redPlayer.incrementMovesMade();
 			}
 
 			board.addPiece(coor, piece);
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void setTurnNumber(int turnNumber) {
-		// This implementation saves turns individually made by the players.
-		// To set the turn we have to evenly split the turns.  Thus the positive rounding for blue player's turn count.
-		bluePlayer.setMovesMade((int)(turnNumber/2.0+0.5));
-		redPlayer.setMovesMade(turnNumber/2);
+		bluePlayer.setMovesMade(turnNumber - 1);
+		redPlayer.setMovesMade(turnNumber - 1);
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void setPlayerMoving(HantoPlayerColor player) {
-		currentPlayer = (player == HantoPlayerColor.BLUE) ? bluePlayer : redPlayer;
+		currentPlayer = player == HantoPlayerColor.BLUE ? bluePlayer : redPlayer;
 	}
 }

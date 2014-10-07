@@ -13,8 +13,7 @@ package hanto.studentramnur.common;
 import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
-import hanto.studentramnur.delta.DeltaHantoGame;
-import hanto.studentramnur.gamma.GammaHantoGame;
+import hanto.studentramnur.epsilon.EpsilonHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -63,14 +62,11 @@ public class HantoGameFactory
 	public static HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoGame game = null;
 		switch (gameId) {
-		case GAMMA_HANTO:
-			game = new GammaHantoGame(movesFirst);
-			break;
-		case DELTA_HANTO:
-			game = new DeltaHantoGame(movesFirst);
+		case EPSILON_HANTO:
+			game = new EpsilonHantoGame(movesFirst);
 			break;
 		default:
-			game = new GammaHantoGame(movesFirst);
+			game = new EpsilonHantoGame(movesFirst);
 		}
 		return game;
 	}

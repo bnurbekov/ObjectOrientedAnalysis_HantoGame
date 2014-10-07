@@ -116,6 +116,24 @@ public class HantoBoard {
 
 		return isAdjacentToExistingCells;
 	}
+	
+	/**
+	 * Returns all the cells that are in the mesh and unoccupied
+	 * 
+	 * @return A list of unoccupied cells
+	 */
+	public boolean getAllUnoccupiedAdjacentCells() {
+		Collection<HantoCoordinate> unnocupiedCells = new ArrayList<HantoCoordinate>();
+		
+		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
+			HantoCoordinate cell = entry.getKey();
+
+			// Have to remove duplicates??
+			unnocupiedCells.addAll(this.getUnoccupiedNeighbors(cell));
+		}
+
+		return unnocupiedCells;
+	}
 
 	/**
 	 * Checks two cells are adjacent to each other
@@ -374,6 +392,40 @@ public class HantoBoard {
 		return piece;
 	}
 
+	/**
+	 * Gets the vector between two coordinates.
+	 * 
+	 * @param from the from coordinate
+	 * @param to the to coordinate
+	 * @return the difference between coordinates [vector]
+	 */
+	public HantoCoordinate getVector(HantoCoordinate from, HantoCoordinate to) {
+		return new HantoBoardCoordinate(to.getX() - from.getX(), to.getY() - from.getY());
+	}
+
+	/**
+	 * Gets the unit vector of a vector.
+	 * 
+	 * @param vector the vector to normalize
+	 * @return the normalized vector
+	 */
+	public HantoCoordinate getUnitVector(HantoCoordinate vector) {
+		HantoCoordinate origin = new HantoBoardCoordinate(0, 0);
+		int cellDistance = this.getCellDistance(origin, vector);
+		
+		return new HantoBoardCoordinate(vector.getX()/cellDistance, vector.getY()/cellDistance);
+	}
+	
+	/**
+	 * Is the vector straight.
+	 * 
+	 * @param vector the vector to check
+	 * @return if the vector is straight or not
+	 */
+	public boolean isStraight(HantoCoordinate vector) {
+		return vector.getX() == 0 || vector.getY() == 0 || vector.getX() == -vector.getY();
+	}
+	
 	/**
 	 * Gets the number of pieces on the board.
 	 * 

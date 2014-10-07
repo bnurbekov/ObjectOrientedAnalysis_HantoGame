@@ -9,9 +9,12 @@
  *******************************************************************************/
 package hanto.studentramnur.common.move;
 
+import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
 
@@ -39,7 +42,11 @@ public class ForfeitMove extends Move {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean validate(HantoBoard board) {
+	public boolean validate(HantoBoard board, boolean playerHasPieces) {
+		if (board.movesAvailable) {
+			throw new HantoPrematureResignationException();
+		}
+		
 		return true;
 	}
 

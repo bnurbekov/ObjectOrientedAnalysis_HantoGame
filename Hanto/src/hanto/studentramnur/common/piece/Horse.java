@@ -7,17 +7,24 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.common;
+package hanto.studentramnur.common.piece;
 
-import hanto.studentramnur.epsilon.EpsilonHantoGameTest;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
 
 /**
- * Tests all registered JUnit test classes.
+ * The class for crab piece.
+ * 
+ * @author Shadi
+ * @author Batyr
  */
-@RunWith(Suite.class)
-@SuiteClasses({EpsilonHantoGameTest.class})
-public class AllTests {}
+public class Horse extends AbstractHantoPiece {
+	/**
+	 * Constructor for Crab.
+	 * 
+	 * @param color HantoPlayerColor
+	 */
+	public Horse(HantoPlayerColor color) {
+		super(color, HantoPieceType.HORSE);
+	}
+}

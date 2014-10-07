@@ -53,26 +53,7 @@ public class HantoMoveFactory {
 	public Move createMove(HantoGameID id, HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
 		Move move;
 
-		if(id == HantoGameID.GAMMA_HANTO) {
-			if(from == null && to == null) {
-				throw new HantoMoveException("Forfeiting is not allowed in Gamma Hanto.");
-			} else if(from == null) {
-				move = new AddMove(color, pieceType, from, to);
-			} else if(to == null) {
-				throw new HantoMoveException("To location must be on board.");
-			} else { // player is moving
-				switch (pieceType) {
-				case BUTTERFLY:
-					move = new WalkMove(color, pieceType, from, to);
-					break;
-				case SPARROW:
-					move = new WalkMove(color, pieceType, from, to);
-					break;
-				default:
-					throw new HantoMoveException("No such piece type.");
-				}
-			}
-		} else { // Delta Hanto
+		if(id == HantoGameID.EPSILON_HANTO) { // Delta Hanto
 			if(from == null && to == null) {
 				move = new ForfeitMove(color, pieceType, from, to);
 			} else if(from == null) {
@@ -90,10 +71,14 @@ public class HantoMoveFactory {
 				case SPARROW:
 					move = new FlyMove(color, pieceType, from, to);
 					break;
+				case HORSE:
+					move = new JumpMove(color, pieceType, from, to);
 				default:
 					throw new HantoMoveException("No such piece type.");
 				}
 			}
+		} else {
+			throw new HantoMoveException("Not a valid HantoGameID.");
 		}
 
 		return move;

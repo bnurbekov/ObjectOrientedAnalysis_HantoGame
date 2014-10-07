@@ -15,6 +15,7 @@ import hanto.common.HantoGame;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.move.Move;
 import hanto.studentramnur.common.move.MoveType;
@@ -85,10 +86,10 @@ public abstract class AbstractHantoGame implements HantoGame {
 			}
 		}
 
-		if(!currentMove.validate(board)) {
+		if(!currentMove.validate(currentPlayer, board)) {
 			throw new HantoException("Invalid Move.");
 		}
-
+		
 		validateButterflyPlacement();
 	}
 

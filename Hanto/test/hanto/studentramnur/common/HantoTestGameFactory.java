@@ -12,8 +12,7 @@ package hanto.studentramnur.common;
 
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
-import hanto.studentramnur.delta.DeltaHantoTestGame;
-import hanto.studentramnur.gamma.GammaHantoTestGame;
+import hanto.studentramnur.epsilon.EpsilonHantoTestGame;
 
 /**
  * Description
@@ -59,12 +58,11 @@ public class HantoTestGameFactory
 	public HantoTestGame makeHantoTestGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoTestGame game = null;
 		switch (gameId) {
-		case GAMMA_HANTO:
-			game = new GammaHantoTestGame(movesFirst);
+		case EPSILON_HANTO:
+			game = new EpsilonHantoTestGame(movesFirst);
 			break;
-		case DELTA_HANTO:
-			game = new DeltaHantoTestGame(movesFirst);
-			break;
+		default:
+			game = null;
 		}
 		return game;
 	}

@@ -40,6 +40,7 @@ public class FlyMove extends Move {
 	public boolean validate(HantoBoard board) {
 		return super.validate(board) 
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
+				&& (board.getCellDistance(this.getFrom(), this.getTo()) <= 5)
 				&& canPieceBeMovedWithoutBreakingTheStructure(board);
 	}
 

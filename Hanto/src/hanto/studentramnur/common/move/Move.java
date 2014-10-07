@@ -14,6 +14,7 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
+import hanto.studentramnur.common.HantoPlayer;
 
 /**
  * The abstract class that is responsible for the movement capabilities of pieces.

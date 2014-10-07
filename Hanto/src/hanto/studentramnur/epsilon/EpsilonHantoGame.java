@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.delta;
+package hanto.studentramnur.epsilon;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoGameID;
@@ -24,23 +24,25 @@ import hanto.studentramnur.common.move.HantoMoveFactory;
  * @author Shadi
  * @author Batyr
  */
-public class DeltaHantoGame extends AbstractHantoGame {
+public class EpsilonHantoGame extends AbstractHantoGame {
 
 	/**
 	 * Constructor for DeltaHantoGame.
 	 * @param movesFirst HantoPlayerColor
 	 */
-	public DeltaHantoGame(HantoPlayerColor movesFirst) {
+	public EpsilonHantoGame(HantoPlayerColor movesFirst) {
 		super(movesFirst);
 
 		// Set up player pieces
 		redPlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
-		redPlayer.setPieceCount(HantoPieceType.SPARROW, 4);
-		redPlayer.setPieceCount(HantoPieceType.CRAB, 4);
+		redPlayer.setPieceCount(HantoPieceType.SPARROW, 2);
+		redPlayer.setPieceCount(HantoPieceType.CRAB, 6);
+		redPlayer.setPieceCount(HantoPieceType.HORSE, 4);
 
 		bluePlayer.setPieceCount(HantoPieceType.BUTTERFLY, 1);
-		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 4);
-		bluePlayer.setPieceCount(HantoPieceType.CRAB, 4);
+		bluePlayer.setPieceCount(HantoPieceType.SPARROW, 2);
+		bluePlayer.setPieceCount(HantoPieceType.CRAB, 6);
+		bluePlayer.setPieceCount(HantoPieceType.HORSE, 4);
 	}
 
 	/**

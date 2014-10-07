@@ -17,5 +17,5 @@ package hanto.studentramnur.common.move;
  */
 public enum MoveType
 {
-	ADD, WALK, FLY, FORFEIT;
+	ADD, WALK, FLY, FORFEIT, JUMP;
 }

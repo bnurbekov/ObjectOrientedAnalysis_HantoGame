@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.studentramnur.delta;
+package hanto.studentramnur.epsilon;
 
 import static hanto.common.HantoPieceType.BUTTERFLY;
 import static hanto.common.HantoPieceType.CRAB;
@@ -28,6 +28,7 @@ import hanto.studentramnur.common.HantoTestCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
 import hanto.studentramnur.common.HantoTestGameFactory;
 import hanto.studentramnur.common.PieceLocationPair;
+import hanto.studentramnur.epsilon.EpsilonHantoGame;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -42,7 +43,7 @@ import org.junit.rules.ExpectedException;
  * @author Shadi
  * @author Batyr
  */
-public class DeltaHantoGameTest {
+public class EpsilonHantoGameTest {
 
 	private HantoTestGame game;
 
@@ -63,7 +64,7 @@ public class DeltaHantoGameTest {
 	@Test
 	public void testInitialization() {
 		assertNotNull(game);
-		assertTrue(game instanceof DeltaHantoGame);
+		assertTrue(game instanceof EpsilonHantoGame);
 	}
 
 	/**
