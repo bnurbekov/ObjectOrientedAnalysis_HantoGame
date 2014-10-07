@@ -103,7 +103,6 @@ public abstract class Move {
 	 * @return boolean indication of whether the piece can be squeezed to the new position through its neighbors.
 	 */
 	protected boolean canPieceSqueeze(HantoBoard board) {
-		System.out.println("pieceCanSqueeze: " + board.countCommonOccupiedNeighbors(from, to));
 		return (board.countCommonOccupiedNeighbors(from, to) != 2);
 	}
 

@@ -333,11 +333,11 @@ public class DeltaHantoGameTest {
 	}
 	
 	/**
-	 * Move every type of piece.
+	 * Moves a crab.
 	 * @throws HantoException
 	 */
 	@Test
-	public void moveButterflySparrowCrab() throws HantoException {
+	public void moveCrab() throws HantoException {
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
 		game.makeMove(SPARROW, null, new HantoTestCoordinate(0, -1));
@@ -345,5 +345,6 @@ public class DeltaHantoGameTest {
 		game.makeMove(CRAB, null, new HantoTestCoordinate(0, -2));
 		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 3));
 		
+		game.makeMove(CRAB, new HantoTestCoordinate(0, -2), new HantoTestCoordinate(1, -2));
 	}
 }

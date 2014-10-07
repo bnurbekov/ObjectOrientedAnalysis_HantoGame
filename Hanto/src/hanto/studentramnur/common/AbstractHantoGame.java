@@ -154,9 +154,6 @@ public abstract class AbstractHantoGame implements HantoGame {
 		else if(board.isButterflySurrounded(HantoPlayerColor.BLUE)) {
 			return MoveResult.RED_WINS;
 		}
-		else if(!bluePlayer.hasPieces() && !redPlayer.hasPieces()) {
-			return MoveResult.DRAW;
-		}
 		else {
 			return MoveResult.OK;
 		}

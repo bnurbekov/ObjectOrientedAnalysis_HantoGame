@@ -77,5 +77,4 @@ public abstract class AbstractHantoPiece implements HantoPiece {
 	public HantoPieceType getType() {
 		return type;
 	}
-
 }
