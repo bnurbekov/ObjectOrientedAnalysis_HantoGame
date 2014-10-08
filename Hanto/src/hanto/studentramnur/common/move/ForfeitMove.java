@@ -9,14 +9,19 @@
  *******************************************************************************/
 package hanto.studentramnur.common.move;
 
-import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
+import java.util.Collection;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
+import hanto.common.HantoGameID;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
+import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.PieceLocationPair;
 
 /**
  * Forfeit move class that is responsible for the move that allows player to forfeit.
@@ -40,11 +45,19 @@ public class ForfeitMove extends Move {
 
 	/**
 	 * {@inheritDoc}
+	 * @throws HantoException 
 	 */
 	@Override
-	public boolean validate(HantoBoard board, boolean playerHasPieces) {
-		if (board.movesAvailable) {
-			throw new HantoPrematureResignationException();
+	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+		Collection<HantoCoordinate> openCoor = board.getAllUnoccupiedAdjacentCells();
+		
+		for(PieceLocationPair piece: board.getPlayerPieces(this.color)) { //for each piece on the hanto board belonging to currentPlayer
+			for(HantoCoordinate to: openCoor) { // every available move of this piece
+				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, color, pieceType, piece.getLocation(), to);
+				if(move.validate(currentPlayer, board)) {
+					throw new HantoPrematureResignationException();
+				}
+			}
 		}
 		
 		return true;

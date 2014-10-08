@@ -10,9 +10,11 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
+import hanto.studentramnur.common.HantoPlayer;
 
 /**
  * Class that implements the walk move.
@@ -37,10 +39,11 @@ public class WalkMove extends Move {
 
 	/**
 	 * {@inheritDoc}
+	 * @throws HantoMoveException 
 	 */
 	@Override
-	public boolean validate(HantoBoard board) {		
-		return super.validate(board)
+	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {		
+		return super.validate(currentPlayer, board)
 				&& board.isCellAdjacentTo(this.getFrom(), this.getTo())
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
 				&& canPieceSqueeze(board)

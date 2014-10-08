@@ -80,12 +80,6 @@ public abstract class AbstractHantoGame implements HantoGame {
 			throw new HantoException("Game is already over.");
 		}
 
-		if(currentMove.getMoveType() == MoveType.ADD) {
-			if(currentPlayer.getPieceCount(currentMove.getPieceType()) == 0) {
-				throw new HantoException("Player does not have that piece to add.");
-			}
-		}
-
 		if(!currentMove.validate(currentPlayer, board)) {
 			throw new HantoException("Invalid Move.");
 		}

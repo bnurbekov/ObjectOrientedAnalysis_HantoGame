@@ -10,10 +10,12 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
+import hanto.studentramnur.common.HantoPlayer;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
 
 /**
@@ -38,11 +40,16 @@ public class AddMove extends Move {
 
 	/**
 	 * {@inheritDoc}
+	 * @throws HantoMoveException 
 	 */
 	@Override
-	public boolean validate(HantoBoard board) {
+	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
 		boolean isValid = true;
 
+		if(currentPlayer.getPieceCount(getPieceType()) == 0) {
+				throw new HantoException("Player does not have that piece to add.");
+		}
+		
 		if(board.isEmpty()) { // is it a new game?
 			if(!board.isCellOrigin(to)) isValid = false; // is the piece added to origin?
 		}
@@ -53,7 +60,7 @@ public class AddMove extends Move {
 				isValid = false;
 			}
 		} else {
-			isValid = super.validate(board) && isValid;
+			isValid = super.validate(currentPlayer, board) && isValid;
 		}
 
 		return isValid;

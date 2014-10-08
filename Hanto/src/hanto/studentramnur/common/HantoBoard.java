@@ -120,9 +120,9 @@ public class HantoBoard {
 	/**
 	 * Returns all the cells that are in the mesh and unoccupied
 	 * 
-	 * @return A list of unoccupied cells
+	 * @return A collection of unoccupied cells
 	 */
-	public boolean getAllUnoccupiedAdjacentCells() {
+	public Collection<HantoCoordinate> getAllUnoccupiedAdjacentCells() {
 		Collection<HantoCoordinate> unnocupiedCells = new ArrayList<HantoCoordinate>();
 		
 		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
@@ -250,6 +250,20 @@ public class HantoBoard {
 
 		return nonEmptyNeighbors;
 	}
+	
+	/**
+	 * Returns the list of cells that are adjacent to the specified cell and that are unoccupied.
+	 * 
+	 * @param cell the cell to check the neighbors relative to
+	 * @return returns the collection of unoccupied neighbors
+	 */
+	private Collection<HantoCoordinate> getUnoccupiedNeighbors(HantoCoordinate cell) {
+		Collection<HantoCoordinate> emptyNeighbors = getSurroundingCells(cell);
+
+		emptyNeighbors = filterOutOccupiedCells(emptyNeighbors);
+
+		return emptyNeighbors;
+	}
 
 	/**
 	 * Determines if the cell is critical (bridge node that may break the graph if moved) 
@@ -320,6 +334,24 @@ public class HantoBoard {
 		}
 
 		return occupiedCoor;
+	}
+	
+	/**
+	 * Filters out the cells that are occupied, leaving only empty cells in the list.
+	 * 
+	 * @param listOfCoor list to filter
+	 * @return filtered list
+	 */
+	private Collection<HantoCoordinate> filterOutOccupiedCells(Collection<HantoCoordinate> listOfCoor) {
+		final Collection<HantoCoordinate> unoccupiedCoor = new ArrayList<HantoCoordinate>();
+
+		for(HantoCoordinate coor : listOfCoor) { //filter the list of the neighbors, so that it contains only occupied neighbors
+			if (!board.containsKey(coor)) {
+				unoccupiedCoor.add(coor);
+			}
+		}
+
+		return unoccupiedCoor;
 	}
 
 	/**

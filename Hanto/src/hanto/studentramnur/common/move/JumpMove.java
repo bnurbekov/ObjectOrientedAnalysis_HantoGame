@@ -4,10 +4,12 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoBoardCoordinate;
+import hanto.studentramnur.common.HantoPlayer;
 
 /**
  * @author srramadan
@@ -22,13 +24,14 @@ public class JumpMove extends Move {
 	
 	/**
 	 * {@inheritDoc}
+	 * @throws HantoMoveException 
 	 */
 	@Override
-	public boolean validate(HantoBoard board) {
+	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
 		HantoCoordinate vector = board.getVector(this.getFrom(), this.getTo());
 		HantoCoordinate unitVector = board.getUnitVector(vector);
 		
-		return super.validate(board)
+		return super.validate(currentPlayer, board)
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
 				&& hasPiecesAlongPath(unitVector, board)
 				&& canPieceBeMovedWithoutBreakingTheStructure(board);

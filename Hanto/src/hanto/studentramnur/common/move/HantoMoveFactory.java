@@ -10,6 +10,7 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
@@ -50,7 +51,7 @@ public class HantoMoveFactory {
 	 * @return the created piece
 	 * @throws HantoMoveException 
 	 */
-	public Move createMove(HantoGameID id, HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoMoveException {
+	public Move createMove(HantoGameID id, HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		Move move;
 
 		if(id == HantoGameID.EPSILON_HANTO) { // Delta Hanto
@@ -59,7 +60,7 @@ public class HantoMoveFactory {
 			} else if(from == null) {
 				move = new AddMove(color, pieceType, from, to);
 			} else if(to == null) {
-				throw new HantoMoveException("To location must be on board.");
+				throw new HantoException("To location must be on board.");
 			} else { // player is moving
 				switch (pieceType) {
 				case BUTTERFLY:
@@ -74,11 +75,11 @@ public class HantoMoveFactory {
 				case HORSE:
 					move = new JumpMove(color, pieceType, from, to);
 				default:
-					throw new HantoMoveException("No such piece type.");
+					throw new HantoException("No such piece type.");
 				}
 			}
 		} else {
-			throw new HantoMoveException("Not a valid HantoGameID.");
+			throw new HantoException("Not a valid HantoGameID.");
 		}
 
 		return move;

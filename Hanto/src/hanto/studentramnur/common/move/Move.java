@@ -10,6 +10,7 @@
 package hanto.studentramnur.common.move;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
@@ -50,11 +51,14 @@ public abstract class Move {
 
 	/**
 	 * Checks if the move is valid.
+	 * @param currentPlayer 
 	 * 
 	 * @param board HantoBoard
 	 * @return boolean indication of whether the move is valid or not
+	 * @throws HantoException 
+	 * @throws HantoMoveException 
 	 */
-	public boolean validate(HantoBoard board) {
+	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
 		boolean isValid = true;
 
 		if(this.isCellOccupied(board)) {
