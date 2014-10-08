@@ -10,6 +10,7 @@
 package hanto.studentramnur.common;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
@@ -19,8 +20,7 @@ import hanto.common.HantoPlayerColor;
  * @version Sep 21, 2014
  */
 public class PieceLocationPair {
-	private final HantoPlayerColor player;
-	private final HantoPieceType pieceType;
+	private final HantoPiece piece;
 	private final HantoCoordinate location;
 
 	/**
@@ -29,11 +29,10 @@ public class PieceLocationPair {
 	 * @param pieceType the piece type
 	 * @param location the coordinate where the piece is at the beginning of the test
 	 */
-	public PieceLocationPair(HantoPlayerColor player, HantoPieceType pieceType,
+	public PieceLocationPair(HantoPiece piece,
 			HantoCoordinate location)
 	{
-		this.player = player;
-		this.pieceType = pieceType;
+		this.piece = piece;
 		this.location = location;
 	}
 
@@ -41,11 +40,7 @@ public class PieceLocationPair {
 		return location;
 	}
 
-	public HantoPlayerColor getPlayer() {
-		return player;
-	}
-
-	public HantoPieceType getPieceType() {
-		return pieceType;
+	public HantoPiece getPiece() {
+		return piece;
 	}
 }

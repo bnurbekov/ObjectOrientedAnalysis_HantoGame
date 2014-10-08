@@ -51,9 +51,20 @@ public class ForfeitMove extends Move {
 	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
 		Collection<HantoCoordinate> openCoor = board.getAllUnoccupiedAdjacentCells();
 		
-		for(PieceLocationPair piece: board.getPlayerPieces(this.color)) { //for each piece on the hanto board belonging to currentPlayer
+		//checks all the possible moves for pieces that are on the board
+		for(PieceLocationPair pieceLocationPair: board.getPlayerPieces(this.color)) { //for each piece on the hanto board belonging to currentPlayer
 			for(HantoCoordinate to: openCoor) { // every available move of this piece
-				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, color, pieceType, piece.getLocation(), to);
+				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, this.getColor(), pieceLocationPair.getPiece().getType(), pieceLocationPair.getLocation(), to);
+				if(move.validate(currentPlayer, board)) {
+					throw new HantoPrematureResignationException();
+				}
+			}
+		}
+		
+		//checks all the possible add moves for the pieces that the current player still has
+		for(HantoPiece piece: currentPlayer.getNotAddedPieces()) {
+			for(HantoCoordinate to: openCoor) {
+				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, this.getColor(), piece.getType(), null, to);
 				if(move.validate(currentPlayer, board)) {
 					throw new HantoPrematureResignationException();
 				}

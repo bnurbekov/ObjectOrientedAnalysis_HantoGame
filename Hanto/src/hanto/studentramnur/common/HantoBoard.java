@@ -117,6 +117,18 @@ public class HantoBoard {
 		return isAdjacentToExistingCells;
 	}
 	
+	public Collection<PieceLocationPair> getPlayerPieces(HantoPlayerColor color) {
+		Collection<PieceLocationPair> result = new ArrayList<>();
+		
+		for	(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
+			if (entry.getValue().getColor() == color) {
+				result.add(new PieceLocationPair(entry.getValue(), entry.getKey()));
+			}
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Returns all the cells that are in the mesh and unoccupied
 	 * 
@@ -124,12 +136,18 @@ public class HantoBoard {
 	 */
 	public Collection<HantoCoordinate> getAllUnoccupiedAdjacentCells() {
 		Collection<HantoCoordinate> unnocupiedCells = new ArrayList<HantoCoordinate>();
+		Collection<HantoCoordinate> unoccupiedNeighbors = new ArrayList<HantoCoordinate>();
 		
-		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
+		for	(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			HantoCoordinate cell = entry.getKey();
-
-			// Have to remove duplicates??
-			unnocupiedCells.addAll(this.getUnoccupiedNeighbors(cell));
+			
+			unoccupiedNeighbors = getUnoccupiedNeighbors(cell);
+			
+			for (HantoCoordinate coor : unoccupiedNeighbors) {
+				if (!unnocupiedCells.contains(coor)) {
+					unnocupiedCells.add(coor);
+				}
+			}
 		}
 
 		return unnocupiedCells;

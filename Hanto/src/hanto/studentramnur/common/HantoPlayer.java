@@ -9,9 +9,13 @@
  *******************************************************************************/
 package hanto.studentramnur.common;
 
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.studentramnur.common.piece.HantoPieceFactory;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +25,7 @@ import java.util.Map;
  */
 public class HantoPlayer {
 	private final HantoPlayerColor color;
-	private final HashMap<HantoPieceType, Integer> pieces;
+	private final HashMap<HantoPieceType, Integer> pieceTypeCounts;
 	private int movesMade;
 
 	/**
@@ -31,7 +35,7 @@ public class HantoPlayer {
 	 */
 	public HantoPlayer(HantoPlayerColor color) {
 		this.color = color;
-		pieces = new HashMap<HantoPieceType, Integer>();
+		pieceTypeCounts = new HashMap<HantoPieceType, Integer>();
 		movesMade = 0;
 	}
 
@@ -42,7 +46,7 @@ public class HantoPlayer {
 	 * @param count the piece count to set the piece to
 	 */
 	public void setPieceCount(HantoPieceType piece, int count) {
-		pieces.put(piece, count);
+		pieceTypeCounts.put(piece, count);
 	}
 
 	/**
@@ -52,7 +56,7 @@ public class HantoPlayer {
 	 * @return The number of remaining pieces of type piece.
 	 */
 	public int getPieceCount(HantoPieceType piece) {
-		Integer pieceCount = pieces.get(piece);
+		Integer pieceCount = pieceTypeCounts.get(piece);
 		
 		return (pieceCount == null) ? 0 : pieceCount;
 	}
@@ -64,8 +68,8 @@ public class HantoPlayer {
 	 * @return indication of whether the piece count was successfully decremented or not
 	 */
 	public boolean decrementPieceCount(HantoPieceType piece) {
-		if(pieces.containsKey(piece) && pieces.get(piece) > 0) {
-			pieces.put(piece, pieces.get(piece) - 1);
+		if(pieceTypeCounts.containsKey(piece) && pieceTypeCounts.get(piece) > 0) {
+			pieceTypeCounts.put(piece, pieceTypeCounts.get(piece) - 1);
 			return true;
 		} else {
 			return false;
@@ -103,7 +107,7 @@ public class HantoPlayer {
 	 * @return indication of whether the player has placed the butterfly piece or not.
 	 */
 	public boolean hasPlacedButterfly() {
-		final boolean playerHasPlacedButterfly = (pieces.get(HantoPieceType.BUTTERFLY) == 0);
+		final boolean playerHasPlacedButterfly = (pieceTypeCounts.get(HantoPieceType.BUTTERFLY) == 0);
 		return playerHasPlacedButterfly;
 	}
 
@@ -116,7 +120,7 @@ public class HantoPlayer {
 		boolean hasPieces = false;
 
 		//iterate through the hash map and check the count
-		for(Map.Entry<HantoPieceType, Integer> entry : pieces.entrySet()){
+		for(Map.Entry<HantoPieceType, Integer> entry : pieceTypeCounts.entrySet()){
 			if (entry.getValue() != 0) {
 				hasPieces = true;
 			}
@@ -132,5 +136,17 @@ public class HantoPlayer {
 	 */
 	public void setMovesMade(int turnNumber) {
 		movesMade = turnNumber;
+	}
+
+	public Collection<HantoPiece> getNotAddedPieces() {
+		Collection<HantoPiece> notAddedPieceList = new ArrayList<>();
+		
+		for(Map.Entry<HantoPieceType, Integer> entry : pieceTypeCounts.entrySet()) {
+			for (int i = 0; i < entry.getValue(); i++) {
+				notAddedPieceList.add(HantoPieceFactory.getInstance().createPiece(color, entry.getKey()));
+			}
+		}
+		
+		return notAddedPieceList;
 	}
 }
