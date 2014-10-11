@@ -9,13 +9,19 @@
  *******************************************************************************/
 package hanto.studentramnur.common.move;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
+import hanto.common.HantoGameID;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.PieceLocationPair;
 
 /**
  * The abstract class that is responsible for the movement capabilities of pieces.
@@ -111,6 +117,41 @@ public abstract class Move {
 		return (board.countCommonOccupiedNeighbors(from, to) != 2);
 	}
 
+	/**
+	 * Returns the list of available moves for the player
+	 * 
+	 * @param currentPlayer	the player to check the available moves for
+	 * @param board the board
+	 * @return the list of available moves
+	 * @throws HantoException
+	 */
+	public Collection<Move> getAvailableMoves(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+		Collection<Move> availableMoves = new ArrayList<Move>();
+		Collection<HantoCoordinate> openCoor = board.getAllUnoccupiedAdjacentCells();
+				
+		//checks all the possible moves for pieces that are on the board
+		for(PieceLocationPair pieceLocationPair: board.getPlayerPieces(this.color)) { //for each piece on the hanto board belonging to currentPlayer
+			for(HantoCoordinate to: openCoor) { // every available move of this piece
+				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, this.getColor(), pieceLocationPair.getPiece().getType(), pieceLocationPair.getLocation(), to);
+				if(move.validate(currentPlayer, board)) {
+					availableMoves.add(move);
+				}
+			}
+		}
+		
+		//checks all the possible add moves for the pieces that the current player still has
+		for(HantoPiece piece: currentPlayer.getNotAddedPieces()) {
+			for(HantoCoordinate to: openCoor) {
+				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, this.getColor(), piece.getType(), null, to);
+				if(move.validate(currentPlayer, board)) {
+					availableMoves.add(move);
+				}
+			}
+		}
+		
+		return availableMoves;
+	}
+	
 	/**
 	 * getMoveType() method
 	 * 
