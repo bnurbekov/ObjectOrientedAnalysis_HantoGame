@@ -46,7 +46,7 @@ public class ForfeitMove extends Move {
 	 */
 	@Override
 	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
-		Collection<Move> availableMoves = getAvailableMoves(currentPlayer, board);
+		Collection<Move> availableMoves = getAllAvailableMoves(currentPlayer, board);
 		
 		if (availableMoves.size() != 0) {
 			throw new HantoPrematureResignationException();

@@ -15,7 +15,6 @@ import hanto.common.HantoGame;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.move.Move;
 import hanto.studentramnur.common.move.MoveType;
@@ -53,7 +52,6 @@ public abstract class AbstractHantoGame implements HantoGame {
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
-
 		this.preMoveSetUp(pieceType, from, to);
 		this.validateMove();
 		this.executeMove();
@@ -126,6 +124,11 @@ public abstract class AbstractHantoGame implements HantoGame {
 		return result;
 	}
 
+	/**
+	 * Determines if the game is over.
+	 * 
+	 * @return indication of whether the game is over or not
+	 */
 	protected boolean isGameOver() {
 		return prevResult != MoveResult.OK;
 	}
@@ -172,6 +175,23 @@ public abstract class AbstractHantoGame implements HantoGame {
 	public HantoPiece getPieceAt(HantoCoordinate where) {
 		where = new HantoBoardCoordinate(where);
 		return board.getPiece(where);
+	}
+	
+	public HantoPlayer getPlayerStats(HantoPlayerColor playerColor) {
+		if (playerColor == HantoPlayerColor.BLUE) {
+			return bluePlayer;
+		}
+		else { 
+			return redPlayer;
+		}
+	}
+	
+	public HantoBoard getBoard() {
+		return board;
+	}
+	
+	public Move getCurrentMove() {
+		return currentMove;
 	}
 
 	/**

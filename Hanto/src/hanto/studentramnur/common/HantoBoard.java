@@ -261,7 +261,7 @@ public class HantoBoard {
 	 * @param cell the cell to check the neighbors relative to
 	 * @return returns the collection of occupied neighbors
 	 */
-	private Collection<HantoCoordinate> getOccupiedNeighbors(HantoCoordinate cell) {
+	public Collection<HantoCoordinate> getOccupiedNeighbors(HantoCoordinate cell) {
 		Collection<HantoCoordinate> nonEmptyNeighbors = getSurroundingCells(cell);
 
 		nonEmptyNeighbors = filterOutEmptyCells(nonEmptyNeighbors);
@@ -275,7 +275,7 @@ public class HantoBoard {
 	 * @param cell the cell to check the neighbors relative to
 	 * @return returns the collection of unoccupied neighbors
 	 */
-	private Collection<HantoCoordinate> getUnoccupiedNeighbors(HantoCoordinate cell) {
+	public Collection<HantoCoordinate> getUnoccupiedNeighbors(HantoCoordinate cell) {
 		Collection<HantoCoordinate> emptyNeighbors = getSurroundingCells(cell);
 
 		emptyNeighbors = filterOutOccupiedCells(emptyNeighbors);

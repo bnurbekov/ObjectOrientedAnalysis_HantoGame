@@ -125,14 +125,14 @@ public abstract class Move {
 	 * @return the list of available moves
 	 * @throws HantoException
 	 */
-	public Collection<Move> getAvailableMoves(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+	public static Collection<Move> getAllAvailableMoves(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
 		Collection<Move> availableMoves = new ArrayList<Move>();
 		Collection<HantoCoordinate> openCoor = board.getAllUnoccupiedAdjacentCells();
 				
 		//checks all the possible moves for pieces that are on the board
-		for(PieceLocationPair pieceLocationPair: board.getPlayerPieces(this.color)) { //for each piece on the hanto board belonging to currentPlayer
+		for(PieceLocationPair pieceLocationPair: board.getPlayerPieces(currentPlayer.getColor())) { //for each piece on the hanto board belonging to currentPlayer
 			for(HantoCoordinate to: openCoor) { // every available move of this piece
-				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, this.getColor(), pieceLocationPair.getPiece().getType(), pieceLocationPair.getLocation(), to);
+				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, currentPlayer.getColor(), pieceLocationPair.getPiece().getType(), pieceLocationPair.getLocation(), to);
 				if(move.validate(currentPlayer, board)) {
 					availableMoves.add(move);
 				}
@@ -142,7 +142,7 @@ public abstract class Move {
 		//checks all the possible add moves for the pieces that the current player still has
 		for(HantoPiece piece: currentPlayer.getNotAddedPieces()) {
 			for(HantoCoordinate to: openCoor) {
-				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, this.getColor(), piece.getType(), null, to);
+				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, currentPlayer.getColor(), piece.getType(), null, to);
 				if(move.validate(currentPlayer, board)) {
 					availableMoves.add(move);
 				}
