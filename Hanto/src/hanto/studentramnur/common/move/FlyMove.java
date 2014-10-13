@@ -43,7 +43,7 @@ public class FlyMove extends Move {
 	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
 		return super.validate(currentPlayer, board) 
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
-				&& (board.getCellDistance(this.getFrom(), this.getTo()) <= 5)
+				&& (board.getCellDistance(this.getFrom(), this.getTo()) <= 4)
 				&& canPieceBeMovedWithoutBreakingTheStructure(board);
 	}
 

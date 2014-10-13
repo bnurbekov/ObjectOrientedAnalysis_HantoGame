@@ -43,16 +43,15 @@ public class JumpMove extends Move {
 		boolean rtn = true;
 		int pathCounter = 0;
 		
-		do {
-			currentCell = new HantoBoardCoordinate(currentCell.getX() + unitVector.getX(), currentCell.getX() + unitVector.getX());
-			pathCounter++;
-			
+		while(!currentCell.equals(to)) {
 			if (board.isCellEmpty(currentCell)) {
 				rtn = false;
 				break;
 			}
-				
-		} while(!currentCell.equals(to));
+
+			currentCell = new HantoBoardCoordinate(currentCell.getX() + unitVector.getX(), currentCell.getY() + unitVector.getY());
+			pathCounter++;
+		}
 		
 		if(pathCounter < 2) rtn = false;
 		

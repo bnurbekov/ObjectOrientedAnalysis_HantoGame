@@ -10,30 +10,34 @@
 package hanto.studentramnur.common;
 
 import hanto.common.HantoCoordinate;
-import hanto.common.HantoPieceType;
-import hanto.common.HantoPlayerColor;
+import hanto.common.HantoPiece;
 
 /**
  * A data structure used in setting up the the initial configuration of a game
  * for testing.
  * @version Sep 21, 2014
  */
-public class PieceLocationPair {
-	public final HantoPlayerColor player;
-	public final HantoPieceType pieceType;
-	public final HantoCoordinate location;
-	
+public class PieceCoordinatePair {
+	private final HantoPiece piece;
+	private final HantoCoordinate location;
+
 	/**
 	 * Default constructor
 	 * @param player the player color
 	 * @param pieceType the piece type
 	 * @param location the coordinate where the piece is at the beginning of the test
 	 */
-	public PieceLocationPair(HantoPlayerColor player, HantoPieceType pieceType,
-			HantoCoordinate location)
-	{
-		this.player = player;
-		this.pieceType = pieceType;
+	public PieceCoordinatePair(HantoPiece piece,
+			HantoCoordinate location) {
+		this.piece = piece;
 		this.location = location;
+	}
+
+	public HantoCoordinate getLocation() {
+		return location;
+	}
+
+	public HantoPiece getPiece() {
+		return piece;
 	}
 }

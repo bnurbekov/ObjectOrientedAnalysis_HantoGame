@@ -13,7 +13,7 @@ import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoGameFactory;
 import hanto.studentramnur.common.HantoPlayer;
-import hanto.studentramnur.common.PieceLocationPair;
+import hanto.studentramnur.common.PieceCoordinatePair;
 import hanto.studentramnur.common.move.Move;
 import hanto.tournament.HantoGamePlayer;
 import hanto.tournament.HantoMoveRecord;
@@ -35,10 +35,9 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 		opponentColor = (myColor == HantoPlayerColor.BLUE) ? HantoPlayerColor.RED : HantoPlayerColor.BLUE;
 		 
 		if (doIMoveFirst) {
-			game = (AbstractHantoGame)HantoGameFactory.makeHantoGame(version, myColor);
-		}
-		else {
-			game = (AbstractHantoGame)HantoGameFactory.makeHantoGame(version, opponentColor);
+			game = (AbstractHantoGame) HantoGameFactory.getInstance().makeHantoGame(version, myColor);
+		} else {
+			game = (AbstractHantoGame)HantoGameFactory.getInstance().makeHantoGame(version, opponentColor);
 		}
 	}
 
@@ -51,9 +50,8 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 		
 		try {
 			makeOpponentsMove();
-			makeNextMove();
-		}
-		catch(HantoException e) {
+			makeMyMove();
+		} catch(HantoException e) {
 			System.out.println("WARNING! Caught exception: " + e.getMessage());
 		}
 		
@@ -77,28 +75,26 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 	 * 
 	 * @throws HantoException
 	 */
-	private void makeNextMove() throws HantoException {
+	private void makeMyMove() throws HantoException {
 		HantoPlayer currentPlayer = game.getPlayerStats(myColor);
 		HantoBoard board = game.getBoard();
-		Collection<Move> allAvailableMoves = Move.getAllAvailableMoves(currentPlayer, board);
 		
 		if (opponentsMove == null) {
 			game.makeMove(HantoPieceType.CRAB, null, new HantoBoardCoordinate(0, 0));
 			result = new HantoMoveRecord(HantoPieceType.CRAB, null, new HantoBoardCoordinate(0, 0));
-		}
-		else {
+		} else {
+			Collection<Move> allAvailableMoves = Move.getAllAvailableMoves(currentPlayer, board);
+			
 			if (allAvailableMoves.size() == 0) { //if we don't have any moves available, then forfeit
 				game.makeMove(HantoPieceType.BUTTERFLY, null, null);
 				result = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, null);
-			}
-			else {
+			} else {
 				Move selectedMove = selectMove(allAvailableMoves, currentPlayer, board); //involves move selection techniques (AI)
 				
 				if (selectedMove == null) {
 					game.makeMove(HantoPieceType.BUTTERFLY, null, null);
 					result = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, null);
-				}
-				else {
+				} else {
 					game.makeMove(selectedMove.getPieceType(), selectedMove.getFrom(), selectedMove.getTo());								
 					result = new HantoMoveRecord(selectedMove.getPieceType(), selectedMove.getFrom(), selectedMove.getTo());
 				}
@@ -119,22 +115,10 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 		
 		HantoCoordinate opponentsButterflyCoor = getButterflyCoor(board, opponentColor);
 		HantoCoordinate myButterflyCoor = getButterflyCoor(board, myColor);
-		
-		//Check the butterfly first
-		if (myButterflyCoor == null) { //if we haven't placed the butterfly, then count the number of turns
-			if (currentPlayer.getMovesMade() >= 3) {//place butterfly anywhere on the board
-				for (Move move : getAvailableMovesForPieceAt(null, allAvailableMoves)) {
-					if (move.getPieceType() == HantoPieceType.BUTTERFLY) {
-						resultingMove = move;
-					}
-				}
-				
-				return null; //we cannot place butterfly, we will forfeit implicitly (null is considered as forfeit by the upper layer function)
-			}
-		}
-		else {
+
+		if (myButterflyCoor != null) {
 			if (board.getOccupiedNeighbors(myButterflyCoor).size() > 2) {
-				Collection<Move> movesForButterfly = getAvailableMovesForPieceAt(myButterflyCoor, allAvailableMoves);
+				Collection<Move> movesForButterfly = getAvailableMovingMovesForPieceAt(myButterflyCoor, allAvailableMoves);
 				if (movesForButterfly.size() > 0) { //if the butterfly can move, then move it to the coordinate with the least number of neighbors
 					int leastNumberOfNeighbors = board.getOccupiedNeighbors(myButterflyCoor).size();
 					
@@ -160,7 +144,7 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 			int largestScore = -100000;//set the last largest score to large negative value
 			
 			for (Move move : allAvailableMoves) { //iterate through all the moves
-				if (move.getPieceType() != HantoPieceType.BUTTERFLY && move.getFrom() != null) { //we don't try to move butterfly in this section (however, we can add it)
+				if (move.getPieceType() != HantoPieceType.BUTTERFLY || move.getFrom() == null) { //we don't try to move butterfly in this section (however, we can add it)
 					positiveScore = (myButterflyCoor == null) ? 0 : board.getCellDistance(myButterflyCoor, move.getTo());
 					negativeScore = (opponentsButterflyCoor == null) ? 0 : board.getCellDistance(opponentsButterflyCoor, move.getTo());
 					
@@ -169,8 +153,7 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 						if(move.getFrom() == null) { //if we add, then there is no way to calculate score for from coordinate
 							resultingMove = move;
 							largestScore = currentScore;
-						}
-						else {
+						} else {
 							positiveScore = (myButterflyCoor == null) ? 0 : board.getCellDistance(myButterflyCoor, move.getFrom());
 							negativeScore = (opponentsButterflyCoor == null) ? 0 : board.getCellDistance(opponentsButterflyCoor, move.getFrom());
 							
@@ -202,17 +185,12 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 	 * @param allAvailableMoves the list of all available moves
 	 * @return the filtered list of available moves
 	 */
-	private Collection<Move> getAvailableMovesForPieceAt(HantoCoordinate coordinate, Collection<Move> allAvailableMoves) {
+	private Collection<Move> getAvailableMovingMovesForPieceAt(HantoCoordinate coordinate, Collection<Move> allAvailableMoves) {
 		Collection<Move> availableMovesForPiece = new ArrayList<Move>();
 		
 		for (Move move : allAvailableMoves) {
 			if (move.getFrom() != null) {
 				if (move.getFrom().equals(coordinate)) {
-					availableMovesForPiece.add(move);
-				}
-			}
-			else {
-				if (coordinate == null) {
 					availableMovesForPiece.add(move);
 				}
 			}
@@ -231,10 +209,11 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 	private HantoCoordinate getButterflyCoor(HantoBoard board, HantoPlayerColor color) {
 		HantoCoordinate butterflyCoor = null;
 		
-		Collection<PieceLocationPair> pieceLocationPairs = board.getPlayerPieces(color);
-		for (PieceLocationPair plp : pieceLocationPairs) {
+		Collection<PieceCoordinatePair> pieceLocationPairs = board.getPlayerPieces(color);
+		for (PieceCoordinatePair plp : pieceLocationPairs) {
 			if (plp.getPiece().getType() == HantoPieceType.BUTTERFLY) {
 				butterflyCoor = plp.getLocation();
+				break;
 			}
 		}
 		

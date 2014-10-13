@@ -16,7 +16,6 @@ import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoTestGame;
 import hanto.studentramnur.common.PieceLocationPair;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
-import hanto.studentramnur.epsilon.EpsilonHantoGame;
 
 /**
 <<<<<<< HEAD
@@ -45,8 +44,8 @@ public class EpsilonHantoTestGame extends EpsilonHantoGame implements HantoTestG
 	@Override
 	public void initializeBoard(PieceLocationPair[] initialPieces) {
 		for(PieceLocationPair pair: initialPieces)  {
-			HantoCoordinate coor = new HantoBoardCoordinate(pair.getLocation());
-			HantoPiece piece = HantoPieceFactory.getInstance().createPiece(pair.getPlayer(), pair.getPieceType());
+			HantoCoordinate coor = new HantoBoardCoordinate(pair.location);
+			HantoPiece piece = HantoPieceFactory.getInstance().createPiece(pair.player, pair.pieceType);
 
 			if(piece.getColor() == HantoPlayerColor.BLUE) {
 				bluePlayer.decrementPieceCount(piece.getType());

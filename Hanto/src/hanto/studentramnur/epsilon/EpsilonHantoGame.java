@@ -52,6 +52,6 @@ public class EpsilonHantoGame extends AbstractHantoGame {
 	protected void preMoveSetUp(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		from = (from == null) ? null : new HantoBoardCoordinate(from);
 		to = (to == null) ? null : new HantoBoardCoordinate(to);
-		currentMove = HantoMoveFactory.getInstance().createMove(HantoGameID.DELTA_HANTO, currentPlayer.getColor(), pieceType, from, to);
+		currentMove = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, currentPlayer.getColor(), pieceType, from, to);
 	}
 }

@@ -54,7 +54,7 @@ public class HantoMoveFactory {
 	public Move createMove(HantoGameID id, HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		Move move;
 
-		if(id == HantoGameID.EPSILON_HANTO) { // Delta Hanto
+		if(id == HantoGameID.EPSILON_HANTO) { // Epsilon Hanto
 			if(from == null && to == null) {
 				move = new ForfeitMove(color, pieceType, from, to);
 			} else if(from == null) {
@@ -74,6 +74,7 @@ public class HantoMoveFactory {
 					break;
 				case HORSE:
 					move = new JumpMove(color, pieceType, from, to);
+					break;
 				default:
 					throw new HantoException("No such piece type.");
 				}

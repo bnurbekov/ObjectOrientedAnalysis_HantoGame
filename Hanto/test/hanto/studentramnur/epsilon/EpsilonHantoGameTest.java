@@ -36,10 +36,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
-<<<<<<< HEAD
  * The class that is responsible for Delta Hanto Game tests.
  * 
- * @author Batyr and Shadi
  * @author Shadi
  * @author Batyr
  */
@@ -55,7 +53,7 @@ public class EpsilonHantoGameTest {
 	 */
 	@Before
 	public void setUp() {
-		game = HantoTestGameFactory.getInstance().makeHantoTestGame(HantoGameID.DELTA_HANTO);
+		game = HantoTestGameFactory.getInstance().makeHantoTestGame(HantoGameID.EPSILON_HANTO);
 	}
 
 	/**

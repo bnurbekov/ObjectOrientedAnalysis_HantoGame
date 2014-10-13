@@ -10,7 +10,8 @@
 
 package hanto.studentramnur.common;
 
-import hanto.common.*;
+import hanto.common.HantoGame;
+import hanto.common.HantoPlayerColor;
 
 /**
  * Description

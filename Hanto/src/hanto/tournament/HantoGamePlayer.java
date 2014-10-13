@@ -33,7 +33,7 @@ import hanto.common.*;
 public interface HantoGamePlayer
 {
 	/**
-	 * This meethod must be called first after the player is constructed. It tells the
+	 * This method must be called first after the player is constructed. It tells the
 	 * player what version of the game to play, what the player's color is, and whether the
 	 * player moves first.
 	 * @param version the specific Hanto game to play

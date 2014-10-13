@@ -117,12 +117,12 @@ public class HantoBoard {
 		return isAdjacentToExistingCells;
 	}
 	
-	public Collection<PieceLocationPair> getPlayerPieces(HantoPlayerColor color) {
-		Collection<PieceLocationPair> result = new ArrayList<>();
+	public Collection<PieceCoordinatePair> getPlayerPieces(HantoPlayerColor color) {
+		Collection<PieceCoordinatePair> result = new ArrayList<>();
 		
 		for	(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			if (entry.getValue().getColor() == color) {
-				result.add(new PieceLocationPair(entry.getValue(), entry.getKey()));
+				result.add(new PieceCoordinatePair(entry.getValue(), entry.getKey()));
 			}
 		}
 		
