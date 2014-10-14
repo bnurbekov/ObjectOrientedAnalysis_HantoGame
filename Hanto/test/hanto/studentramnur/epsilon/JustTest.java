@@ -263,7 +263,7 @@ public class JustTest
 				makeCoordinate(0, 2)));
 	}
 	
-	@Test
+	@Test(expected=HantoException.class)
 	public void debugTest() throws HantoException {
 		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 0));
 		game.makeMove(SPARROW, null, new HantoTestCoordinate(1, 0));

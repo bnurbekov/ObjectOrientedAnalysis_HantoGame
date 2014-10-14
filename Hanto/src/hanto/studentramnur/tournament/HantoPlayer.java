@@ -3,11 +3,13 @@ package hanto.studentramnur.tournament;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.common.MoveResult;
 import hanto.studentramnur.common.AbstractHantoGame;
 import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoBoardCoordinate;
@@ -49,8 +51,14 @@ public class HantoPlayer implements HantoGamePlayer {
 		this.opponentsMove = opponentsMove;
 		
 		try {
-			makeOpponentsMove();
-			makeMyMove();
+			MoveResult moveResult = makeOpponentsMove();
+			
+			if (moveResult == MoveResult.OK) {
+				makeMyMove();
+			}
+			else {
+				System.out.println("WARNING! The tournament runner tried to ask for another move when the game was already over!");
+			}
 		} catch(HantoException e) {
 			System.out.println("WARNING! Caught exception: " + e.getMessage());
 		}
@@ -64,10 +72,17 @@ public class HantoPlayer implements HantoGamePlayer {
 	 * @param opponentsMove
 	 * @throws HantoException
 	 */
-	private void makeOpponentsMove() throws HantoException {
+	private MoveResult makeOpponentsMove() throws HantoException {
+		MoveResult moveResult;
+		
 		if (opponentsMove != null) {
-			game.makeMove(opponentsMove.getPiece(), opponentsMove.getFrom(), opponentsMove.getTo());
+			moveResult = game.makeMove(opponentsMove.getPiece(), opponentsMove.getFrom(), opponentsMove.getTo());
 		}
+		else {
+			moveResult = MoveResult.OK;
+		}
+		
+		return moveResult;
 	}
 	
 	/**
