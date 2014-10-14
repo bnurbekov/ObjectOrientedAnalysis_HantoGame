@@ -15,7 +15,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
-import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
 
 /**
@@ -43,7 +43,7 @@ public class AddMove extends Move {
 	 * @throws HantoMoveException 
 	 */
 	@Override
-	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		boolean isValid = true;
 
 		if(currentPlayer.getPieceCount(getPieceType()) == 0) {

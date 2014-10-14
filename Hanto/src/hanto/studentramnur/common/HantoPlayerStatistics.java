@@ -23,7 +23,7 @@ import java.util.Map;
  * Class that contain the statistics for the Hanto player. 
  * Also, contains the pieces that the player can place on the board.
  */
-public class HantoPlayer {
+public class HantoPlayerStatistics {
 	private final HantoPlayerColor color;
 	private final HashMap<HantoPieceType, Integer> pieceTypeCounts;
 	private int movesMade;
@@ -33,7 +33,7 @@ public class HantoPlayer {
 	 * 
 	 * @param color the color of the player
 	 */
-	public HantoPlayer(HantoPlayerColor color) {
+	public HantoPlayerStatistics(HantoPlayerColor color) {
 		this.color = color;
 		pieceTypeCounts = new HashMap<HantoPieceType, Integer>();
 		movesMade = 0;

@@ -12,13 +12,13 @@ import hanto.studentramnur.common.AbstractHantoGame;
 import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoGameFactory;
-import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 import hanto.studentramnur.common.PieceCoordinatePair;
 import hanto.studentramnur.common.move.Move;
 import hanto.tournament.HantoGamePlayer;
 import hanto.tournament.HantoMoveRecord;
 
-public class HantoGamePlayerImpl implements HantoGamePlayer {
+public class HantoPlayer implements HantoGamePlayer {
 	private AbstractHantoGame game;
 	private HantoPlayerColor myColor;
 	private HantoPlayerColor opponentColor;
@@ -76,7 +76,7 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 	 * @throws HantoException
 	 */
 	private void makeMyMove() throws HantoException {
-		HantoPlayer currentPlayer = game.getPlayerStats(myColor);
+		HantoPlayerStatistics currentPlayer = game.getPlayerStats(myColor);
 		HantoBoard board = game.getBoard();
 		
 		if (opponentsMove == null) {
@@ -112,7 +112,7 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 	 * @param board the board
 	 * @return the next move selected from the list
 	 */
-	private Move selectMove(Collection<Move> allAvailableMoves, HantoPlayer currentPlayer, HantoBoard board) {
+	private Move selectMove(Collection<Move> allAvailableMoves, HantoPlayerStatistics currentPlayer, HantoBoard board) {
 		Move resultingMove = null;
 		
 		HantoCoordinate opponentsButterflyCoor = getButterflyCoor(board, opponentColor);

@@ -14,7 +14,7 @@ import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
-import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 
 /**
  * Class that implements the walk move.
@@ -42,7 +42,7 @@ public class WalkMove extends Move {
 	 * @throws HantoMoveException 
 	 */
 	@Override
-	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {		
+	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {		
 		return super.validate(currentPlayer, board)
 				&& board.isCellAdjacentTo(this.getFrom(), this.getTo())
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())

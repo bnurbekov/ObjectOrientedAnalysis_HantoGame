@@ -18,7 +18,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoBoardCoordinate;
-import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 import hanto.studentramnur.common.PieceCoordinatePair;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public abstract class Move {
 	 * @throws HantoException 
 	 * @throws HantoMoveException 
 	 */
-	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		boolean isValid = true;
 
 		if(this.isCellOccupied(board)) {
@@ -103,7 +103,7 @@ public abstract class Move {
 	 * 
 	 * @throws HantoException
 	 */
-	protected boolean validateButterflyPlacement(HantoPlayer currentPlayer) {
+	protected boolean validateButterflyPlacement(HantoPlayerStatistics currentPlayer) {
 		final HantoPieceType pieceType = getPieceType();
 
 		if(!currentPlayer.hasPlacedButterfly() && pieceType != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 3) {
@@ -141,7 +141,7 @@ public abstract class Move {
 	 * @return the list of available moves
 	 * @throws HantoException
 	 */
-	public static Collection<Move> getAllAvailableMoves(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+	public static Collection<Move> getAllAvailableMoves(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		Collection<Move> availableMoves = new ArrayList<Move>();
 		Collection<HantoCoordinate> openCoor = board.getAllUnoccupiedAdjacentCells();
 				

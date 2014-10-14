@@ -14,7 +14,7 @@ import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
-import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 
 /**
  * Fly move class that is responsible for the flight capabilities of the pieces.
@@ -40,7 +40,7 @@ public class FlyMove extends Move {
 	 * @throws HantoMoveException 
 	 */
 	@Override
-	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		return super.validate(currentPlayer, board) 
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
 				&& (board.getCellDistance(this.getFrom(), this.getTo()) <= 4)

@@ -9,7 +9,7 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentramnur.common.HantoBoard;
 import hanto.studentramnur.common.HantoBoardCoordinate;
-import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 
 /**
  * @author srramadan
@@ -27,7 +27,7 @@ public class JumpMove extends Move {
 	 * @throws HantoMoveException 
 	 */
 	@Override
-	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		HantoCoordinate vector = board.getVector(this.getFrom(), this.getTo());
 		HantoCoordinate unitVector = board.getUnitVector(vector);
 		//System.out.println("Vector: "+vector.getX()+" "+vector.getY());

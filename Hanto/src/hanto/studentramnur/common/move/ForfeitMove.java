@@ -18,7 +18,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
-import hanto.studentramnur.common.HantoPlayer;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 
 /**
  * Forfeit move class that is responsible for the move that allows player to forfeit.
@@ -45,7 +45,7 @@ public class ForfeitMove extends Move {
 	 * @throws HantoException 
 	 */
 	@Override
-	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
+	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		Collection<Move> availableMoves = getAllAvailableMoves(currentPlayer, board);
 		
 		if (availableMoves.size() != 0) {

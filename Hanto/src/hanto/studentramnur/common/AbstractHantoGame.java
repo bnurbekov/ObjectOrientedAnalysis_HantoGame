@@ -23,9 +23,9 @@ import hanto.studentramnur.common.move.MoveType;
  * Class for gamma Hanto game.
  */
 public abstract class AbstractHantoGame implements HantoGame {
-	protected HantoPlayer currentPlayer;
-	protected HantoPlayer redPlayer;
-	protected HantoPlayer bluePlayer;
+	protected HantoPlayerStatistics currentPlayer;
+	protected HantoPlayerStatistics redPlayer;
+	protected HantoPlayerStatistics bluePlayer;
 	protected HantoBoard board;
 
 	private MoveResult prevResult;
@@ -39,8 +39,8 @@ public abstract class AbstractHantoGame implements HantoGame {
 	protected AbstractHantoGame(HantoPlayerColor movesFirst) {
 		board = new HantoBoard();
 
-		redPlayer = new HantoPlayer(HantoPlayerColor.RED);
-		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE);
+		redPlayer = new HantoPlayerStatistics(HantoPlayerColor.RED);
+		bluePlayer = new HantoPlayerStatistics(HantoPlayerColor.BLUE);
 		currentPlayer = (movesFirst == HantoPlayerColor.BLUE) ? bluePlayer : redPlayer;
 
 		prevResult = MoveResult.OK;
@@ -162,7 +162,7 @@ public abstract class AbstractHantoGame implements HantoGame {
 		return board.getPiece(where);
 	}
 	
-	public HantoPlayer getPlayerStats(HantoPlayerColor playerColor) {
+	public HantoPlayerStatistics getPlayerStats(HantoPlayerColor playerColor) {
 		if (playerColor == HantoPlayerColor.BLUE) {
 			return bluePlayer;
 		}
