@@ -30,18 +30,31 @@ public class JumpMove extends Move {
 	public boolean validate(HantoPlayer currentPlayer, HantoBoard board) throws HantoException {
 		HantoCoordinate vector = board.getVector(this.getFrom(), this.getTo());
 		HantoCoordinate unitVector = board.getUnitVector(vector);
-		
+		//System.out.println("Vector: "+vector.getX()+" "+vector.getY());
+		//System.out.println("Unit: "+unitVector.getX()+" "+unitVector.getY());
+			
 		return super.validate(currentPlayer, board)
 				&& board.pieceMatchesAtCell(this.getColor(), this.getPieceType(), this.getFrom())
+				&& isStraightLine(unitVector)
 				&& hasPiecesAlongPath(unitVector, board)
 				&& canPieceBeMovedWithoutBreakingTheStructure(board);
 	}
 
+	private boolean isStraightLine(HantoCoordinate unitVector) {
+		return unitVector.getX() ==0 
+				|| unitVector.getY() == 0 
+				|| unitVector.equals(new HantoBoardCoordinate(-1, 1)) 
+				|| unitVector.equals(new HantoBoardCoordinate(1, -1));
+	}
+	
 	private boolean hasPiecesAlongPath(HantoCoordinate unitVector, HantoBoard board) {
 		HantoCoordinate currentCell = from;
 		
 		boolean rtn = true;
 		int pathCounter = 0;
+
+		//System.out.println("From: "+from.getX()+" "+from.getY());
+		//System.out.println("To: "+to.getX()+" "+to.getY());
 		
 		while(!currentCell.equals(to)) {
 			if (board.isCellEmpty(currentCell)) {
@@ -49,6 +62,8 @@ public class JumpMove extends Move {
 				break;
 			}
 
+			//System.out.println("Stuck in an infinite loop...");
+			
 			currentCell = new HantoBoardCoordinate(currentCell.getX() + unitVector.getX(), currentCell.getY() + unitVector.getY());
 			pathCounter++;
 		}

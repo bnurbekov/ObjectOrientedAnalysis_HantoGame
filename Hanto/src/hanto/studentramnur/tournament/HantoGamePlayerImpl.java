@@ -83,7 +83,9 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 			game.makeMove(HantoPieceType.CRAB, null, new HantoBoardCoordinate(0, 0));
 			result = new HantoMoveRecord(HantoPieceType.CRAB, null, new HantoBoardCoordinate(0, 0));
 		} else {
+			//System.out.println(this.myColor+"Calculating Available moves...");
 			Collection<Move> allAvailableMoves = Move.getAllAvailableMoves(currentPlayer, board);
+			//System.out.println(this.myColor+"Calculated!");
 			
 			if (allAvailableMoves.size() == 0) { //if we don't have any moves available, then forfeit
 				game.makeMove(HantoPieceType.BUTTERFLY, null, null);
@@ -116,9 +118,22 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 		HantoCoordinate opponentsButterflyCoor = getButterflyCoor(board, opponentColor);
 		HantoCoordinate myButterflyCoor = getButterflyCoor(board, myColor);
 
-		if (myButterflyCoor != null) {
+		if (myButterflyCoor == null) { //if we haven't placed the butterfly, then count the number of turns
+				if (currentPlayer.getMovesMade() >= 2) {//place butterfly anywhere on the board
+					for (Move move : getAvailableMovesForButterflyAt(null, allAvailableMoves)) {
+					if (move.getPieceType() == HantoPieceType.BUTTERFLY) {
+						resultingMove = move;
+					}
+				}
+				
+				if (resultingMove == null) {
+					return null; //we cannot place butterfly, we will forfeit implicitly (null is considered as forfeit by the upper layer function)
+				}
+			}
+		}
+		else {
 			if (board.getOccupiedNeighbors(myButterflyCoor).size() > 2) {
-				Collection<Move> movesForButterfly = getAvailableMovingMovesForPieceAt(myButterflyCoor, allAvailableMoves);
+				Collection<Move> movesForButterfly = getAvailableMovesForButterflyAt(myButterflyCoor, allAvailableMoves);
 				if (movesForButterfly.size() > 0) { //if the butterfly can move, then move it to the coordinate with the least number of neighbors
 					int leastNumberOfNeighbors = board.getOccupiedNeighbors(myButterflyCoor).size();
 					
@@ -185,12 +200,17 @@ public class HantoGamePlayerImpl implements HantoGamePlayer {
 	 * @param allAvailableMoves the list of all available moves
 	 * @return the filtered list of available moves
 	 */
-	private Collection<Move> getAvailableMovingMovesForPieceAt(HantoCoordinate coordinate, Collection<Move> allAvailableMoves) {
+	private Collection<Move> getAvailableMovesForButterflyAt(HantoCoordinate coordinate, Collection<Move> allAvailableMoves) {
 		Collection<Move> availableMovesForPiece = new ArrayList<Move>();
 		
 		for (Move move : allAvailableMoves) {
 			if (move.getFrom() != null) {
 				if (move.getFrom().equals(coordinate)) {
+					availableMovesForPiece.add(move);
+				}
+			}
+			else {
+				if (move.getPieceType() == HantoPieceType.BUTTERFLY) {
 					availableMovesForPiece.add(move);
 				}
 			}

@@ -55,8 +55,8 @@ public class AddMove extends Move {
 		}
 
 		if(board.getNumPiecesOnBoard() >= 2) { //if not first two moves
-			if(!(board.isAdjacentToExistingCells(to, this.getColor())
-					&& !board.isAdjacentToExistingCells(to, (this.getColor() == HantoPlayerColor.BLUE) ? HantoPlayerColor.RED : HantoPlayerColor.BLUE))) {
+			if(!(board.isAdjacentToExistingCells(to, null, this.getColor())
+					&& !board.isAdjacentToExistingCells(to, null, (this.getColor() == HantoPlayerColor.BLUE) ? HantoPlayerColor.RED : HantoPlayerColor.BLUE))) {
 				isValid = false;
 			}
 		} else {

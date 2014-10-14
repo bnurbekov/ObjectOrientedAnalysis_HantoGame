@@ -96,21 +96,24 @@ public class HantoBoard {
 	}
 
 	/**
-	 * Determines if a specific cell is adjacent to some existing cell color on the board.
+	 * Determines if a specific cell is adjacent to some existing cell color on the board. Doesn't check adjacency for exceptCoordinate.
 	 * 
 	 * @param cellToCheck the cell to check
 	 * @param color the color to check against, null means either color
+	 * @param exceptCoordinate the coordinate that we don't consider during adjacency check
 	 * @return indication of whether the cell is adjacent to some existing cell on the board or not 
 	 */
-	public boolean isAdjacentToExistingCells(HantoCoordinate cellToCheck, HantoPlayerColor color) {
+	public boolean isAdjacentToExistingCells(HantoCoordinate cellToCheck, HantoCoordinate exceptCoordinate, HantoPlayerColor color) {
 		boolean isAdjacentToExistingCells = false;
 
 		for(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			HantoCoordinate key = entry.getKey();
 
-			if (isCellAdjacentTo(cellToCheck, key) && (entry.getValue().getColor() == color || color == null)) {
-				isAdjacentToExistingCells = true;
-				break;
+			if (exceptCoordinate == null || !exceptCoordinate.equals(key)) {
+				if (isCellAdjacentTo(cellToCheck, key) && (entry.getValue().getColor() == color || color == null)) {
+					isAdjacentToExistingCells = true;
+					break;
+				}
 			}
 		}
 
@@ -460,10 +463,7 @@ public class HantoBoard {
 	 * @return the normalized vector
 	 */
 	public HantoCoordinate getUnitVector(HantoCoordinate vector) {
-		HantoCoordinate origin = new HantoBoardCoordinate(0, 0);
-		int cellDistance = this.getCellDistance(origin, vector);
-		
-		return new HantoBoardCoordinate(vector.getX()/cellDistance, vector.getY()/cellDistance);
+		return new HantoBoardCoordinate((int)Math.signum(vector.getX()), (int)Math.signum(vector.getY()));
 	}
 	
 	/**

@@ -17,6 +17,7 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
+import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoPlayer;
 import hanto.studentramnur.common.PieceCoordinatePair;
 
@@ -72,7 +73,7 @@ public abstract class Move {
 		}
 
 		if(!board.isEmpty()) {
-			if(!board.isAdjacentToExistingCells(to, null)) {
+			if(!board.isAdjacentToExistingCells(to, getFrom(), null)) {
 				isValid = false;
 			}
 		}
