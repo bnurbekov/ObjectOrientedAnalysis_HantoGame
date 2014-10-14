@@ -78,7 +78,7 @@ public abstract class Move {
 			}
 		}
 
-		return isValid && validateButterflyPlacement(currentPlayer);
+		return isValid;
 	}
 
 	/**
@@ -96,21 +96,6 @@ public abstract class Move {
 	 */
 	protected boolean isCellOccupied(HantoBoard board) {		
 		return !board.isCellEmpty(getTo()); 
-	}
-	
-	/**
-	 * Validates whether the player has placed butterfly the first four moves or not
-	 * 
-	 * @throws HantoException
-	 */
-	protected boolean validateButterflyPlacement(HantoPlayerStatistics currentPlayer) {
-		final HantoPieceType pieceType = getPieceType();
-
-		if(!currentPlayer.hasPlacedButterfly() && pieceType != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 3) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 
 	/**
