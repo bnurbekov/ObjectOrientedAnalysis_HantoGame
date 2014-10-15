@@ -103,7 +103,17 @@ public abstract class Move {
 	 * @return boolean indication of whether the piece can be moved without breaking the structure
 	 */
 	protected boolean canPieceBeMovedWithoutBreakingTheStructure(HantoBoard board) {
-		return !board.isCellCritical(from);
+		boolean arePiecesConnectedAfterMove;
+		
+		HantoPiece piece = board.removePiece(from);
+		board.addPiece(to, piece);
+		
+		arePiecesConnectedAfterMove = board.arePiecesConnected();
+		
+		board.removePiece(to);
+		board.addPiece(from, piece);
+		
+		return arePiecesConnectedAfterMove;
 	}
 
 	/**

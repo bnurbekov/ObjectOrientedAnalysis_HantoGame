@@ -293,31 +293,29 @@ public class HantoBoard {
 	}
 
 	/**
-	 * Determines if the cell is critical (bridge node that may break the graph if moved) 
-	 * for the current graph of non-empty cells.
+	 * Determines if pieces on the board are connected.
 	 * 
-	 * @param cell the cell to check
-	 * @return whether the cell is critical or not
+	 * @return indication of whether pieces on the board are connected or not
 	 */
-	public boolean isCellCritical(HantoCoordinate cell) {
-		boolean isCellCritical = true;
-
-		int count = 1;
-
-		final Collection<HantoCoordinate> occupiedNeighbors = getOccupiedNeighbors(cell);
-
+	public boolean arePiecesConnected() {
+		boolean arePiecesConnected = false;
+		int count = 0;
+		
 		//create the collection that contains the non-empty cells that were already checked
 		final Collection<HantoCoordinate> alreadyCheckedCells = new ArrayList<>(); 
-		//get the first neighbor from collection and work with it
-		alreadyCheckedCells.add(cell);
+		
+		if (!board.isEmpty()) {
+			count += countNeighbors(board.entrySet().iterator().next().getKey(), alreadyCheckedCells);
+			
+			if (count == board.size()) {
+				arePiecesConnected = true;
+			}
 
-		count += countNeighbors((HantoCoordinate)(occupiedNeighbors.toArray())[0], alreadyCheckedCells);
-
-		if (count == board.size()) {
-			isCellCritical = false;
 		}
-
-		return isCellCritical;
+		else {
+			arePiecesConnected = true;
+		}
+		return arePiecesConnected;
 	}
 
 	/**
