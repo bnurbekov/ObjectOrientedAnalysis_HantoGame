@@ -1,6 +1,6 @@
 /*******************************************************************************
  * This files was developed for CS4233: Object-Oriented Analysis & Design.
- * The course was taken at Worcester Polytechnic Institute.
+ * The course was taken, null, makeCoordinateWorcester Polytechnic Institute.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,6 +21,10 @@ import static hanto.common.MoveResult.BLUE_WINS;
 import static hanto.common.MoveResult.OK;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
@@ -30,11 +34,13 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
+import hanto.studentramnur.common.AbstractHantoGame;
 import hanto.studentramnur.common.HantoGameFactory;
-import hanto.studentramnur.common.HantoTestCoordinate;
+import hanto.studentramnur.common.HantoPlayerStatistics;
 import hanto.studentramnur.common.HantoTestGame;
 import hanto.studentramnur.common.HantoTestGameFactory;
 import hanto.studentramnur.common.PieceLocationPair;
+import hanto.studentramnur.common.move.Move;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -92,13 +98,13 @@ public class JustTest
 	@Before
 	public void setup()
 	{
-		// By default, blue moves first.
+		// By default, game.makeMove(first.
 		testGame = factory.makeHantoTestGame(HantoGameID.EPSILON_HANTO);
 		game = testGame;
 	}
 
 	@Test
-	public void bluePlacesButterflyFirst() throws HantoException
+	public void bluePlacesBUTTERFLYFirst() throws HantoException
 	{
 		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		assertEquals(OK, mr);
@@ -119,7 +125,7 @@ public class JustTest
 	}
 
 	@Test
-	public void placeHorse() throws HantoException
+	public void placeHORSE() throws HantoException
 	{
 		final MoveResult mr = game.makeMove(HORSE, null, makeCoordinate(0, 0));
 		assertEquals(OK, mr);
@@ -129,7 +135,7 @@ public class JustTest
 	}
 
 	@Test
-	public void sparrowFliesFourSpaces() throws HantoException
+	public void SPARROWFliesFourSpaces() throws HantoException
 	{
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 				plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, 0, 1),
@@ -148,7 +154,7 @@ public class JustTest
 	}
 
 	@Test(expected=HantoException.class)
-	public void sparrowTriesToFlyTooFar() throws HantoException
+	public void SPARROWTriesToFlyTooFar() throws HantoException
 	{
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 				plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, 0, 1),
@@ -169,7 +175,7 @@ public class JustTest
 	}
 
 	@Test
-	public void horseJumps() throws HantoException
+	public void HORSEJumps() throws HantoException
 	{
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 				plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, 0, 1),
@@ -187,12 +193,12 @@ public class JustTest
 	}
 
 	@Test(expected=HantoException.class)
-	public void horseTriesToJumpAGap() throws HantoException
+	public void HORSETriesToJumpAGap() throws HantoException
 	{
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 				plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, -1, 1),
 				plPair(BLUE, HORSE, 1, -1), plPair(RED, SPARROW, -3, 3),
-				plPair(BLUE, SPARROW, -2, 1), plPair(RED,SPARROW, -3, 2) 
+				plPair(BLUE, SPARROW, -2, 1), plPair(RED, SPARROW, -3, 2) 
 		};
 		testGame.initializeBoard(board);
 		testGame.setPlayerMoving(BLUE);
@@ -201,7 +207,7 @@ public class JustTest
 	}
 
 	@Test(expected=HantoException.class)
-	public void sparrowCausesDisconnectedGroup() throws HantoException
+	public void SPARROWCausesDisconnectedGroup() throws HantoException
 	{
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 				plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, -1, 1),
@@ -214,7 +220,7 @@ public class JustTest
 	}
 
 	@Test(expected=HantoException.class)
-	public void horseCausesDisconnectedGroup() throws HantoException
+	public void HORSECausesDisconnectedGroup() throws HantoException
 	{
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 				plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, -1, 1),
@@ -234,7 +240,7 @@ public class JustTest
 	}
 
 	@Test
-	public void crabMoves() throws HantoException
+	public void CRABMoves() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
@@ -265,24 +271,107 @@ public class JustTest
 	
 	@Test(expected=HantoException.class)
 	public void debugTest() throws HantoException {
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 0));
-		game.makeMove(SPARROW, null, new HantoTestCoordinate(1, 0));
-		game.makeMove(SPARROW, null, new HantoTestCoordinate(0, -1));
-		game.makeMove(SPARROW, null, new HantoTestCoordinate(2, 0));
-		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(-1, -1));
-		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(2, 1));
-		game.makeMove(SPARROW, null, new HantoTestCoordinate(-1, 1));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(2, -1));
-		game.makeMove(SPARROW, new HantoTestCoordinate(-1, 1), new HantoTestCoordinate(3, 1));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(2, -2));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(4, 1));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(2, -3));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(5, 1));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(1, -3));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(6, 1));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, -3));
-		game.makeMove(HORSE, null, new HantoTestCoordinate(4, 2));
-		game.makeMove(CRAB, new HantoTestCoordinate(0, -3), new HantoTestCoordinate(-1, -3));
+		Collection<Move> moves = new ArrayList<Move>();
+		HantoPlayerStatistics stats;
+		
+		game.makeMove(CRAB, null, makeCoordinate(0, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(1, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(0, -1));
+		game.makeMove(SPARROW, null, makeCoordinate(2, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(-1, -1));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(2, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
+		game.makeMove(CRAB, null, makeCoordinate(2, -1));
+		game.makeMove(SPARROW, makeCoordinate(-1, 1), makeCoordinate(3, 1));
+		game.makeMove(CRAB, makeCoordinate(2, -1), makeCoordinate(1, -1));
+		game.makeMove(CRAB, null, makeCoordinate(4, 1));
+		game.makeMove(CRAB, makeCoordinate(1, -1), makeCoordinate(1, -2));
+		game.makeMove(CRAB, null, makeCoordinate(5, 1));
+		game.makeMove(CRAB, makeCoordinate(1, -2), makeCoordinate(0, -2));
+		game.makeMove(CRAB, null, makeCoordinate(6, 1));
+		game.makeMove(CRAB, makeCoordinate(0, -2), makeCoordinate(-1, -2));
+		game.makeMove(CRAB, null, makeCoordinate(4, 2));
+		game.makeMove(CRAB, null, makeCoordinate(-1, -3));
+		game.makeMove(CRAB, null, makeCoordinate(5, 2));
+		game.makeMove(CRAB, null, makeCoordinate(-1, -4));
+		game.makeMove(HORSE, null, makeCoordinate(6, 2));
+		game.makeMove(CRAB, null, makeCoordinate(-1, -5));
+		game.makeMove(HORSE, null, makeCoordinate(7, 2));
+		game.makeMove(CRAB, null, makeCoordinate(-2, -4));
+		game.makeMove(HORSE, null, makeCoordinate(7, 1));
+		game.makeMove(CRAB, null, makeCoordinate(-2, -3));
+		game.makeMove(HORSE, null, makeCoordinate(5, 3));
+		game.makeMove(HORSE, null, makeCoordinate(-2, -2));
+		game.makeMove(CRAB, makeCoordinate(6, 1), makeCoordinate(6, 0));
+		game.makeMove(HORSE, null, makeCoordinate(-1, -6));
+		game.makeMove(CRAB, makeCoordinate(6, 0), makeCoordinate(6, 1));
+		game.makeMove(HORSE, null, makeCoordinate(-1, -7));
+		game.makeMove(HORSE, makeCoordinate(7, 1), makeCoordinate(1, 1));
+		game.makeMove(HORSE, null, makeCoordinate(-2, -6));
+		game.makeMove(HORSE, makeCoordinate(1, 1), makeCoordinate(7, 1));
+		game.makeMove(HORSE, makeCoordinate(-2, -2), makeCoordinate(-2, -5));
+		game.makeMove(HORSE, makeCoordinate(6, 2), makeCoordinate(4, 4));
+		game.makeMove(CRAB, makeCoordinate(-2, -3), makeCoordinate(-2, -2));
+		game.makeMove(HORSE, makeCoordinate(7, 2), makeCoordinate(7, 0));
+		game.makeMove(HORSE, makeCoordinate(-1, -6), makeCoordinate(-1, -8));
+		game.makeMove(HORSE, makeCoordinate(7, 0), makeCoordinate(4, 3));
+		game.makeMove(CRAB, makeCoordinate(-1, -5), makeCoordinate(-1, -6));
+		game.makeMove(HORSE, makeCoordinate(4, 3), makeCoordinate(7, 0));
+		game.makeMove(HORSE, makeCoordinate(-2, -6), makeCoordinate(0, -8));
+		game.makeMove(HORSE, makeCoordinate(7, 0), makeCoordinate(4, 3));
+		game.makeMove(HORSE, makeCoordinate(0, -8), makeCoordinate(-2, -6));
+		game.makeMove(HORSE, makeCoordinate(5, 3), makeCoordinate(5, 0));
+		game.makeMove(HORSE, makeCoordinate(-2, -6), makeCoordinate(0, -6));
+		game.makeMove(HORSE, makeCoordinate(5, 0), makeCoordinate(5, 3));
+		game.makeMove(HORSE, makeCoordinate(0, -6), makeCoordinate(-2, -6));
+		game.makeMove(CRAB, makeCoordinate(4, 2), makeCoordinate(3, 2));
+		game.makeMove(CRAB, makeCoordinate(-1, -6), makeCoordinate(-1, -5));
+		game.makeMove(CRAB, makeCoordinate(3, 2), makeCoordinate(4, 2));
+		game.makeMove(CRAB, makeCoordinate(-2, -4), makeCoordinate(-2, -3));
+		game.makeMove(HORSE, makeCoordinate(4, 3), makeCoordinate(6, 3));
+		game.makeMove(CRAB, makeCoordinate(-2, -2), makeCoordinate(-3, -2));
+		game.makeMove(CRAB, makeCoordinate(4, 2), makeCoordinate(4, 3));
+		game.makeMove(HORSE, makeCoordinate(-1, -8), makeCoordinate(-1, -6));
+		game.makeMove(CRAB, makeCoordinate(4, 3), makeCoordinate(3, 4));
+		game.makeMove(HORSE, makeCoordinate(-2, -6), makeCoordinate(0, -6));
+		game.makeMove(CRAB, makeCoordinate(3, 4), makeCoordinate(4, 3));
+		game.makeMove(HORSE, makeCoordinate(0, -6), makeCoordinate(-2, -6));
+		game.makeMove(CRAB, makeCoordinate(4, 3), makeCoordinate(3, 4));
+		game.makeMove(HORSE, makeCoordinate(-2, -6), makeCoordinate(0, -6));
+		game.makeMove(CRAB, makeCoordinate(3, 4), makeCoordinate(4, 3));
+		game.makeMove(HORSE, makeCoordinate(0, -6), makeCoordinate(-2, -6));
+		game.makeMove(CRAB, makeCoordinate(4, 3), makeCoordinate(3, 4));
+		game.makeMove(HORSE, makeCoordinate(-1, -7), makeCoordinate(-1, 0));
+		game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(3, 0));
+		game.makeMove(BUTTERFLY, makeCoordinate(2, 1), makeCoordinate(2, 2));
+		game.makeMove(HORSE, makeCoordinate(6, 3), makeCoordinate(4, 3));
+		game.makeMove(CRAB, makeCoordinate(-3, -2), makeCoordinate(-3, -3));
+		game.makeMove(HORSE, makeCoordinate(5, 3), makeCoordinate(3, 3));
+		game.makeMove(BUTTERFLY, makeCoordinate(2, 2), makeCoordinate(2, 3));
+		game.makeMove(HORSE, makeCoordinate(7, 1), makeCoordinate(2, 1));
+		game.makeMove(HORSE, makeCoordinate(-2, -5), makeCoordinate(0, -7));
+		game.makeMove(SPARROW, makeCoordinate(3, 0), makeCoordinate(2, 4));
+		game.makeMove(HORSE, makeCoordinate(0, -7), makeCoordinate(-2, -5));
+		game.makeMove(CRAB, makeCoordinate(6, 1), makeCoordinate(6, 2));
+		game.makeMove(BUTTERFLY, makeCoordinate(2, 3), makeCoordinate(1, 4));
+		game.makeMove(HORSE, makeCoordinate(3, 3), makeCoordinate(1, 5));
+		game.makeMove(HORSE, makeCoordinate(-1, -6), makeCoordinate(-3, -4));
+		game.makeMove(CRAB, makeCoordinate(6, 2), makeCoordinate(5, 3));
+		game.makeMove(HORSE, makeCoordinate(-3, -4), makeCoordinate(-1, -6));
+		game.makeMove(HORSE, makeCoordinate(4, 3), makeCoordinate(2, 5));
+		game.makeMove(CRAB, makeCoordinate(-3, -3), makeCoordinate(-3, -4));
+		game.makeMove(SPARROW, makeCoordinate(2, 4), makeCoordinate(1, 1));
+		game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(0, -2));
+		
+		System.out.println(game.getPrintableBoard());
+		
+		moves = Move.getAllAvailableMoves(((AbstractHantoGame) game).getPlayerStats(BLUE), ((AbstractHantoGame) game).getBoard());
+		moves = Move.getAllAvailableMoves(((AbstractHantoGame) game).getPlayerStats(RED), ((AbstractHantoGame) game).getBoard());
+		
+		stats = ((AbstractHantoGame) game).getPlayerStats(BLUE);
+		stats = ((AbstractHantoGame) game).getPlayerStats(RED);
+		
+		assertEquals(1, moves.size());
 	}
 
 	@Test(expected=HantoException.class)
@@ -300,7 +389,7 @@ public class JustTest
 	}
 
 	/**
-	 * Factory method to create a piece location pair.
+	 * Factory method, makeCoordinatecreate a piece location pair.
 	 * @param player the player color
 	 * @param pieceType the piece type
 	 * @param x starting location

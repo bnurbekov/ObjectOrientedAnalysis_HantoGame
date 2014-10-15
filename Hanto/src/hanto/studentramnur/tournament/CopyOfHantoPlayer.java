@@ -30,12 +30,11 @@ import hanto.tournament.HantoGamePlayer;
 import hanto.tournament.HantoMoveRecord;
 
 /**
- * The class that implements logic for the player.
  * 
  * @author Batyr
  *
  */
-public class HantoPlayer implements HantoGamePlayer {
+public class CopyOfHantoPlayer implements HantoGamePlayer {
 	private AbstractHantoGame game;
 	private HantoPlayerColor myColor;
 	private HantoPlayerColor opponentColor;
@@ -56,6 +55,8 @@ public class HantoPlayer implements HantoGamePlayer {
 		} else {
 			game = (AbstractHantoGame)HantoGameFactory.getInstance().makeHantoGame(version, opponentColor);
 		}
+		
+		result = null;
 	}
 
 	/**
@@ -143,9 +144,6 @@ public class HantoPlayer implements HantoGamePlayer {
 	private Move selectMove(Collection<Move> allAvailableMoves, HantoPlayerStatistics currentPlayer, HantoBoard board) {
 		Move resultingMove = null;
 		
-		HantoCoordinate opponentsButterflyCoor = getButterflyCoor(board, opponentColor);
-		HantoCoordinate myButterflyCoor = getButterflyCoor(board, myColor);
-
 		if (!currentPlayer.hasPlacedButterfly()) { //if we haven't placed the butterfly, then count the number of turns
 				if (currentPlayer.getMovesMade() >= 2) {//place butterfly anywhere on the board
 					for (Move move : getAvailableMovesForButterflyAt(null, allAvailableMoves)) {
@@ -159,58 +157,8 @@ public class HantoPlayer implements HantoGamePlayer {
 				}
 			}
 		}
-		else {
-			if (board.getOccupiedNeighbors(myButterflyCoor).size() > 2) {
-				Collection<Move> movesForButterfly = getAvailableMovesForButterflyAt(myButterflyCoor, allAvailableMoves);
-				if (movesForButterfly.size() > 0) { //if the butterfly can move, then move it to the coordinate with the least number of neighbors
-					int leastNumberOfNeighbors = board.getOccupiedNeighbors(myButterflyCoor).size();
-					
-					int availableMoveNeighbors;
-					for (Move move : movesForButterfly) {
-						availableMoveNeighbors = board.getOccupiedNeighbors(move.getTo()).size();
-						if (availableMoveNeighbors < leastNumberOfNeighbors) {
-							leastNumberOfNeighbors = availableMoveNeighbors;
-							resultingMove = move;
-						}
-					}
-				}
-			}
-		}
 		
-		if (resultingMove == null) {
-			int positiveScore; //the distance from the my butterfly to the next coordinate
-			int negativeScore; //the distance from the opponent's butterfly to the next coordinate
-			
-			int currentScore; //calculated as positiveScore - negativeScore
-			int previousScore; //the same as currentScore, but for the from coordinate
-			
-			int largestScore = -100000;//set the last largest score to large negative value
-			
-			for (Move move : allAvailableMoves) { //iterate through all the moves
-				if (move.getPieceType() != HantoPieceType.BUTTERFLY || move.getFrom() == null) { //we don't try to move butterfly in this section (however, we can add it)
-					positiveScore = (myButterflyCoor == null) ? 0 : board.getCellDistance(myButterflyCoor, move.getTo());
-					negativeScore = (opponentsButterflyCoor == null) ? 0 : board.getCellDistance(opponentsButterflyCoor, move.getTo());
-					
-					currentScore = positiveScore - negativeScore;
-					if (currentScore > largestScore) {
-						if(move.getFrom() == null) { //if we add, then there is no way to calculate score for from coordinate
-							resultingMove = move;
-							largestScore = currentScore;
-						} else {
-							positiveScore = (myButterflyCoor == null) ? 0 : board.getCellDistance(myButterflyCoor, move.getFrom());
-							negativeScore = (opponentsButterflyCoor == null) ? 0 : board.getCellDistance(opponentsButterflyCoor, move.getFrom());
-							
-							previousScore = positiveScore - negativeScore;
-							
-							if (previousScore < currentScore) { //make sure that we don't make moves that reduces the score (if the score for from coordinate is larger than the one for to coordinate)
-								resultingMove = move;
-								largestScore = currentScore;
-							}
-						}
-					}
-				}
-			}
-			
+		if (resultingMove == null) {		
 			if (resultingMove == null) { // if by the end of this operation the move was not selected, then select the random move from the list
 				Random randomGenerator = new Random();
 				

@@ -191,7 +191,7 @@ public class EpsilonHantoMasterTest
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 				plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, -1, 1),
 				plPair(BLUE, HORSE, 1, -1), plPair(RED, SPARROW, -3, 3),
-				plPair(BLUE, SPARROW, -2, 1), plPair(RED,SPARROW, -3, 2) 
+				plPair(BLUE, SPARROW, -2, 1), plPair(RED, SPARROW, -3, 2) 
 		};
 		testGame.initializeBoard(board);
 		testGame.setPlayerMoving(BLUE);

@@ -40,6 +40,7 @@ public class AddMove extends Move {
 
 	/**
 	 * {@inheritDoc}
+	 * @throws HantoException 
 	 * @throws HantoMoveException 
 	 */
 	@Override

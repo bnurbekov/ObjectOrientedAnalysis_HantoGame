@@ -49,7 +49,7 @@ public class HantoMoveFactory {
 	 * @param from The from coordinate
 	 * @param to The to coordinate
 	 * @return the created piece
-	 * @throws HantoMoveException 
+	 * @throws HantoException 
 	 */
 	public Move createMove(HantoGameID id, HantoPlayerColor color, HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
 		Move move;

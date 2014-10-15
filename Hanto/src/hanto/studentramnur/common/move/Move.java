@@ -17,7 +17,6 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentramnur.common.HantoBoard;
-import hanto.studentramnur.common.HantoBoardCoordinate;
 import hanto.studentramnur.common.HantoPlayerStatistics;
 import hanto.studentramnur.common.PieceCoordinatePair;
 
@@ -62,8 +61,7 @@ public abstract class Move {
 	 * 
 	 * @param board HantoBoard
 	 * @return boolean indication of whether the move is valid or not
-	 * @throws HantoException 
-	 * @throws HantoMoveException 
+	 * @throws HantoException
 	 */
 	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		boolean isValid = true;
@@ -129,9 +127,10 @@ public abstract class Move {
 	public static Collection<Move> getAllAvailableMoves(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		Collection<Move> availableMoves = new ArrayList<Move>();
 		Collection<HantoCoordinate> openCoor = board.getAllUnoccupiedAdjacentCells();
+		Collection<PieceCoordinatePair> playerPieces = board.getPlayerPieces(currentPlayer.getColor());
 				
 		//checks all the possible moves for pieces that are on the board
-		for(PieceCoordinatePair pieceLocationPair: board.getPlayerPieces(currentPlayer.getColor())) { //for each piece on the hanto board belonging to currentPlayer
+		for(PieceCoordinatePair pieceLocationPair : playerPieces) { //for each piece on the hanto board belonging to currentPlayer
 			for(HantoCoordinate to: openCoor) { // every available move of this piece
 				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, currentPlayer.getColor(), pieceLocationPair.getPiece().getType(), pieceLocationPair.getLocation(), to);
 				if(move.validate(currentPlayer, board)) {

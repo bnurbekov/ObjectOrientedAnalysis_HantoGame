@@ -23,8 +23,7 @@ public class PieceCoordinatePair {
 
 	/**
 	 * Default constructor
-	 * @param player the player color
-	 * @param pieceType the piece type
+	 * @param piece the piece that is stored at the specified coordinate
 	 * @param location the coordinate where the piece is at the beginning of the test
 	 */
 	public PieceCoordinatePair(HantoPiece piece,

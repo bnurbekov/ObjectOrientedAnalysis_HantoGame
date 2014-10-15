@@ -138,6 +138,11 @@ public class HantoPlayerStatistics {
 		movesMade = turnNumber;
 	}
 
+	/**
+	 * Gets all the pieces that were not yet added to the board.
+	 * 
+	 * @return all the pieces that were not yet added to the board
+	 */
 	public Collection<HantoPiece> getNotAddedPieces() {
 		Collection<HantoPiece> notAddedPieceList = new ArrayList<>();
 		

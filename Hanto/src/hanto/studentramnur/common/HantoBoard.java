@@ -120,8 +120,14 @@ public class HantoBoard {
 		return isAdjacentToExistingCells;
 	}
 	
+	/**
+	 * Gets all the pieces on the board belonging to the player with the specified color.
+	 * 
+	 * @param color the color of the player
+	 * @return all the pieces on the board belonging to the player with the specified color
+	 */
 	public Collection<PieceCoordinatePair> getPlayerPieces(HantoPlayerColor color) {
-		Collection<PieceCoordinatePair> result = new ArrayList<>();
+		Collection<PieceCoordinatePair> result = new ArrayList<PieceCoordinatePair>();
 		
 		for	(Map.Entry<HantoCoordinate, HantoPiece> entry : board.entrySet()){
 			if (entry.getValue().getColor() == color) {

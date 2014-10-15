@@ -177,6 +177,12 @@ public abstract class AbstractHantoGame implements HantoGame {
 		return board.getPiece(where);
 	}
 	
+	/**
+	 * Gets the statistics for the player with specified color
+	 * 
+	 * @param playerColor player color
+	 * @return returns the statistics for the the player with specified color
+	 */
 	public HantoPlayerStatistics getPlayerStats(HantoPlayerColor playerColor) {
 		if (playerColor == HantoPlayerColor.BLUE) {
 			return bluePlayer;
@@ -186,10 +192,20 @@ public abstract class AbstractHantoGame implements HantoGame {
 		}
 	}
 	
+	/**
+	 * Gets the board.
+	 * 
+	 * @return the board
+	 */
 	public HantoBoard getBoard() {
 		return board;
 	}
 	
+	/**
+	 * Gets the current move.
+	 * 
+	 * @return the current move
+	 */
 	public Move getCurrentMove() {
 		return currentMove;
 	}
