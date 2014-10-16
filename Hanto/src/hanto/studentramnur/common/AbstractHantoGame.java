@@ -93,7 +93,7 @@ public abstract class AbstractHantoGame implements HantoGame {
 	private void validateButterflyPlacement() throws HantoException {
 		final HantoPieceType pieceType = currentMove.getPieceType();
 
-		if(!currentPlayer.hasPlacedButterfly() && pieceType != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 4) {
+		if(!currentPlayer.hasPlacedButterfly() && pieceType != HantoPieceType.BUTTERFLY && currentPlayer.getMovesMade() >= 3) {
 			throw new HantoException("Player must place a butterfly.");
 		}
 	}
