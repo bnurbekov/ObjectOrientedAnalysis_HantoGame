@@ -146,7 +146,7 @@ public class HantoPlayer implements HantoGamePlayer {
 		HantoCoordinate myButterflyCoor = getButterflyCoor(board, myColor);
 
 		if (!currentPlayer.hasPlacedButterfly()) { //if we haven't placed the butterfly, then count the number of turns
-				if (currentPlayer.getMovesMade() >= 2) {//place butterfly anywhere on the board
+				if (currentPlayer.getMovesMade() >= 3) {//place butterfly anywhere on the board
 					for (Move move : getAvailableMovesForButterflyAt(null, allAvailableMoves)) {
 					if (move.getPieceType() == HantoPieceType.BUTTERFLY) {
 						resultingMove = move;
