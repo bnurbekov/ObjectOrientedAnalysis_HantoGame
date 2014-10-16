@@ -78,7 +78,8 @@ public abstract class AbstractHantoGame implements HantoGame {
 			throw new HantoException("Game is already over.");
 		}
 
-		if(!currentMove.validate(currentPlayer, board)) {
+		boolean isValid = currentMove.validate(currentPlayer, board);
+		if(!isValid) {
 			throw new HantoException("Invalid Move.");
 		}
 		

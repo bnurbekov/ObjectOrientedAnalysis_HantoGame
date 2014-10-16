@@ -70,8 +70,7 @@ public class HantoPlayer implements HantoGamePlayer {
 			
 			if (moveResult == MoveResult.OK) {
 				makeMyMove();
-			}
-			else {
+			} else {
 				System.out.println("WARNING! The tournament runner tried to ask for another move when the game was already over!");
 			}
 		} catch(HantoException e) {

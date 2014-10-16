@@ -10,6 +10,8 @@
 package hanto.studentramnur.common;
 
 import hanto.studentramnur.epsilon.EpsilonHantoGameTest;
+import hanto.studentramnur.epsilon.EpsilonHantoMasterTest;
+import hanto.studentramnur.tournament.TournamentGameTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -19,5 +21,5 @@ import org.junit.runners.Suite.SuiteClasses;
  * Tests all registered JUnit test classes.
  */
 @RunWith(Suite.class)
-@SuiteClasses({EpsilonHantoGameTest.class})
+@SuiteClasses({EpsilonHantoGameTest.class, EpsilonHantoMasterTest.class, TournamentGameTest.class})
 public class AllTests {}

@@ -66,12 +66,14 @@ public abstract class Move {
 	public boolean validate(HantoPlayerStatistics currentPlayer, HantoBoard board) throws HantoException {
 		boolean isValid = true;
 
+		if(currentPlayer == null || board == null) throw new HantoException("Internal Error: Null Pointer");
+		
 		if(this.isCellOccupied(board)) {
 			isValid = false;
 		}
 
 		if(!board.isEmpty()) {
-			if(!board.isAdjacentToExistingCells(to, getFrom(), null)) {
+			if(!board.isAdjacentToExistingCells(to, from, null)) {
 				isValid = false;
 			}
 		}
@@ -93,7 +95,7 @@ public abstract class Move {
 	 * @return boolean
 	 */
 	protected boolean isCellOccupied(HantoBoard board) {		
-		return !board.isCellEmpty(getTo()); 
+		return !board.isCellEmpty(to); 
 	}
 
 	/**
@@ -143,7 +145,8 @@ public abstract class Move {
 		for(PieceCoordinatePair pieceLocationPair : playerPieces) { //for each piece on the hanto board belonging to currentPlayer
 			for(HantoCoordinate to: openCoor) { // every available move of this piece
 				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, currentPlayer.getColor(), pieceLocationPair.getPiece().getType(), pieceLocationPair.getLocation(), to);
-				if(move.validate(currentPlayer, board)) {
+				boolean isValid = move.validate(currentPlayer, board);
+				if(isValid) {
 					availableMoves.add(move);
 				}
 			}
@@ -153,7 +156,8 @@ public abstract class Move {
 		for(HantoPiece piece: currentPlayer.getNotAddedPieces()) {
 			for(HantoCoordinate to: openCoor) {
 				Move move = HantoMoveFactory.getInstance().createMove(HantoGameID.EPSILON_HANTO, currentPlayer.getColor(), piece.getType(), null, to);
-				if(move.validate(currentPlayer, board)) {
+				boolean isValid = move.validate(currentPlayer, board);
+				if(isValid) {
 					availableMoves.add(move);
 				}
 			}

@@ -16,16 +16,14 @@ package hanto.common;
  * @author gpollice
  * @version Jan 12, 2013
  */
-public class HantoException extends Exception
-{
+public class HantoException extends Exception {
 	/**
 	 * Every instance of this exception must have a message describing the exception.
 	 * 
 	 * @param message
 	 *            the string describing the error causing the exception
 	 */
-	public HantoException(String message)
-	{
+	public HantoException(String message) {
 		super(message);
 	}
 
@@ -37,8 +35,7 @@ public class HantoException extends Exception
 	 * @param cause
 	 *            the error that caused this exception
 	 */
-	public HantoException(String message, Throwable cause)
-	{
+	public HantoException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

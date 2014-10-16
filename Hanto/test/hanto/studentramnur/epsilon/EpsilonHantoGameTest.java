@@ -156,15 +156,7 @@ public class EpsilonHantoGameTest {
 
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, -1));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 1));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, -2));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 2));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, -3));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 3));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, -4));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 4));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, -5));
-		game.makeMove(CRAB, null, new HantoTestCoordinate(0, 5));
+		game.makeMove(BUTTERFLY, null, new HantoTestCoordinate(0, 1));
 	}
 
 	/**

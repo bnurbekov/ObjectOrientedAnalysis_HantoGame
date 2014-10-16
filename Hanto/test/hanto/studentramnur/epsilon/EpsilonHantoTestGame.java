@@ -18,20 +18,15 @@ import hanto.studentramnur.common.PieceLocationPair;
 import hanto.studentramnur.common.piece.HantoPieceFactory;
 
 /**
-<<<<<<< HEAD
- * The class that tests Delta Hanto Game.
+ * The class that tests Epsilon Hanto Game.
  * 
- * @author Batyr and Shadi
- *
-=======
  * @author Shadi
  * @author Batyr
->>>>>>> 209a7b202503cc3239b9d459aad60eeeff57aa2b
  */
 public class EpsilonHantoTestGame extends EpsilonHantoGame implements HantoTestGame {
 
 	/**
-	 * Constructor for DeltaHantoTestGame.
+	 * Constructor for EpsilonHantoTestGame.
 	 * @param movesFirst HantoPlayerColor
 	 */
 	public EpsilonHantoTestGame(HantoPlayerColor movesFirst) {
