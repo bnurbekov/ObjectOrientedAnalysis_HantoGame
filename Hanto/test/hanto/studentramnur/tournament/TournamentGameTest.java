@@ -94,37 +94,4 @@ public class TournamentGameTest {
 		
 		System.out.println(game.getPrintableBoard());
 	}
-	
-	/**
-	 * Test Game
-	 * 
-	 * @throws HantoException */
-	@Test
-	public void testGameP1RedGoesFirst() throws HantoException {
-		player1.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.RED, true);
-		player2.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.BLUE, false);
-		
-		HantoMoveRecord p1Move = player1.makeMove(null);
-		game.makeMove(p1Move.getPiece(), p1Move.getFrom(), p1Move.getTo());
-		HantoMoveRecord p2Move = null;
-		while(true) {
-			p2Move = player2.makeMove(p1Move);
-			MoveResult resultP2 = game.makeMove(p2Move.getPiece(), p2Move.getFrom(), p2Move.getTo());
-			
-			if(resultP2 != MoveResult.OK) {
-				System.out.println(resultP2.toString());
-				break;
-			}
-			
-			p1Move = player1.makeMove(p2Move);
-			MoveResult resultP1 = game.makeMove(p1Move.getPiece(), p1Move.getFrom(), p1Move.getTo());
-			
-			if(resultP1 != MoveResult.OK) {
-				System.out.println(resultP1.toString());
-				break;
-			}
-		}
-		
-		System.out.println(game.getPrintableBoard());
-	}
 }
